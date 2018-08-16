@@ -1,0 +1,195 @@
+.resultsDIV {
+  margin-bottom: 20px;
+  border: 1px solid #38471f;
+  background-color: white;
+}
+
+.resultsOverview {
+  width: 100%;
+  margin: 0;
+  padding: 10px;
+  color: white;
+  background-color: #38471f;
+}
+
+.resultsOverview h1 {
+  font-size: 16pt;
+  letter-spacing: 1.5px;
+}
+
+.resultsOverview > * {
+  margin: 0;
+  padding-right: 10px;
+  line-height: 1.4;
+  display: inline;
+}
+
+.resultsContent {
+  margin: 10px;
+}
+
+.arrowLink {
+  margin: 0;
+  padding: 0 10px;
+  font-size: 14pt;
+  font-family: Arial;
+  font-weight: bold;
+  color: #222;
+  background-color: white;
+  border: 1px solid #222;
+}
+
+.arrowLink:active {
+  color: white;
+  background-color: #222;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.arrowLink:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.urlLinkIcon {
+  height: 30px;
+  vertical-align: middle;
+  padding: 4px 2px 0 2px;
+  margin: 0 3px 5px 0;
+  border-style: none;
+}
+
+.resultsGrid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  grid-auto-rows: auto;
+  justify-content: space-around;
+  align-items: stretch;
+  align-content: space-around;
+  grid-auto-flow: row;
+  padding: 5px;
+}
+
+.resultBox, .resultBoxProjectsPage {
+  position: relative;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
+  margin: 10px;
+  padding: 10px;
+  background-color: #eee;
+}
+
+.bottomLine {
+  margin: 0 0 10px 0;
+  padding: 0px 0px 5px 0px;
+  border-bottom: 1px solid #4a4a4a;
+}
+
+.resultBox h4, .resultBoxProjectsPage h4 {
+  width: 100%;
+  font-size: 13px;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: text-bottom;
+}
+
+.resultInfoText {
+  font-size: 12pt;
+}
+
+.addButton {
+  height: 18px;
+  padding: 0;
+  margin: 0;
+}
+
+.buttonAndLinksDIV {
+  font-size: 14pt;
+}
+
+.resultSmallInfoText {
+  font-size: 9pt;
+  color: #4a4a4a;
+  margin: 0;
+}
+
+.mySeparator {
+  color: #718e3e;
+  font-family: 'Lato', sans-serif;
+}
+
+.itemNrDIV {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  margin: 0;
+  padding: 3px;
+  min-width: 40px;
+  font-size: 11pt;
+  font-weight: bolder;
+  text-align: center;
+  background-color: #718e3e;
+  color: white;
+}
+
+.deleteButtonDIV {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  margin: 0;
+  padding: 0 0 3px 0;
+  width: 30px;
+  font-size: 14pt;
+  font-weight: bolder;
+  text-align: center;
+  background-color: #4a4a4a;
+  color: white;
+}
+
+.deleteButtonDIV:hover {
+  background-color: darkred;
+  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .resultsGrid {
+    grid-template-columns: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .resultBox {
+    margin: 10px 5px;
+  }
+
+  .resultBoxWithoutGrid {
+    margin: 10px 0;
+  }
+
+  .resultBox h4 {
+    font-size: 12px;
+  }
+  
+  .resultInfoText {
+    font-size: 11pt;
+  }
+  
+  .resultSmallInfoText {
+    font-size: 8pt;
+  }
+
+  .urlLinkIcon {
+    height: 25px;
+    padding: 3px 2px 0 2px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .resultsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

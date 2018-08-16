@@ -1,0 +1,34 @@
+.Search-Grid {
+  width: 100%;
+  display: grid;
+  grid-template: 100% / 310px 1fr;
+  text-align: left;
+}
+
+.Search-Left, .Search-Right {
+  padding: 20px;
+}
+
+.Search-Left {
+  background-color: #CCC;
+  min-height: calc(100vh - 20px);
+}
+
+.Search-Right {
+  overflow: scroll;
+}
+
+@media (max-width: 600px) {
+  .Search-Grid {
+    grid-template: auto / 100%;
+  }
+  .Search-Left, .Search-Right {
+    padding: 15px;
+  }
+  .Search-Left {
+    min-height: 300px;
+  }
+  .Search-Right {
+    min-height: 100px;
+  }
+}

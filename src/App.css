@@ -132,12 +132,19 @@ p {
   width: 100%;
 }
 
-.backgroundLogo {
+.logoDIV {
   width: 100%;
-  height: 40vw;
+  height: 100%;
   margin: 0;
   padding: 0;
-  background: url("./img/logo-transparent.svg") no-repeat center center;
+}
+
+.logoCenteringDIV {
+  width: 200px;
+  margin: 20px auto;
+}
+.logoCentered {
+  width: 200px;
 }
 
 @media (max-width: 800px) {
@@ -216,6 +223,7 @@ p {
   margin-left: -15px;
   height: 30px;
 }
+
 /* --------------------- */
 
 

@@ -29,7 +29,13 @@ class SearchPage extends Component {
         {/* display right-side element: search results */} 
         <div id="Search-Results" className="Search-Right">
           <div className="pufferBox"></div>
-          { showBackgroundLogo && <div className="backgroundLogo"></div> }
+          { showBackgroundLogo && (
+               <div className="logoDIV">
+                <div className="logoCenteringDIV">
+                 <img src="./logo.svg" alt="" className="logoCentered" />
+                </div>
+               </div>
+          )}
           { searchRIS_Bundesrecht.searchQuery && <SearchResultsBundesrecht /> }
           { searchRIS_Landesrecht.searchQuery && <SearchResultsLandesrecht /> }
           { searchRIS_VfGH.searchQuery && <SearchResultsVfGH /> }

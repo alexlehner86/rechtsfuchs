@@ -28,7 +28,13 @@ class ProjectsPage extends Component {
         <div id="Documents-List" className="Projects-Right">
           <div className="pufferBox"></div>
           { (loggedIn && selectedProject) && <ProjectDocuments /> }
-          { (!loggedIn || !selectedProject) && <div className="backgroundLogo"></div> }
+          { (!loggedIn || !selectedProject) && (
+               <div className="logoDIV">
+                <div className="logoCenteringDIV">
+                 <img src="./logo.svg" alt="" className="logoCentered" />
+                </div>
+               </div>
+          )}
         </div>
       </div>
     );

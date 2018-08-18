@@ -8,7 +8,7 @@ class HomePage extends Component {
           <div className="pufferBox"></div>
           <div className="welcomeTextDIV">
               <h1>Willkommen beim Rechtsfuchs</h1>
-              <p className="infotext">Die Webseite bietet einen vereinfachten Zugang zum österreichischen Bundes- und Landesrecht sowie zur Rechtsprechung, mit Fokus auf das Finanzrecht (über vordefinierte Suchwort-Vorschläge in der Suchmaske).</p>
+              <p className="infotext">Die Webseite bietet dir einen vereinfachten Zugang zum österreichischen Bundes- und Landesrecht sowie zur Rechtsprechung. Du kannst einzelne Suchergebnisse in eigenen Projekt-Ordnern speichern.</p>
           </div>
           <img src="./logo.svg" alt="" className="homePageLogo" />
         </div>

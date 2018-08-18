@@ -20,7 +20,7 @@ class ProjectDocuments extends Component {
                  return (
                    <div key={i} className="resultBoxProjectsPage">
                      <DeleteDocButton documentId={i} />
-                     <h4 className="bottomLine"><span className="makeDarkOliveGreen">{item.rechtsquelle}</span>
+                     <h4 className="bottomLine"><span className="setHighlightColor">{item.rechtsquelle}</span>
                                                 <br />{item.headline}</h4>
                      <p className="resultInfoText">{item.maintext}</p>
                      <p className="buttonAndLinksDIV bottomLine">

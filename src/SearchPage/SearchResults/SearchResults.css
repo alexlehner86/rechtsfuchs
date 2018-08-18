@@ -1,6 +1,6 @@
 .resultsDIV {
   margin-bottom: 20px;
-  border: 1px solid #38471f;
+  border: 1px solid #337ab7;
   background-color: white;
 }
 
@@ -9,7 +9,7 @@
   margin: 0;
   padding: 10px;
   color: white;
-  background-color: #38471f;
+  background-color: #337ab7;
 }
 
 .resultsOverview h1 {
@@ -54,7 +54,7 @@
 .urlLinkIcon {
   height: 30px;
   vertical-align: middle;
-  padding: 4px 2px 0 2px;
+  padding: 5px 2px 1px 2px;
   margin: 0 3px 5px 0;
   border-style: none;
 }
@@ -132,7 +132,7 @@
   font-size: 11pt;
   font-weight: bolder;
   text-align: center;
-  background-color: #718e3e;
+  background-color: #72c2e4;
   color: white;
 }
 

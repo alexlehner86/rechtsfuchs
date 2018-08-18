@@ -8,6 +8,7 @@ export function projects(state = {}, action) {
       };
     case projectConstants.GETPROJECTS_BYUSERNAME_FAILURE:
       return { 
+        items: [],
         error: action.error
       };
 

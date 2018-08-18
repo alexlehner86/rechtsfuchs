@@ -48,8 +48,10 @@ p {
   font-weight: bold;
 }
 
-.makeDarkOliveGreen {
-  color: darkolivegreen;
+.setHighlightColor {
+  color: #2990bb;
+  font-size: 9pt;
+  font-weight: 300;
 }
 
 .horizontalCenter {
@@ -72,7 +74,7 @@ p {
   height: 40px;
   margin: 0;
   padding: 0;
-  background-color: #222;
+  background-color: #2990bb;
 }
 
 .navDIV {
@@ -88,7 +90,7 @@ p {
 
 .navDIV p:hover {
   background-color: white;
-  color: #222;
+  color: black;
   cursor: pointer;
 }
   
@@ -98,8 +100,8 @@ p {
   width: 100%;
   min-height: calc(100vh - 28px);
   height: 100%;
-  border-left: 30px solid #222;
-  border-right: 30px solid #222;
+  border-left: 30px solid #2990bb;
+  border-right: 30px solid #2990bb;
   text-align: center;
 }
 
@@ -111,11 +113,11 @@ p {
   height: 30px;
   margin: 0;
   padding: 0;
-  background-color: #222;
+  background-color: #2990bb;
 }
 
 .App-footer p {
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 8pt;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -150,14 +152,15 @@ p {
   }
 
   .App-nav {
-    height: 30px;
+    height: 34px;
   }
   
   .navDIV {
-    padding: 4px 0px;
+    padding: 6px 0px;
   }
+
   .navDIV p {
-    padding: 4px 5px;
+    padding: 2px 7px 4px 7px;
     font-size: 10pt;
   }
 
@@ -183,8 +186,8 @@ p {
 
 @media (min-width: 1600px) {
   .App-main {
-  border-left: 150px solid #222;
-  border-right: 150px solid #222;
+  border-left-width: 150px;
+  border-right-width: 150px;
   }
 }
 /* ---------------------------------------------- */
@@ -254,7 +257,7 @@ p {
   margin: 0;
   padding: 0;
   z-index: 10;
-  background-color: rgba(0, 100, 0, 0.8);
+  background-color: rgba(114, 194, 228, 0.9);
 }
 
 .overlayWhiteBox {

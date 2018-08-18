@@ -384,7 +384,7 @@ class SearchForm extends Component {
                 </div>
                  
               <div className="centerDIV">
-                <button id="submitButton" className="btn btn-success" type="submit">Suchen</button>&nbsp;
+                <button id="submitButton" className="btn btn-primary" type="submit">Suchen</button>&nbsp;
                 <button id="resetButton" className="btn btn-default" type="reset" onClick={this.handleReset}>Reset</button>
               </div>
             </form>

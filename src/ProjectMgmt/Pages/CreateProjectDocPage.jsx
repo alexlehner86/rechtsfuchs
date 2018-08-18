@@ -70,7 +70,9 @@ class CreateProjectDocPage extends React.Component {
 
         //Falls Projekte vorhanden, dann die project_id des ersten Projekts auslesen
         let project_id = '';
-        if (projectItems.length > 0) project_id = projectItems[0].id;
+        if (projectItems) {
+          if (projectItems.length > 0) project_id = projectItems[0].id;
+        }
 
         //Abhängig davon, bei welcher Rechtsquelle "resultID" gespeichert wurde...
         //...wird der State mit den dortigen searchResult-Daten befüllt

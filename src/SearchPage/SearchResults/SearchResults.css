@@ -36,12 +36,12 @@
   font-weight: bold;
   color: #222;
   background-color: white;
-  border: 1px solid #222;
+  border: 1px solid #555;
 }
 
 .arrowLink:active {
   color: white;
-  background-color: #222;
+  background-color: #555;
   border: 1px solid white;
   cursor: pointer;
 }
@@ -132,7 +132,7 @@
   font-size: 11pt;
   font-weight: bolder;
   text-align: center;
-  background-color: #72c2e4;
+  background-color: #4a4a4a;
   color: white;
 }
 
@@ -153,6 +153,11 @@
 .deleteButtonDIV:hover {
   background-color: darkred;
   cursor: pointer;
+}
+
+.hCenterBrowseButtons {
+  margin: 0 auto 10px;
+  width: 70px;
 }
 
 @media (max-width: 1000px) {

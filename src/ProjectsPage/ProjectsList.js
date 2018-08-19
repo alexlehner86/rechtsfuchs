@@ -17,19 +17,36 @@ class ProjectsList extends Component {
 
   handleButton(e) {
     const { dispatch } = this.props;
+    const event = e || window.event;
+    let eveTarget = event.target || event.srcElement;
+
+    //has click-event fired on the button-element or one of its child-elements?
+    while (eveTarget.getAttribute('type') !== 'button') {
+      //climb up the DOM-tree until we arrive at the button-element which stores...
+      // the id needed for the dispatch; e.g. 'CreateProject', 'EditProject'
+      eveTarget = eveTarget.parentElement;
+    }
 
     //pass 'CreateProject', 'EditProject' or 'DeleteProject to Redux-Store to show corresponding page
-    dispatch(alertActionsProjectMgmt.clearAndOverlayChange(e.target.id));
+    dispatch(alertActionsProjectMgmt.clearAndOverlayChange(eveTarget.id));
   }
 
   handleSelect(e) {
-    const { dispatch } = this.props;
+    const event = e || window.event;
+    let eveTarget = event.target || event.srcElement;
+
+    //has click-event fired on the button-element or one of its child-elements?
+    while (eveTarget.getAttribute('type') !== 'button') {
+      //climb up the DOM-tree until we arrive at the button-element which stores the project_id
+      eveTarget = eveTarget.parentElement;
+    }
 
     //id des ausgewählten Projekts im Redux-Store speichern
-    dispatch(projectActions.selectProject(e.target.id));
+    const { dispatch } = this.props;
+    dispatch(projectActions.selectProject(eveTarget.id));
 
     //Dokumente des ausgewählten Projekts aus der Datenbank laden
-    dispatch(projectDocActions.getAllByProjectId(e.target.id));
+    dispatch(projectDocActions.getAllByProjectId(eveTarget.id));
 
     //Zum Anfang des ProjectDocuments-Elements scrollen, mit 0.5 Sekunden Verzögerung
     setTimeout(() => {
@@ -45,7 +62,7 @@ class ProjectsList extends Component {
 
     if (selectedProject === item.id) {
       return (
-        <ListGroupItem key={i} id={item.id} header={item.projectTitle} onClick={this.handleSelect} active>
+        <ListGroupItem key={i} id={item.id} header={item.projectTitle} active>
           <span className="descriptionTextSelected">{item.description}</span><br />
           <span className="erstelltAmTextSelected">(erstellt am { moment(item.createdDate).format("DD.MM.YYYY") }, {numberOfDocsText})</span>
         </ListGroupItem>
@@ -68,7 +85,7 @@ class ProjectsList extends Component {
     return (
       <div>
         { /* Der Nutzer hat bereits Projekte angelegt */ }
-        { projectItems.length > 0 && (
+        { projectItems && projectItems.length > 0 && (
           <div className="col-md-auto">
             <h2 className="posRelative">
               Meine Projekte
@@ -107,7 +124,7 @@ class ProjectsList extends Component {
           </div>
         )}
         { /* Der Nutzer hat noch keine Projekte angelegt */ }
-        { projectItems.length === 0 && (
+        { projectItems && projectItems.length === 0 && (
           <div className="col-md-auto">
             <h2>Meine Projekte</h2>
             <p>Keine Projekte vorhanden!</p>

@@ -96,6 +96,10 @@ class SearchResultsVfGH extends Component {
                    );
                  })}
                </div>
+               <div className="hCenterBrowseButtons">
+                 <a id="BrowseBackw" className="arrowLink" onClick={this.handleBrowseResults}>&lt;</a>&nbsp;
+                 <a id="BrowseForw" className="arrowLink" onClick={this.handleBrowseResults}>&gt;</a>
+               </div>
              </div>
         );
       } else {

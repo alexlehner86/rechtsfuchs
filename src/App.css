@@ -59,7 +59,7 @@ p {
 }
 
 /* -------------------------------------------------------- */
-/* CSS für zentrale Seitenelemente (App-nav, App-main etc) */
+/* CSS for central elements of the website (App-nav, App-main etc) */
 
 .App-nav, .App-footer {
   color: white;
@@ -100,8 +100,6 @@ p {
   width: 100%;
   min-height: calc(100vh - 28px);
   height: 100%;
-  border-left: 30px solid #2990bb;
-  border-right: 30px solid #2990bb;
   text-align: center;
 }
 
@@ -228,7 +226,7 @@ p {
 
 
 /* ----------------------------------------------- */
-/* Styling für Infotext auf HomePage und InfoPage */
+/* Styling for infotext on HomePage and InfoPage */
 
 .infotext {
   font-size: 11pt;
@@ -254,7 +252,7 @@ p {
 
 
 /* ------------------------- */
-/* Styling für Overlay-Pages */
+/* Styling for overlay pages */
 
 .overlayContainer {
   position: fixed;

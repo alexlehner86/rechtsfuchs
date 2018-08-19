@@ -16,6 +16,7 @@ class SearchPage extends Component {
   render() {
     const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } = this.props;
     let showBackgroundLogo = false;
+    //show background logo when no search has been initiated; e.g. after reset
     if (!searchRIS_Bundesrecht.searchQuery && !searchRIS_Landesrecht.searchQuery && 
         !searchRIS_VwGH.searchQuery && !searchRIS_VfGH.searchQuery) showBackgroundLogo = true;
 

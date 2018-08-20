@@ -2,6 +2,11 @@ import { projectConstants } from '../_constants';
 
 export function projects(state = {}, action) {
   switch (action.type) {
+    case projectConstants.GETPROJECTS_BYUSERNAME_REQUEST:
+      return { 
+        loadingProjects: true,
+        username: action.username
+      };
     case projectConstants.GETPROJECTS_BYUSERNAME_SUCCESS:
       return {
         items: action.projects
@@ -15,7 +20,7 @@ export function projects(state = {}, action) {
     case projectConstants.SELECT_PROJECT:
       return {
         ...state,
-        selectedProject: action.selectedProject
+        selectedProjectID: action.selectedProjectID
       };
 
     case projectConstants.CREATE_PROJECT_REQUEST:

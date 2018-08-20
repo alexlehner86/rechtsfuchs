@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CreateProjectPage, EditProjectPage, DeleteProjectPage, CreateProjectDocPage } from './Pages';
+import { CreateProjectPage, EditProjectPage, DeleteProjectPage, 
+         CreateProjectDocPage, DeleteProjectDocPage } from './Pages';
 
 class ProjectManagement extends Component {
 
@@ -20,6 +21,7 @@ class ProjectManagement extends Component {
               {alertProjectMgmt.overlayToDisplay === 'EditProject' && <EditProjectPage />}
               {alertProjectMgmt.overlayToDisplay === 'DeleteProject' && <DeleteProjectPage />}
               {alertProjectMgmt.overlayToDisplay === 'CreateProjectDoc' && <CreateProjectDocPage />}
+              {alertProjectMgmt.overlayToDisplay === 'DeleteProjectDoc' && <DeleteProjectDocPage />}
             </div>
           </div>
       );

@@ -55,12 +55,12 @@ class ProjectsList extends Component {
   }
 
   createListGroupItems(item, i) {
-    const { selectedProject } = this.props;
+    const { selectedProjectID } = this.props;
     let numberOfDocsText = '';
     if (item.numberOfDocs === 1) numberOfDocsText = '1 Dokument';
     else numberOfDocsText = `${item.numberOfDocs} Dokumente`;
 
-    if (selectedProject === item.id) {
+    if (selectedProjectID === item.id) {
       return (
         <ListGroupItem key={i} id={item.id} header={item.projectTitle} active>
           <span className="descriptionTextSelected">{item.description}</span><br />
@@ -79,18 +79,25 @@ class ProjectsList extends Component {
   
   render() {
     //"projectItems" enthält die aktuellen Projekte des Users
-    //"selectedProject" enthält den projectItems-Array-Index des ausgewählten Projekts
-    const { projectItems, selectedProject } = this.props;
+    //"selectedProjectID" enthält die ID des ausgewählten Projekts
+    const { projectItems, selectedProjectID, loadingProjects } = this.props;
 
     return (
       <div>
+        { /* Projekte werden noch geladen */ }
+        { loadingProjects && (
+          <div className="col-md-auto">
+            <h2 className="posRelative">Meine Projekte</h2>
+            <p className="resultsContent"><img src="./icons/in-progress.gif" alt="In Progress" className="progressAnimation" />&nbsp;Daten werden abgerufen...</p>
+          </div>
+        )}
         { /* Der Nutzer hat bereits Projekte angelegt */ }
         { projectItems && projectItems.length > 0 && (
           <div className="col-md-auto">
             <h2 className="posRelative">
               Meine Projekte
               { /* Es ist bereits ein Projekt ausgewählt */ }
-              { selectedProject !== undefined && (
+              { selectedProjectID !== undefined && (
                <div className="buttonFloatRight">
                 <button type="button" id="CreateProject" className="btn btn-default btn-sm vAlignBottom" title="Neues Projekt anlegen" onClick={this.handleButton}>
                   <img src="./icons/add-document.svg" height="16px" alt="Neues Projekt anlegen" />
@@ -104,7 +111,7 @@ class ProjectsList extends Component {
                </div>
               )}
               { /* Derzeit ist kein Projekt ausgewählt */ }
-              { selectedProject === undefined && (
+              { selectedProjectID === undefined && (
                <div className="buttonFloatRight">
                 <button type="button" id="CreateProject" className="btn btn-default btn-sm vAlignBottom" title="Neues Projekt anlegen" onClick={this.handleButton}>
                   <img src="./icons/add-document.svg" height="16px" alt="Neues Projekt anlegen" />
@@ -140,10 +147,11 @@ class ProjectsList extends Component {
 
 function mapStateToProps(state) {
   const projectItems = state.projects.items;
-  const { selectedProject } = state.projects;
+  const { selectedProjectID, loadingProjects } = state.projects;
   return {
       projectItems,
-      selectedProject
+      selectedProjectID,
+      loadingProjects
   };
 }
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { projectDocActions } from '../_actions';
+import { projectDocActions, alertActionsProjectMgmt } from '../_actions';
 
 class DeleteDocButton extends Component {
   constructor(props) {
@@ -11,9 +11,14 @@ class DeleteDocButton extends Component {
 
   handleDelete(e) {
     const { dispatch, projectDocItems } = this.props;
+    const event = e || window.event;
+    let eveTarget = event.target || event.srcElement;
 
-    //Dokument löschen
-    dispatch(projectDocActions.delete(projectDocItems[e.target.id]));
+    //Dokument-ID im React-Store als selectedProjectDocID hinterlegen
+    dispatch(projectDocActions.selectProjectDoc(projectDocItems[eveTarget.id].id));
+
+    //pass 'DeleteProjectDoc' to Redux-Store to show corresponding page
+    dispatch(alertActionsProjectMgmt.clearAndOverlayChange('DeleteProjectDoc'));
   }
   
   render() {

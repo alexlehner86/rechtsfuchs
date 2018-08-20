@@ -6,8 +6,8 @@ import '../SearchPage/SearchResults/SearchResults.css';
 class ProjectDocuments extends Component {
 
   render() {
-    const { projectDocItems, loadingDocs, projectItems, selectedProject } = this.props;
-    const currentProject = projectItems.find( project => project.id === selectedProject );
+    const { projectDocItems, loadingDocs, projectItems, selectedProjectID } = this.props;
+    const currentProject = projectItems.find( project => project.id === selectedProjectID );
 
     if (!loadingDocs)
     return (
@@ -68,13 +68,13 @@ class ProjectDocuments extends Component {
 
 function mapStateToProps(state) {
   const projectItems = state.projects.items;
-  const { selectedProject } = state.projects;
+  const { selectedProjectID } = state.projects;
   const projectDocItems = state.projectDocs.items;
   const { loadingDocs } = state.projectDocs;
   return {
     projectDocItems,
     projectItems,
-    selectedProject,
+    selectedProjectID,
     loadingDocs
   };
 }

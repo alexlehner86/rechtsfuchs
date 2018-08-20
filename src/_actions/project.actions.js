@@ -14,6 +14,7 @@ export const projectActions = {
 //Ruft alle Projekte eines Nutzers (=username) ab und fügt sie dem Redux-State hinzu
 function getAllByUsername(username) {
     return dispatch => {
+        dispatch(request(username));
 
         projectService.getAllByUsername(username)
             .then(
@@ -22,13 +23,14 @@ function getAllByUsername(username) {
             );
     };
 
+    function request(username) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_REQUEST, username } }
     function success(projects) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_SUCCESS, projects } }
     function failure(error) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_FAILURE, error } }
 }
 
-function selectProject(selectedProject) {
+function selectProject(selectedProjectID) {
     return dispatch => {
-        dispatch( { type: projectConstants.SELECT_PROJECT, selectedProject } );
+        dispatch( { type: projectConstants.SELECT_PROJECT, selectedProjectID } );
     }
 }
 

@@ -33,6 +33,12 @@ export function projectDocs(state = {}, action) {
         creatingProjectDoc: false
       };
 
+    case projectDocConstants.SELECT_PROJECTDOC:
+      return {
+        ...state,
+        selectedProjectDocID: action.selectedProjectDocID
+      };
+
     case projectDocConstants.UPDATE_PROJECTDOC_REQUEST:
       return {
         ...state,
@@ -60,18 +66,17 @@ export function projectDocs(state = {}, action) {
       return {
         ...state,
         projectDocToDelete: action.projectDocToDelete,
-        loadingDocs: true
+        deleting: true
       };
     case projectDocConstants.DELETE_PROJECTDOC_SUCCESS:
       return {
-        items: state.items.filter(projectDoc => projectDoc.id !== action.id),
-        loadingDocs: false
+        items: state.items.filter(projectDoc => projectDoc.id !== action.id)
       };
     case projectDocConstants.DELETE_PROJECT_FAILURE: 
       return { 
         ...state,
         error: action.error,
-        loadingDocs: false
+        deleting: false
       };
 
     default:

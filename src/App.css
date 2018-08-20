@@ -145,12 +145,6 @@ p {
   width: 200px;
 }
 
-@media (max-width: 800px) {
-  .App-main {
-    border: none;
-  }
-}
-
 @media (max-width: 550px) {
   h1 {
     font-size: 14pt;
@@ -189,12 +183,13 @@ p {
   }
 }
 
-@media (min-width: 1600px) {
+@media (min-width: 800px) {
   .App-main {
-  border-left-width: 150px;
-  border-right-width: 150px;
+    border-left: 5vw solid #2990bb;
+    border-right: 5vw solid #2990bb;
   }
 }
+
 /* ---------------------------------------------- */
 
 

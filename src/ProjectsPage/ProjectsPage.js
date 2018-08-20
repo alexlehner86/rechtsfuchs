@@ -7,7 +7,7 @@ import './ProjectsPage.css';
 
 class ProjectsPage extends Component {
   render() {
-    const { loggedIn, selectedProject } = this.props;
+    const { loggedIn, selectedProjectID } = this.props;
 
     return (
       <div className="Projects-Grid">
@@ -27,8 +27,8 @@ class ProjectsPage extends Component {
         {/* display right-side element: list of the selected project's documents */} 
         <div id="Documents-List" className="Projects-Right">
           <div className="pufferBox"></div>
-          { (loggedIn && selectedProject) && <ProjectDocuments /> }
-          { (!loggedIn || !selectedProject) && (
+          { (loggedIn && selectedProjectID) && <ProjectDocuments /> }
+          { (!loggedIn || !selectedProjectID) && (
                <div className="logoDIV">
                 <div className="logoCenteringDIV">
                  <img src="./logo.svg" alt="" className="logoCentered" />
@@ -43,10 +43,10 @@ class ProjectsPage extends Component {
 
 function mapStateToProps(state) {
   const { loggedIn } = state.authentication;
-  const { selectedProject } = state.projects;
+  const { selectedProjectID } = state.projects;
   return {
       loggedIn,
-      selectedProject
+      selectedProjectID
   };
 }
 

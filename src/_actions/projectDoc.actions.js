@@ -5,6 +5,7 @@ import { alertActionsProjectMgmt, projectActions } from './';
 export const projectDocActions = {
     getAllByProjectId,
     create,
+    selectProjectDoc,
     update,
     delete: _delete
 };
@@ -69,6 +70,12 @@ function create(projectDocToCreate) {
     function failure(error) { return { type: projectDocConstants.CREATE_PROJECTDOC_FAILURE, error } }
 }
 
+function selectProjectDoc(selectedProjectDocID) {
+    return dispatch => {
+        dispatch( { type: projectDocConstants.SELECT_PROJECTDOC, selectedProjectDocID } );
+    }
+}
+
 function update(projectDocToChange) {
     return dispatch => {
         dispatch(request(projectDocToChange));
@@ -99,8 +106,6 @@ function _delete(projectDocToDelete) {
         projectDocService.delete(projectDocToDelete.id)
             .then(
                 project => {
-                    dispatch(success(projectDocToDelete.id));
-
                     //Bei erfolgreichem Löschen des Projekt-Dokuments in der DB wird
                     //...der numberOfDocs-Zähler des Projekts (=project_id) um -1 reduziert
                     projectService.getById(projectDocToDelete.project_id)
@@ -108,6 +113,12 @@ function _delete(projectDocToDelete) {
                             projectToUpdate => {
                                 projectToUpdate.numberOfDocs--;
                                 dispatch(projectActions.update(projectToUpdate));
+
+                                //erfolgreich gelöschtes ProjectDoc aus Redux-Store entfernen
+                                dispatch(success(projectDocToDelete.id));
+
+                                //'DeleteProjectDoc'-Overlay verbergen
+                                dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
                             }
                        )
                 },

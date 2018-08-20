@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions, alertActionsProjectMgmt } from '../../_actions';
+import { projectDocActions, alertActionsProjectMgmt } from '../../_actions';
 
-class DeleteProjectPage extends React.Component {
+class DeleteProjectDocPage extends React.Component {
     constructor(props) {
         super(props);
 
-        const { projectItems, selectedProjectID } = this.props;
-        const projectToDelete = projectItems.find( project => project.id === selectedProjectID );
+        const { projectDocItems, selectedProjectDocID } = this.props;
+        const projectDocToDelete = projectDocItems.find( projectDoc => projectDoc.id === selectedProjectDocID );
 
         this.state = {
-            project: {
-                projectTitle: projectToDelete.projectTitle,
-                id: projectToDelete.id
+            projectDoc: {
+                id: projectDocToDelete.id,
+                maintext: projectDocToDelete.maintext,
+                project_id: projectDocToDelete.project_id
             }
         };
 
@@ -23,10 +24,10 @@ class DeleteProjectPage extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         const { dispatch } = this.props;
-        const { project } = this.state;
+        const { projectDoc } = this.state;
 
-        //Projekt und dessen Dokumente löschen
-        dispatch(projectActions.delete(project.id));
+        //Dokument löschen
+        dispatch(projectDocActions.delete(projectDoc));
     }
 
     handleExit(e) {
@@ -39,12 +40,12 @@ class DeleteProjectPage extends React.Component {
 
     render() {
         const { deleting } = this.props;
-        const { project } = this.state;
+        const { projectDoc } = this.state;
 
         return (
             <div className="col-md-auto">
-                <h2>Projekt löschen</h2>
-                <p>Willst du das Projekt <span className="makeBold">"{project.projectTitle}"</span> wirklich löschen? Alle im Projekt-Ordner abgespeicherten Dokumente werden ebenfalls gelöscht.</p>
+                <h2>Dokument löschen</h2>
+                <p>Willst du das Dokument <span className="makeBold">"{projectDoc.maintext}"</span> wirklich löschen?</p>
                 {deleting && (
                       <div className="progressAniBox">
                         <img src="./icons/in-progress.gif" className="progressAniCenter" alt="In Progress" />             
@@ -64,14 +65,14 @@ class DeleteProjectPage extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const projectItems = state.projects.items;
-    const { selectedProjectID, deleting } = state.projects;
+    const projectDocItems = state.projectDocs.items;
+    const { selectedProjectDocID, deleting } = state.projectDocs;
     return {
-        projectItems,
-        selectedProjectID,
+        projectDocItems,
+        selectedProjectDocID,
         deleting
     };
 }
 
-const connectedDeleteProjectPage = connect(mapStateToProps)(DeleteProjectPage);
-export { connectedDeleteProjectPage as DeleteProjectPage }; 
+const connectedDeleteProjectDocPage = connect(mapStateToProps)(DeleteProjectDocPage);
+export { connectedDeleteProjectDocPage as DeleteProjectDocPage }; 

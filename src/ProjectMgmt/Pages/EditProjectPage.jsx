@@ -6,8 +6,8 @@ class EditProjectPage extends React.Component {
     constructor(props) {
         super(props);
 
-        const { projectItems, selectedProject } = this.props;
-        const projectToEdit = projectItems.find( project => project.id === selectedProject );
+        const { projectItems, selectedProjectID } = this.props;
+        const projectToEdit = projectItems.find( project => project.id === selectedProjectID );
 
         this.state = {
             project: {
@@ -15,6 +15,7 @@ class EditProjectPage extends React.Component {
                 projectTitle: projectToEdit.projectTitle,
                 description: projectToEdit.description,
                 username: projectToEdit.username,
+                numberOfDocs: projectToEdit.numberOfDocs,
                 createdDate: projectToEdit.createdDate,
                 id: projectToEdit.id
             },
@@ -97,10 +98,10 @@ class EditProjectPage extends React.Component {
 
 function mapStateToProps(state) {
     const projectItems = state.projects.items;
-    const { selectedProject, editingProject } = state.projects;
+    const { selectedProjectID, editingProject } = state.projects;
     return {
         projectItems,
-        selectedProject,
+        selectedProjectID,
         editingProject
     };
 }

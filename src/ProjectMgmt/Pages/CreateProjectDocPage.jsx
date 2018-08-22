@@ -292,6 +292,15 @@ class CreateProjectDocPage extends React.Component {
                     </form>
                 </div>
               );
+        } else if (!projectItems) {
+            return (
+                <div className="col-md-auto">
+                    <h2>Dokument speichern</h2>
+                    <div className="progressAniBox">
+                        <img src="./icons/in-progress.gif" className="progressAniCenter" alt="In Progress" />             
+                    </div>
+                </div>
+              );
         } else if (projectItems.length === 0) {
             return (
                 <div className="col-md-auto">

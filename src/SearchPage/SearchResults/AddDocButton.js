@@ -31,7 +31,7 @@ class AddDocButton extends Component {
         console.log('Keine Rechtsquelle angegeben');
     }
 
-    //Create-Project-Document-Page anzeigen
+    //Show Create-Project-Document-Page
     dispatch(alertActionsProjectMgmt.clearAndOverlayChange('CreateProjectDoc'));
   }
   
@@ -45,12 +45,7 @@ class AddDocButton extends Component {
 }
 
 function mapStateToProps(state) {
-  const projectItems = state.projects.items;
-  const { selectedProject } = state.projects;
-  return {
-      projectItems,
-      selectedProject
-  };
+  return {};
 }
 
 const connectedAddDocButton = connect(mapStateToProps)(AddDocButton);

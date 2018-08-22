@@ -1,32 +1,36 @@
 .resultsDIV {
   margin-bottom: 20px;
   border: 1px solid #337ab7;
-  background-color: white;
-}
+  background-color: white; }
 
 .resultsOverview {
   width: 100%;
   margin: 0;
   padding: 10px;
   color: white;
-  background-color: #337ab7;
-}
-
-.resultsOverview h1 {
-  font-size: 16pt;
-  letter-spacing: 1.5px;
-}
+  background-color: #337ab7; }
+  .resultsOverview h1 {
+    font-size: 16pt;
+    letter-spacing: 1.5px; }
 
 .resultsOverview > * {
   margin: 0;
   padding-right: 10px;
   line-height: 1.4;
-  display: inline;
-}
+  display: inline; }
 
 .resultsContent {
-  margin: 10px;
-}
+  margin: 10px; }
+  .resultsContent img {
+    margin: 0 2px 0 0;
+    padding: 0; }
+
+.progressAniWrapper2 {
+  margin: 10px 0; }
+  .progressAniWrapper2 img {
+    vertical-align: text-top;
+    margin: 0 2px 0 0;
+    padding: 0; }
 
 .arrowLink {
   margin: 0;
@@ -36,28 +40,24 @@
   font-weight: bold;
   color: #222;
   background-color: white;
-  border: 1px solid #555;
-}
+  border: 1px solid #555; }
 
 .arrowLink:active {
   color: white;
   background-color: #555;
   border: 1px solid white;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .arrowLink:hover {
   cursor: pointer;
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 .urlLinkIcon {
   height: 30px;
   vertical-align: middle;
   padding: 5px 2px 1px 2px;
   margin: 0 3px 5px 0;
-  border-style: none;
-}
+  border-style: none; }
 
 .resultsGrid {
   width: 100%;
@@ -69,58 +69,48 @@
   align-items: stretch;
   align-content: space-around;
   grid-auto-flow: row;
-  padding: 5px;
-}
+  padding: 5px; }
 
 .resultBox, .resultBoxProjectsPage {
   position: relative;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
   margin: 10px;
   padding: 10px;
-  background-color: #eee;
-}
+  background-color: #eee; }
+  .resultBox h4, .resultBoxProjectsPage h4 {
+    width: 100%;
+    font-size: 13px;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    text-align: left;
+    text-transform: uppercase;
+    vertical-align: text-bottom; }
 
 .bottomLine {
   margin: 0 0 10px 0;
   padding: 0px 0px 5px 0px;
-  border-bottom: 1px solid #4a4a4a;
-}
-
-.resultBox h4, .resultBoxProjectsPage h4 {
-  width: 100%;
-  font-size: 13px;
-  font-weight: bolder;
-  letter-spacing: 1px;
-  line-height: 1.5;
-  text-align: left;
-  text-transform: uppercase;
-  vertical-align: text-bottom;
-}
+  border-bottom: 1px solid #4a4a4a; }
 
 .resultInfoText {
-  font-size: 12pt;
-}
+  font-size: 12pt; }
 
 .addButton {
   height: 18px;
   padding: 0;
-  margin: 0;
-}
+  margin: 0; }
 
 .buttonAndLinksDIV {
-  font-size: 14pt;
-}
+  font-size: 14pt; }
 
 .resultSmallInfoText {
   font-size: 9pt;
   color: #4a4a4a;
-  margin: 0;
-}
+  margin: 0; }
 
 .mySeparator {
   color: #718e3e;
-  font-family: 'Lato', sans-serif;
-}
+  font-family: 'Lato', sans-serif; }
 
 .itemNrDIV {
   position: absolute;
@@ -133,8 +123,7 @@
   font-weight: bolder;
   text-align: center;
   background-color: #4a4a4a;
-  color: white;
-}
+  color: white; }
 
 .deleteButtonDIV {
   position: absolute;
@@ -147,54 +136,33 @@
   font-weight: bolder;
   text-align: center;
   background-color: #4a4a4a;
-  color: white;
-}
+  color: white; }
 
 .deleteButtonDIV:hover {
   background-color: darkred;
-  cursor: pointer;
-}
+  cursor: pointer; }
 
 .hCenterBrowseButtons {
   margin: 0 auto 10px;
-  width: 70px;
-}
+  width: 70px; }
 
 @media (max-width: 1000px) {
   .resultsGrid {
-    grid-template-columns: 100%;
-  }
-}
+    grid-template-columns: 100%; } }
 
 @media (max-width: 400px) {
   .resultBox {
-    margin: 10px 5px;
-  }
-
-  .resultBoxWithoutGrid {
-    margin: 10px 0;
-  }
-
+    margin: 10px 5px; }
   .resultBox h4 {
-    font-size: 12px;
-  }
-  
+    font-size: 12px; }
   .resultInfoText {
-    font-size: 11pt;
-  }
-  
+    font-size: 11pt; }
   .resultSmallInfoText {
-    font-size: 8pt;
-  }
-
+    font-size: 8pt; }
   .urlLinkIcon {
     height: 25px;
-    padding: 3px 2px 0 2px;
-  }
-}
+    padding: 3px 2px 0 2px; } }
 
 @media (min-width: 1600px) {
   .resultsGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
+    grid-template-columns: repeat(3, 1fr); } }

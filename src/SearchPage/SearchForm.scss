@@ -1,0 +1,135 @@
+
+.searchForm > * {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.searchForm {
+  p {
+    display: inline-block;
+    font-size: 10pt;
+    width: 30%;
+    text-align: right;
+  }
+
+  input {
+    display: inline-block;
+    margin: 0 0 10px 10px;
+    padding: 5px;
+    width: 66%;
+    font-size: 10pt;
+    text-align: center;
+  }
+}
+
+.datumInputStyle {
+  margin: 0 0 10px 10px;
+  padding: 0;
+  width: 66%;
+}
+
+.inputAlert {
+  background-color: LightGreen;
+}
+
+.centerDIV {
+  width: 100%;
+  text-align: center;
+}
+
+.rechtsquellenContainer {
+  width: 100%;
+  background-color: #337ab7;
+  margin: 10px 0 15px 0;
+  padding: 0;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
+
+  h3 {
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-size: 12pt;
+    text-transform: uppercase;
+  }
+}
+
+.rechtsquellenItemsContainer {
+  display: block;
+  width: 100%;
+  background-color: #d7d7d7;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid black;
+
+  input {
+    margin: 2px 0;
+    padding: 0;
+    display: inline-block;
+    width: 20px;
+    float: left;
+    vertical-align: middle;
+  }
+
+  p {
+    margin: 0;
+    padding: 0;
+    float: left;
+    vertical-align: middle;
+    text-align: left;
+  }
+}
+
+.rechtsquellenItemsHeader {
+  margin: 0;
+  padding: 7px 5px;
+  width: 100%;
+  height: 35px;
+}
+
+.highlightHeader {
+  color: white;
+  background-color: #72c2e4;
+}
+
+.optionenContainer {
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+.optionZeile {
+  width: 100%;
+  height: 37px;
+  padding: 4px 0;
+  margin: 0;
+  vertical-align: middle;
+  background-color: #f0f4f5;
+
+  p {
+    padding: 5px 5px 0 0;
+    margin: 0;
+    width: 42%;
+    font-size: 9pt;
+    text-align: right;
+    vertical-align: middle;
+  }
+
+  input {
+    padding: 4px;
+    margin: 0;
+    width: 54%;
+    font-size: 9pt;
+    text-align: center;
+  }
+
+  select {
+    padding: 5px;
+    margin: 0;
+    width: 55%;
+    font-size: 9pt;
+    text-align: center;
+  }
+}

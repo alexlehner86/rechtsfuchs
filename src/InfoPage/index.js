@@ -1,1 +1,1 @@
-export * from './InfoPage';
+export * from './InfoPage.jsx';

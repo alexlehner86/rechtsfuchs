@@ -14,7 +14,7 @@ class UserDeletePage extends React.Component {
         e.preventDefault();
         const { dispatch, user, projectItems } = this.props;
 
-        //User und seine Projekte löschen
+        // delete user, their projects and documents
         dispatch(projectActions.deleteAllByUsername(user.username, projectItems));
         dispatch(userActions.delete(user._id));
     }
@@ -23,7 +23,7 @@ class UserDeletePage extends React.Component {
         e.preventDefault();
         const { dispatch } = this.props;
 
-        //User-Delete-Overlay verbergen
+        // hide the user delete overlay
         dispatch(alertActionsUserMgmt.clearAndOverlayChange('Clear'));
     }
 
@@ -34,7 +34,7 @@ class UserDeletePage extends React.Component {
           return (
             <div className="col-md-auto">
                 <h2>Konto löschen</h2>
-                <p>Willst du wirklich dein Nutzerkonto löschen? Alle damit verknüpften Projekt-Ordner werden ebenfalls gelöscht.</p>
+                <p>Willst du wirklich dein Nutzerkonto löschen? Alle damit verknüpften Projekt-Ordner und Dokumente werden ebenfalls gelöscht.</p>
                 {deleting && (
                       <div className="progressAniBox">
                         <img src="./icons/in-progress.gif" className="progressAniCenter" alt="In Progress" />             
@@ -51,7 +51,7 @@ class UserDeletePage extends React.Component {
             </div>
           );
         } else {
-          //Nutzer wurde erfolgreich gelöscht: Erfolgsmeldung mit OK bestätigen
+          // after user has been deletet: show success message and allow user to click "ok"
           return (
             <div className="col-md-auto">
                 <button className="btn btn-default btn-block" type="button" onClick={this.handleExit}>OK</button>

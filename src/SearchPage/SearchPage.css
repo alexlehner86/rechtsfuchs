@@ -11,11 +11,7 @@
 
 .Search-Left {
   background-color: #DDD;
-  min-height: calc(100vh - 20px);
-}
-
-.Search-Right {
-  overflow: scroll;
+  min-height: calc(100vh - 30px);
 }
 
 @media (max-width: 600px) {

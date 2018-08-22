@@ -20,6 +20,7 @@ class CreateProjectPage extends React.Component {
         this.handleExit = this.handleExit.bind(this);
     }
 
+    // save changes in the form to the component's state
     handleChange(event) {
         const { name, value } = event.target;
         const { project } = this.state;
@@ -38,6 +39,7 @@ class CreateProjectPage extends React.Component {
         const { dispatch } = this.props;
         const { project } = this.state;
 
+        // only save the project in the database, if a project title is set
         if (project.projectTitle) {
             if (project.description === '') project.description = '–';
             dispatch(projectActions.create(project));

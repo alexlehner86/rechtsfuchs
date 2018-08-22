@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+The "Rechtsfuchs" website allows you to search Austrian law and judicature using the Legal Information System of the Republic of Austria, called [RIS](https://www.ris.bka.gv.at/defaultEn.aspx). Therefore, the whole website is in German. The website's basic features are as following:<br>
+- A simplified search interface for the RIS system.
+- The possibility to save search results in project folders linked to your personal user account.
+
+I programmed this website in order to improve my skills in regards to the react-redux-framework. The project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).

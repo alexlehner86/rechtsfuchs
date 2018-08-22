@@ -1,32 +1,26 @@
 .posRelative {
-  position: relative;
-}
+  position: relative; }
 
 .buttonFloatRight {
   position: absolute;
   right: 0px;
   top: -5px;
-  vertical-align: text-bottom;
-}
+  vertical-align: text-bottom; }
 
 .descriptionText {
   font-size: 9pt;
-  color: #555;
-}
+  color: #555; }
 
 .descriptionTextSelected {
   font-size: 9pt;
-  color: #eee;
-}
+  color: #eee; }
 
 .erstelltAmText {
   font-size: 8pt;
   font-style: italic;
-  color: #555;
-}
+  color: #555; }
 
 .erstelltAmTextSelected {
   font-size: 8pt;
   font-style: italic;
-  color: #eee;
-}
+  color: #eee; }

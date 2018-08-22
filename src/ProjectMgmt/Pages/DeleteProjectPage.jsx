@@ -25,7 +25,7 @@ class DeleteProjectPage extends React.Component {
         const { dispatch } = this.props;
         const { project } = this.state;
 
-        //Projekt und dessen Dokumente löschen
+        // delete the project and its documents
         dispatch(projectActions.delete(project.id));
     }
 
@@ -33,7 +33,7 @@ class DeleteProjectPage extends React.Component {
         e.preventDefault();
         const { dispatch } = this.props;
 
-        //Delete-Project-Overlay verbergen
+        // hide the delete project overlay
         dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
     }
 

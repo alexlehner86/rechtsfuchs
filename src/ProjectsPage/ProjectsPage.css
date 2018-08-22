@@ -2,33 +2,21 @@
   width: 100%;
   display: grid;
   grid-template: 100% / 310px 1fr;
-  text-align: left;
-}
+  text-align: left; }
 
 .Projects-Left, .Projects-Right {
-  padding: 20px;
-}
+  padding: 20px; }
 
 .Projects-Left {
   background-color: #DDD;
-  min-height: calc(100vh - 20px);
-}
-
-.Projects-Right {
-  overflow: scroll;
-}
+  min-height: calc(100vh - 30px); }
 
 @media (max-width: 600px) {
   .Projects-Grid {
-    grid-template: auto / 100%;
-  }
+    grid-template: auto / 100%; }
   .Projects-Left, .Projects-Right {
-    padding: 15px;
-  }
+    padding: 15px; }
   .Projects-Left {
-    min-height: 150px;
-  }
+    min-height: 150px; }
   .Projects-Right {
-    min-height: 300px;
-  }
-}
+    min-height: 300px; } }

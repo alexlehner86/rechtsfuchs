@@ -9,12 +9,23 @@ export {
 function getMetaInfo(searchResults) {
     let metaInfo = {};
     metaInfo.aktSeitennummer = searchResults.OgdSearchResult.OgdDocumentResults.Hits['@pageNumber'];
-    metaInfo.anzTreffer = searchResults.OgdSearchResult.OgdDocumentResults.Hits['#text'];
+
+    metaInfo.anzTrefferNr = searchResults.OgdSearchResult.OgdDocumentResults.Hits['#text'];
+    const anzTrefferString = metaInfo.anzTrefferNr.toString();
+    let strLength = anzTrefferString.length;
+    if (strLength > 3 ) metaInfo.anzTreffer = anzTrefferString.slice(0, strLength - 3) + "." + anzTrefferString.slice(strLength - 3, strLength);
+    else metaInfo.anzTreffer = anzTrefferString;
+
     const pagesize = searchResults.OgdSearchResult.OgdDocumentResults.Hits['@pageSize'];
-    metaInfo.maxSeiten =  Math.floor(metaInfo.anzTreffer / pagesize);
-    if (metaInfo.anzTreffer % pagesize) {
-      metaInfo.maxSeiten++;
+    metaInfo.maxSeitenNr =  Math.floor(metaInfo.anzTrefferNr / pagesize);
+    if (metaInfo.maxSeitenNr % pagesize) {
+        metaInfo.maxSeitenNr++;
     }
+    const maxSeitenString = metaInfo.maxSeitenNr.toString();
+    strLength = maxSeitenString.length;
+    if (strLength > 3 ) metaInfo.maxSeiten = maxSeitenString.slice(0, strLength - 3) + "." + maxSeitenString.slice(strLength - 3, strLength);
+    else metaInfo.maxSeiten = maxSeitenString;
+
     return metaInfo;
   }
 

@@ -2,11 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { projectDocActions, searchRIS_Actions,
          alertActionsProjectMgmt, alertActionsUserMgmt } from '../../_actions';
-import { ProjectsDropdown } from './ProjectsDropdown';
+import { ProjectsDropdown } from './';
 import $ from 'jquery';
 
-//Links zu Rechtsdokumenten (PDF, DOC und Webpage) erzeugen
-
+//create links to external documents (PDF, DOC and webpage)
 function buildDocumentUrlsObject(ContentUrl) {
     
     let links = {};
@@ -68,14 +67,14 @@ class CreateProjectDocPage extends React.Component {
         let doc_url = '';
         let gesamt_url = '';
 
-        //Falls Projekte vorhanden, dann die project_id des ersten Projekts auslesen
+        // if the redux store contains project items, then retrieve the project_id of the first project
         let project_id = '';
         if (projectItems) {
           if (projectItems.length > 0) project_id = projectItems[0].id;
         }
 
-        //Abhängig davon, bei welcher Rechtsquelle "resultID" gespeichert wurde...
-        //...wird der State mit den dortigen searchResult-Daten befüllt
+        // Depending on which searchRIS-object in the redux store contains the "resultID"
+        // the component's state is set with the data retrieved from the corresponding result item
         if (searchRIS_Bundesrecht.resultID !== undefined) {
             resultID = searchRIS_Bundesrecht.resultID;
             resultItems = searchRIS_Bundesrecht.results.OgdSearchResult.OgdDocumentResults.OgdDocumentReference;
@@ -109,7 +108,7 @@ class CreateProjectDocPage extends React.Component {
             + '  |  ' + resultItems[resultID].Data.Metadaten['Bundes-Landesnormen'].Kundmachungsorgan;
             gesamt_url = resultItems[resultID].Data.Metadaten['Bundes-Landesnormen'].GesamteRechtsvorschriftUrl;
 
-            //resultID aus dem Redux-Store entfernen
+            //delete resultID from the redux store (by setting it as undefined)
             dispatch(searchRIS_Actions.addBundesrechtResult());
 
         } else if (searchRIS_Landesrecht.resultID !== undefined) {
@@ -145,7 +144,7 @@ class CreateProjectDocPage extends React.Component {
             + '  |  ' + resultItems[resultID].Data.Metadaten['Bundes-Landesnormen'].Kundmachungsorgan;
             gesamt_url = resultItems[resultID].Data.Metadaten['Bundes-Landesnormen'].GesamteRechtsvorschriftUrl;
 
-            //resultID aus dem Redux-Store entfernen
+            //delete resultID from the redux store (by setting it as undefined)
             dispatch(searchRIS_Actions.addLandesrechtResult());
 
         } else if (searchRIS_VfGH.resultID !== undefined) {
@@ -169,8 +168,9 @@ class CreateProjectDocPage extends React.Component {
             smallprint = 'Entscheidungsdatum: ' + resultItems[resultID].Data.Metadaten['Judikatur'].Entscheidungsdatum
                          + '  |  Geschäftszahl: ' + geschaeftszahl;
 
-            //resultID aus dem Redux-Store entfernen
+            //delete resultID from the redux store (by setting it as undefined)
             dispatch(searchRIS_Actions.addVfGHResult());
+
         } else if (searchRIS_VwGH.resultID !== undefined) {
             resultID = searchRIS_VwGH.resultID;
             resultItems = searchRIS_VwGH.results.OgdSearchResult.OgdDocumentResults.OgdDocumentReference;
@@ -194,17 +194,17 @@ class CreateProjectDocPage extends React.Component {
             smallprint = 'Entscheidungsdatum: ' + resultItems[resultID].Data.Metadaten['Judikatur'].Entscheidungsdatum
                          + '  |  Geschäftszahl: ' + geschaeftszahl;
 
-            //resultID aus dem Redux-Store entfernen
+            //delete resultID from the redux store (by setting it as undefined)
             dispatch(searchRIS_Actions.addVwGHResult());
         }
 
-        //Urls auslesen und, falls vorhanden, in einzelnen Variablen speichern
+        //get document urls and, if existent, save them in the component's state
         myUrls = getDocumentUrls(resultItems[resultID].Data.Dokumentliste);
         if (myUrls.web_url) web_url = myUrls.web_url;
         if (myUrls.pdf_url) pdf_url = myUrls.pdf_url;
         if (myUrls.doc_url) doc_url = myUrls.doc_url;
         
-        //Zu speicherndes Project-Document im State vorbereiten
+        //the state now contains the result item's information, ready to be stored in the database
         this.state = {
             projectDoc: {
                 project_id: project_id,
@@ -227,6 +227,7 @@ class CreateProjectDocPage extends React.Component {
         this.changeToCreateProject = this.changeToCreateProject.bind(this);
     }
 
+    // save changes in the form to the component's state
     handleChange(event) {
         const { name, value } = event.target;
         const { projectDoc } = this.state;
@@ -245,6 +246,7 @@ class CreateProjectDocPage extends React.Component {
         const { dispatch } = this.props;
         const { projectDoc } = this.state;
 
+        // only if the user has input a maintext, the document is stored in the database
         if (projectDoc.maintext) {
             dispatch(projectDocActions.create(this.state.projectDoc));
         }

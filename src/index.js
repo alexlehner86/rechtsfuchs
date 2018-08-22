@@ -1,3 +1,7 @@
+// ---------------------------------------------------------------------------
+//  The index-File renders the whole react app, wrapped in the redux provider
+// ---------------------------------------------------------------------------
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';

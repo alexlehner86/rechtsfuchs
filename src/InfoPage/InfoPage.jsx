@@ -8,7 +8,7 @@ class InfoPage extends Component {
           <h1>Infos zur Webseite</h1>
           <ul className="infoliste">
             <li>App-Name: Rechtsfuchs</li>
-            <li>Version: v1.0.5</li>
+            <li>Version: v1.0.6</li>
             <li>Autor: <a href="https://github.com/alexlehner86" target="_blank" rel="noopener noreferrer">Alexander Lehner</a> (Wien, Österreich)</li>
             <li><span className="makeBold">Warum diese Webseite?</span><br />
                 Ich wollte das React-Redux-Framework testen und gleichzeitig eine sinnvolle Anwendung programmieren. Die Webseite bietet einen vereinfachten Zugang zum österreichischen Bundes- und Landesrecht sowie zur Rechtsprechung, mit Fokus auf das Finanzrecht (über Suchwort-Vorschläge). Die Webseite nutzt die APIs des österreichischen Rechtsinformationssystems des Bundes (<a href="https://www.ris.bka.gv.at/" target="_blank" rel="noopener noreferrer">RIS</a>). Suchergebnisse können in eigenen Projekt-Ordnern verwaltet werden.</li>

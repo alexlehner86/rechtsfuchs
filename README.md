@@ -1,4 +1,6 @@
-The "Rechtsfuchs" website allows you to search Austrian law and judicature using the Legal Information System of the Republic of Austria, called [RIS](https://www.ris.bka.gv.at/defaultEn.aspx). Therefore, the whole website is in German. The website's basic features are as following:<br>
+The "Rechtsfuchs" website allows you to search Austrian law and judicature using the Legal Information System of the Republic of Austria, called [RIS](https://www.ris.bka.gv.at/defaultEn.aspx). Therefore, the whole website is in German. You can see a live version of the project [here](https://alexlehner86.github.io/rechtsfuchs/).
+
+The website's basic features are:<br>
 - A simplified search interface for the RIS system.
 - The possibility to save search results in project folders linked to your personal user account.
 

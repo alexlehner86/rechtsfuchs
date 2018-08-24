@@ -1,5 +1,6 @@
 import { searchRIS_Constants } from '../_constants';
 import { searchRIS_Service } from '../_services';
+import { alertActionsSearchForm } from '../_actions';
 
 export const searchRIS_Actions = {
     fetchBundesrecht,
@@ -28,6 +29,9 @@ function fetchBundesrecht(searchQuery, isBrowseAction) {
                 },
                 error => {
                     dispatch(failure(error.toString()));
+
+                    //show error message to the user
+                    dispatch(alertActionsSearchForm.error(error.toString()));
                 }
             );
     };
@@ -58,6 +62,9 @@ function fetchLandesrecht(searchQuery, isBrowseAction) {
                 },
                 error => {
                     dispatch(failure(error.toString()));
+
+                    //show error message to the user
+                    dispatch(alertActionsSearchForm.error(error.toString()));
                 }
             );
     };
@@ -88,6 +95,9 @@ function fetchVwGH(searchQuery, isBrowseAction) {
                 },
                 error => {
                     dispatch(failure(error.toString()));
+
+                    //show error message to the user
+                    dispatch(alertActionsSearchForm.error(error.toString()));
                 }
             );
     };
@@ -118,6 +128,9 @@ function fetchVfGH(searchQuery, isBrowseAction) {
                 },
                 error => {
                     dispatch(failure(error.toString()));
+
+                    //show error message to the user
+                    dispatch(alertActionsSearchForm.error(error.toString()));
                 }
             );
     };

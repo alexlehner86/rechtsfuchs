@@ -93,6 +93,12 @@ function handleResponse(response) {
             return Promise.reject(error);
         }
 
+        //check for possible "Error" object in the response
+        if (data.OgdSearchResult.Error) {
+            const errMessage = data.OgdSearchResult.Error.Message;
+            return Promise.reject(errMessage.slice(23,errMessage.length));
+        }
+
         return data;
     });
 }

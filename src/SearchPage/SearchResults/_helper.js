@@ -18,9 +18,8 @@ function getMetaInfo(searchResults) {
 
     const pagesize = searchResults.OgdSearchResult.OgdDocumentResults.Hits['@pageSize'];
     metaInfo.maxSeitenNr =  Math.floor(metaInfo.anzTrefferNr / pagesize);
-    if (metaInfo.maxSeitenNr % pagesize) {
+    if (metaInfo.anzTrefferNr % pagesize)
         metaInfo.maxSeitenNr++;
-    }
     const maxSeitenString = metaInfo.maxSeitenNr.toString();
     strLength = maxSeitenString.length;
     if (strLength > 3 ) metaInfo.maxSeiten = maxSeitenString.slice(0, strLength - 3) + "." + maxSeitenString.slice(strLength - 3, strLength);

@@ -89,6 +89,23 @@ class SearchForm extends Component {
         bundesland: this.state.bundesland,
         landesrechtTyp: this.state.landesrechtTyp
       };
+
+      // if "Wien" is chosen, then the "landesrechtTyp" has to be adapted
+      if (newSearchQuery.bundesland === 'Wien') {
+        switch (newSearchQuery.landesrechtTyp) {
+          case 'LG':
+            newSearchQuery.landesrechtTyp = 'Landesgesetz';
+            break;
+          case 'V':
+            newSearchQuery.landesrechtTyp = 'Verordnung';
+            break;
+          case 'K':
+            newSearchQuery.landesrechtTyp = 'Kundmachung';
+            break;
+          default:
+        }
+      }
+
       let datumVonString = '';
       if (this.state.datumVon) {
         datumVonString = new Date(this.state.datumVon).toJSON().slice(0,10);
@@ -96,7 +113,7 @@ class SearchForm extends Component {
       newSearchQuery.datumVon = datumVonString;
       newSearchQuery.datumBis = new Date(this.state.datumBis).toJSON().slice(0,10);
 
-      //fetch data from the ris api and/ or clear data in the redux store if "Rechtsquelle" has been deselected
+      //fetch data from the RIS api and/ or clear data in the redux store if "Rechtsquelle" has been deselected
       if ($('#bundesrecht').is(':checked')) dispatch(searchRIS_Actions.fetchBundesrecht(newSearchQuery));
       else dispatch(searchRIS_Actions.clearBundesrecht());
       if ($('#landesrecht').is(':checked')) dispatch(searchRIS_Actions.fetchLandesrecht(newSearchQuery));

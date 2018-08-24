@@ -82,6 +82,7 @@ class SearchResultsLandesrecht extends Component {
                {resultItems.map(function(item, i){
                  let itemNr = (metaInfo.aktSeitennummer - 1) * 20 + i + 1;
                  let landesnormTyp = '';
+                 
                  switch (item.Data.Metadaten['Bundes-Landesnormen'].Typ) {
                   case 'LVG':
                     landesnormTyp = 'Landesverfassungsgesetz';

@@ -211,6 +211,7 @@ footer {
   padding: 10px 20px;
   width: 300px;
   z-index: 11;
-  background-color: white; }
+  background-color: white;
+  border-radius: 10px; }
 
 /* -------------------------- */

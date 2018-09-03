@@ -73,10 +73,14 @@ class SearchResultsLandesrecht extends Component {
         return (
            <div id="SearchResultsLandesrecht" className="resultsDIV">
              <div className="resultsOverview">
-               <h1>Landesrecht</h1>
+               <h1>Landesrecht</h1><br />
                <p>(konsolidiert, Seite {metaInfo.aktSeitennummer} von {metaInfo.maxSeiten}, Anzahl Treffer: {metaInfo.anzTreffer})</p>
-               <a id="BrowseBackw" className="arrowLink" onClick={this.handleBrowseResults}>&lt;</a>&nbsp;
-               <a id="BrowseForw" className="arrowLink" onClick={this.handleBrowseResults}>&gt;</a>
+               <div className="arrowLink">
+                 <img src="./icons/back.svg" id="BrowseBackw" onClick={this.handleBrowseResults} alt="" />
+               </div>
+               <div className="arrowLink">
+                 <img src="./icons/forward.svg" id="BrowseForw" onClick={this.handleBrowseResults} alt="" />
+               </div>
              </div>
              <div className="resultsGrid">
                {resultItems.map(function(item, i){
@@ -126,9 +130,13 @@ class SearchResultsLandesrecht extends Component {
                })}  
             </div>
             <div className="hCenterBrowseButtons">
-               <a id="BrowseBackw-Bottom" className="arrowLink" onClick={this.handleBrowseResults}>&lt;</a>&nbsp;
-               <a id="BrowseForw-Bottom" className="arrowLink" onClick={this.handleBrowseResults}>&gt;</a>
-             </div>
+               <div className="arrowLink">
+                 <img src="./icons/back.svg" id="BrowseBackw-Bottom" onClick={this.handleBrowseResults} alt="" />
+               </div>
+               <div className="arrowLink">
+                 <img src="./icons/forward.svg" id="BrowseForw-Bottom" onClick={this.handleBrowseResults} alt="" />
+               </div>
+            </div>
            </div>
       );
     } else {

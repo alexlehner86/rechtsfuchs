@@ -16,6 +16,8 @@
     letter-spacing: 1.5px; }
   .resultsOverview h2 {
     font-weight: normal; }
+  .resultsOverview p {
+    line-height: 1.8; }
 
 .resultsOverview > * {
   margin: 0;
@@ -37,24 +39,25 @@
     padding: 0; }
 
 .arrowLink {
-  margin: 0;
-  padding: 0 10px;
-  font-size: 14pt;
-  font-family: Arial;
-  font-weight: bold;
-  color: #222;
+  margin: 0 2px;
+  padding: 3px 8px;
   background-color: white;
-  border: 1px solid #555; }
+  border: 1px solid #555;
+  vertical-align: middle; }
+  .arrowLink img {
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    margin: 0; }
 
 .arrowLink:active {
-  color: white;
-  background-color: #555;
+  background-color: #ccc;
   border: 1px solid white;
   cursor: pointer; }
 
 .arrowLink:hover {
-  cursor: pointer;
-  text-decoration: none; }
+  background-color: #ccc;
+  cursor: pointer; }
 
 .urlLinkIcon {
   height: 30px;
@@ -148,7 +151,10 @@
 
 .hCenterBrowseButtons {
   margin: 0 auto 10px;
-  width: 70px; }
+  padding: 0;
+  width: 66px; }
+  .hCenterBrowseButtons .arrowLink {
+    display: inline; }
 
 @media (max-width: 1000px) {
   .resultsGrid {

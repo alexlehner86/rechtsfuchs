@@ -24,7 +24,7 @@ class ProjectsPage extends Component {
           <div className="pufferBox"></div>
           { loggedIn && <ProjectsList /> }
           { !loggedIn && (
-            <div>
+            <div className="projectListWrapper">
               <h2>Meine Projekte</h2>
               <p>Log dich ein, um deine Projekte zu verwalten!</p>
             </div>

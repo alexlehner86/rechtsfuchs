@@ -11,8 +11,10 @@ class ProjectDocuments extends Component {
 
     if (!loadingDocs)
     return (
-      <div>
-        <h2>Dokumente des Projekts "{currentProject.projectTitle}"</h2>
+      <div className="resultsDIV">
+        <div className="resultsOverview">
+          <h2>Dokumente des Projekts "{currentProject.projectTitle}"</h2>
+        </div>
         { /* Der Nutzer hat bereits Dokumente angelegt */ }
         { projectDocItems.length > 0 && (
           <div className="resultsGrid">
@@ -58,9 +60,11 @@ class ProjectDocuments extends Component {
       </div>
     );
     else return (
-      <div>
-        <h2>Dokumente des Projekts "{currentProject.projectTitle}"</h2>
-        <p className="progressAniWrapper2"><img src="./icons/in-progress.gif" alt="In Progress" className="progressAnimation" />&nbsp;Daten werden abgerufen...</p>
+      <div className="resultsDIV">
+        <div className="resultsOverview">
+          <h2>Dokumente des Projekts "{currentProject.projectTitle}"</h2>
+        </div>
+        <p className="resultsContent"><img src="./icons/in-progress.gif" alt="In Progress" className="progressAnimation" />&nbsp;Daten werden abgerufen...</p>
       </div>
     );
   }

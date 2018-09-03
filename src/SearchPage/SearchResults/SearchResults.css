@@ -1,17 +1,21 @@
 .resultsDIV {
   margin-bottom: 20px;
   border: 1px solid #337ab7;
-  background-color: white; }
+  background-color: white;
+  border-radius: 10px; }
 
 .resultsOverview {
   width: 100%;
   margin: 0;
   padding: 10px;
   color: white;
-  background-color: #337ab7; }
+  background-color: #337ab7;
+  border-radius: 7px 7px 0 0; }
   .resultsOverview h1 {
     font-size: 16pt;
     letter-spacing: 1.5px; }
+  .resultsOverview h2 {
+    font-weight: normal; }
 
 .resultsOverview > * {
   margin: 0;

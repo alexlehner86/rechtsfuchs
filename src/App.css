@@ -100,7 +100,7 @@ footer {
 .pufferBox, .pufferBoxRight {
   margin: 0;
   padding: 0;
-  height: 30px;
+  height: 35px;
   width: 100%; }
 
 .logoDIV {
@@ -142,8 +142,8 @@ footer {
 
 @media (min-width: 800px) {
   .App-main {
-    border-left: 5vw solid #2990bb;
-    border-right: 5vw solid #2990bb; } }
+    width: 90%;
+    margin: 0 auto 20px auto; } }
 
 /* ---------------------------------------------- */
 /* --------------------- */
@@ -199,7 +199,7 @@ footer {
   margin: 0;
   padding: 0;
   z-index: 10;
-  background-color: rgba(114, 194, 228, 0.9); }
+  background-color: rgba(0, 0, 0, 0.7); }
 
 .overlayWhiteBox {
   margin: 0;

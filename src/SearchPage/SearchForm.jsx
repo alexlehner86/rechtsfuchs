@@ -245,7 +245,7 @@ class SearchForm extends Component {
     const { alertSearchForm} = this.props;
 
     return (
-          <div>
+          <div className="searchFormWrapper">
             {datalistSuchworte}
         
             <h2>Im RIS suchen nach:</h2>

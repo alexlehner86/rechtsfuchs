@@ -1,0 +1,45 @@
+.projectListWrapper {
+    padding: 20px;
+    background-color: #DDD;
+    border-radius: 10px;
+    h2 {
+      margin-top: 0;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .projectListWrapper {
+      padding: 0;
+      h2 {
+        margin-top: 10px;
+      }
+    }
+  }
+  
+  .posRelative {
+    position: relative; }
+  
+  .buttonFloatRight {
+    position: absolute;
+    right: 0px;
+    top: -5px;
+    vertical-align: text-bottom; }
+  
+  .descriptionText {
+    font-size: 9pt;
+    color: #555; }
+  
+  .descriptionTextSelected {
+    font-size: 9pt;
+    color: #eee; }
+  
+  .erstelltAmText {
+    font-size: 8pt;
+    font-style: italic;
+    color: #555; }
+  
+  .erstelltAmTextSelected {
+    font-size: 8pt;
+    font-style: italic;
+    color: #eee; }
+  

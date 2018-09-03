@@ -86,14 +86,14 @@ class ProjectsList extends Component {
       <div>
         { /* Projekte werden noch geladen */ }
         { loadingProjects && (
-          <div className="col-md-auto">
+          <div className="projectListWrapper">
             <h2>Meine Projekte</h2>
             <p className="progressAniWrapper2"><img src="./icons/in-progress.gif" alt="In Progress" className="progressAnimation" />&nbsp;Daten werden abgerufen...</p>
           </div>
         )}
         { /* Der Nutzer hat bereits Projekte angelegt */ }
         { projectItems && projectItems.length > 0 && (
-          <div className="col-md-auto">
+          <div className="projectListWrapper">
             <h2 className="posRelative">
               Meine Projekte
               { /* Es ist bereits ein Projekt ausgewählt */ }
@@ -132,7 +132,7 @@ class ProjectsList extends Component {
         )}
         { /* Der Nutzer hat noch keine Projekte angelegt */ }
         { projectItems && projectItems.length === 0 && (
-          <div className="col-md-auto">
+          <div className="projectListWrapper">
             <h2>Meine Projekte</h2>
             <p>Keine Projekte vorhanden!</p>
             <button id="CreateProject" className="btn btn-default btn-sm vAlignBottom" title="Neues Projekt anlegen" type="button" onClick={this.handleButton}>

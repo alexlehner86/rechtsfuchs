@@ -55,7 +55,7 @@ class ProjectDocuments extends Component {
         )}
         { /* Der Nutzer hat noch keine Dokumente angelegt */ }
         { projectDocItems.length === 0 && (
-          <p>Keine Dokumente vorhanden!</p>
+          <p className="resultsContent">Keine Dokumente vorhanden!</p>
         )}
       </div>
     );

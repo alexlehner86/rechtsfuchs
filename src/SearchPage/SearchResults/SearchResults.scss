@@ -184,10 +184,12 @@
 .hCenterBrowseButtons {
   margin: 0 auto 10px;
   padding: 0;
-  width: 66px;
+  width: 68px;
 
   .arrowLink {
-    display: inline;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
   }
 }
 

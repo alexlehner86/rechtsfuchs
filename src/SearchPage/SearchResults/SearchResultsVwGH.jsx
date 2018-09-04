@@ -19,6 +19,11 @@ class SearchResultsVwGH extends Component {
     handleBrowseResults(e) {
       const event = e || window.event;
       let eveTarget = event.target || event.srcElement;
+
+      // if click-event was triggered by img-element, get parent-div that stores the id
+      while (eveTarget.nodeName !== 'DIV') {
+        eveTarget = eveTarget.parentNode;
+      }
   
       const { dispatch } = this.props;
       const { searchQuery, results } = this.props.searchRIS_VwGH;
@@ -74,11 +79,11 @@ class SearchResultsVwGH extends Component {
                <div className="resultsOverview">
                  <h1>Verwaltungsgerichtshof</h1><br />
                  <p>(Seite {metaInfo.aktSeitennummer} von {metaInfo.maxSeiten}, Anzahl Treffer: {metaInfo.anzTreffer})</p>
-                 <div className="arrowLink">
-                   <img src="./icons/back.svg" id="BrowseBackw" onClick={this.handleBrowseResults} alt="" />
+                 <div id="BrowseBackw" className="arrowLink" onClick={this.handleBrowseResults}>
+                   <img src="./icons/back.svg" alt="" />
                  </div>
-                 <div className="arrowLink">
-                   <img src="./icons/forward.svg" id="BrowseForw" onClick={this.handleBrowseResults} alt="" />
+                 <div id="BrowseForw" className="arrowLink" onClick={this.handleBrowseResults}>
+                   <img src="./icons/forward.svg" alt="" />
                  </div>
                </div>
                <div className="resultsGrid">
@@ -114,11 +119,11 @@ class SearchResultsVwGH extends Component {
                  })}
                </div>
                <div className="hCenterBrowseButtons">
-                 <div className="arrowLink">
-                   <img src="./icons/back.svg" id="BrowseBackw-Bottom" onClick={this.handleBrowseResults} alt="" />
+                 <div id="BrowseBackw-Bottom" className="arrowLink" onClick={this.handleBrowseResults}>
+                   <img src="./icons/back.svg" alt="" />
                  </div>
-                 <div className="arrowLink">
-                   <img src="./icons/forward.svg" id="BrowseForw-Bottom" onClick={this.handleBrowseResults} alt="" />
+                 <div id="BrowseForw-Bottom" className="arrowLink" onClick={this.handleBrowseResults}>
+                   <img src="./icons/forward.svg" alt="" />
                  </div>
                </div>
              </div>

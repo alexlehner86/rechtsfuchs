@@ -3,7 +3,8 @@ import $ from 'jquery';
 
 export {
     getMetaInfo,
-    createdDocumentUrls
+    createdDocumentUrls,
+    createDocumentLinkButtons
 }
 
 function getMetaInfo(searchResults) {
@@ -29,7 +30,7 @@ function getMetaInfo(searchResults) {
   }
 
 
-//Links zu Rechtsdokumenten (PDF, DOC und Webpage) erzeugen
+//HTML-Links zu Rechtsdokumenten (PDF, DOC und Webpage) erzeugen
 
 function buildDocumentUrls(ContentUrl) {
     
@@ -95,4 +96,35 @@ function createdDocumentUrls(Dokumentliste) {
         links = buildDocumentUrls(Dokumentliste.ContentReference.Urls.ContentUrl);
     }
     return links;
+}
+
+
+
+//HTML-Links zu Rechtsdokumenten (PDF, DOC und Webpage) erzeugen
+
+function createDocumentLinkButtons(weblinks) {
+    let links = [];
+          if (weblinks.pdf_url) {
+            links.push(
+                <a href={weblinks.pdf_url} target="_blank" key="1">
+                  <img src="./icons/pdf-icon.svg" className="urlLinkIcon" alt="PDF-Dokument" title="PDF-Dokument in neuem Fenster öffnen" />
+                </a>
+              );   
+          }
+          if (weblinks.web_url) {
+            links.push(
+                <a href={weblinks.web_url} target="_blank" key="2">
+                  <img src="./icons/web-icon.svg" className="urlLinkIcon" alt="HTML-Dokument" title="HTML-Dokument in neuem Fenster öffnen" />
+                </a>
+            );   
+          }
+          if (weblinks.doc_url) {
+            links.push(
+                <a href={weblinks.doc_url} target="_blank" key="3">
+                  <img src="./icons/doc-icon.svg" className="urlLinkIcon" alt="WORD-Dokument" title="WORD-Dokument in neuem Fenster öffnen" />
+                </a>
+            );  
+          }
+ 
+    return <span>{links}</span>;
 }

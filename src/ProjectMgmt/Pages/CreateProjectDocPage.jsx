@@ -6,29 +6,22 @@ import { ProjectsDropdown } from './';
 import $ from 'jquery';
 
 //create links to external documents (PDF, DOC and webpage)
-function buildDocumentUrlsObject(ContentUrl) {
+function buildDocumentUrlsObject(contentUrls) {
     
     let links = {};
-    if ($.isArray(ContentUrl)) { 
-        for (let x = 0; x < ContentUrl.length; x++) {
-          if (ContentUrl[x].DataType === 'Pdf') {
-            links.pdf_url = ContentUrl[x].Url;
-          } else if (ContentUrl[x].DataType === 'Html') {
-            links.web_url = ContentUrl[x].Url; 
-          } else if (ContentUrl[x].DataType === 'Docx' || ContentUrl[x].DataType === 'Rtf') {
-            links.doc_url = ContentUrl[x].Url;
+    if (!$.isArray(contentUrls))
+        contentUrls = [ contentUrls ];
+
+    for (let x = 0; x < contentUrls.length; x++) {
+          if (contentUrls[x].DataType === 'Pdf') {
+            links.pdf_url = contentUrls[x].Url;
+          } else if (contentUrls[x].DataType === 'Html') {
+            links.web_url = contentUrls[x].Url; 
+          } else if (contentUrls[x].DataType === 'Docx' || contentUrls[x].DataType === 'Rtf') {
+            links.doc_url = contentUrls[x].Url;
           }
-        }
-    } else {
-      if (ContentUrl.DataType === 'Pdf') {
-        links.pdf_url = ContentUrl.Url;
-      } else if (ContentUrl.DataType === 'Html') {
-        links.web_url = ContentUrl.Url;
-      } else if (ContentUrl.DataType === 'Docx' || ContentUrl.DataType === 'Rtf') {
-        links.doc_url = ContentUrl.Url;
-      }
     }
- 
+    
     return links;
 }
 

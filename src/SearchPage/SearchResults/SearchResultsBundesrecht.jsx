@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { searchRIS_Actions } from '../../_actions';
-import { getMetaInfo, createdDocumentUrls } from './_helper';
+import { createDocumentLinkButtons } from './_helper';
 import { AddDocButton } from './';
-import $ from 'jquery';
 
-///////////////////////////////////////////
-// Component: Bundesrecht-Suchresultate //
-/////////////////////////////////////////
-  
+///////////////////////////////////////////////////////////
+// Component: Renders search results retrieved from RIS //
+/////////////////////////////////////////////////////////
+
 class SearchResultsBundesrecht extends Component {
   constructor(props) {
     super(props);
@@ -27,7 +26,7 @@ class SearchResultsBundesrecht extends Component {
 
     const { dispatch } = this.props;
     const { searchQuery, results } = this.props.searchRIS_Bundesrecht;
-    const metaInfo = getMetaInfo(results);
+    const metaInfo = {};
     let newSearchQuery =  JSON.parse(JSON.stringify(searchQuery));
       
     // browse backward click (leftside arrow)
@@ -54,32 +53,25 @@ class SearchResultsBundesrecht extends Component {
   }
   
   render() {
-    const { fetchingData, results } = this.props.searchRIS_Bundesrecht;
+    const { fetchingData, results, pageTitle } = this.props.searchRIS_Bundesrecht;
+    console.log(results);
   
     if (fetchingData) {
       return (
         <div className="resultsDIV">
           <div className="resultsOverview">
-               <h1>Bundesrecht</h1>
-               <p>(konsolidiert)</p>
+               <h1>{pageTitle}</h1>
           </div>
           <p className="resultsContent"><img src="./icons/in-progress.gif" alt="In Progress" className="progressAnimation" />&nbsp;Daten werden abgerufen...</p>
         </div>
       ); 
     } else if (results) {
-      if (results.OgdSearchResult.OgdDocumentResults.Hits['#text'] > 0) {
-        
-      let resultItems = results.OgdSearchResult.OgdDocumentResults.OgdDocumentReference;
-      if (!$.isArray(resultItems)) {
-        resultItems = [ resultItems ];
-      }
-      const metaInfo = getMetaInfo(results);
-
-      return (
+      if (results.totalNumberOfHits > 0) {
+        return (
            <div id="SearchResultsBundesrecht" className="resultsDIV">
              <div className="resultsOverview">
-               <h1>Bundesrecht</h1><br />
-               <p>(konsolidiert, Seite {metaInfo.aktSeitennummer} von {metaInfo.maxSeiten}, Anzahl Treffer: {metaInfo.anzTreffer})</p>
+               <h1>{pageTitle}</h1><br />
+               <p>(Seite {results.pageNumber} von {results.totalNumberOfPagesFormatted}, Anzahl Treffer: {results.totalNumberOfHitsFormatted})</p>
                <div id="BrowseBackw" className="arrowLink" onClick={this.handleBrowseResults}>
                  <img src="./icons/back.svg" alt="" />
                </div>
@@ -88,50 +80,28 @@ class SearchResultsBundesrecht extends Component {
                </div>
              </div>
              <div className="resultsGrid">
-               {resultItems.map(function(item, i){
-                 let itemNr = (metaInfo.aktSeitennummer - 1) * 20 + i + 1;
-                 let bundesnormTyp = '';
-                 switch (item.Data.Metadaten['Bundes-Landesnormen'].Typ) {
-                  case 'BVG':
-                    bundesnormTyp = 'Bundesverfassungsgesetz';
-                    break;
-                  case 'BG':
-                    bundesnormTyp = 'Bundesgesetz';
-                    break;
-                  case 'V':
-                    bundesnormTyp = 'Verordnung';
-                    break;
-                  case 'K':
-                    bundesnormTyp = 'Kundmachung';
-                    break;
-                  case 'Vertrag':
-                    bundesnormTyp = 'Bundesgesetz';
-                    break;
-                  default:
-                    bundesnormTyp = item.Data.Metadaten['Bundes-Landesnormen'].Typ;
-                 }
-
+               {results.resultsArray.map(function(item, i){
+                 let itemNr = (results.pageNumber - 1) * 20 + i + 1;
                  return (
                    <div key={itemNr} className="resultBox">
                      <div className="itemNrDIV">#{itemNr}</div>
                      <h4 className="bottomLine">
-                       
-                       {bundesnormTyp}
+                       {item.headline}
                      </h4>
                      <p className="resultInfoText">
-                       {item.Data.Metadaten['Bundes-Landesnormen'].ArtikelParagraphAnlage}, {item.Data.Metadaten['Bundes-Landesnormen'].Kurztitel}
+                       {item.resultInfoText}
                      </p>
                      <p className="buttonAndLinksDIV bottomLine">
-                       {createdDocumentUrls(item.Data.Dokumentliste)}
-                       <a href={item.Data.Metadaten['Bundes-Landesnormen'].GesamteRechtsvorschriftUrl} target="_blank" key="123">
-                          <img src="./icons/gesamt-icon.svg" className="urlLinkIcon" alt="Gesamte Rechtsvorschrift" title="Gesamte Rechtsvorschrift in neuem Fenster öffnen" />
-                       </a>
+                       {createDocumentLinkButtons(item.weblinks)}
+                       {item.weblinks.gesamt_url && (
+                          <a href={item.weblinks.gesamt_url} target="_blank" key="123">
+                            <img src="./icons/gesamt-icon.svg" className="urlLinkIcon" alt="Gesamte Rechtsvorschrift" title="Gesamte Rechtsvorschrift in neuem Fenster öffnen" />
+                          </a>
+                       )}
                        &nbsp; <AddDocButton resultID={i} rechtsquelle='bundesrecht' />
                      </p>
                      <p className="resultSmallInfoText">
-                       Inkrafttrete-Datum: {item.Data.Metadaten['Bundes-Landesnormen'].Inkrafttretedatum}
-                       <span className="mySeparator"> &nbsp;|&nbsp; </span>
-                       {item.Data.Metadaten['Bundes-Landesnormen'].Kundmachungsorgan}
+                       {item.resultSmallprint}
                      </p>
                   </div>
                  );
@@ -151,8 +121,7 @@ class SearchResultsBundesrecht extends Component {
          return (
            <div className="resultsDIV">
              <div className="resultsOverview">
-               <h1>Bundesrecht</h1>
-               <p>(konsolidiert)</p>
+               <h1>{pageTitle}</h1>
              </div>
              <p className="resultsContent">Keine Suchergebnisse gefunden!</p>
            </div>

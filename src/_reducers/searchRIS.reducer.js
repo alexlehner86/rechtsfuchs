@@ -5,6 +5,7 @@ export function searchRIS_Bundesrecht(state = {}, action) {
     case searchRIS_Constants.BUNDESRECHT_REQUEST:
       return {
         ...state,
+        pageTitle: 'Bundesrecht',
         fetchingData: true,
         searchQuery: action.searchQuery
       };
@@ -21,6 +22,7 @@ export function searchRIS_Bundesrecht(state = {}, action) {
       };
     case searchRIS_Constants.BUNDESRECHT_FAILURE:
       return { 
+        pageTitle: 'Bundesrecht',
         error: action.error
       };
     case searchRIS_Constants.BUNDESRECHT_ADD_DOCUMENT:

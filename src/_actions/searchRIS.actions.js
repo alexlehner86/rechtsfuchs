@@ -6,20 +6,23 @@ export const searchRIS_Actions = {
     fetchBundesrecht,
     addBundesrechtResult,
     clearBundesrecht,
+
     fetchLandesrecht,
     addLandesrechtResult,
     clearLandesrecht,
+
     fetchVwGH,
     addVwGHResult,
     clearVwGH,
+
     fetchVfGH,
     addVfGHResult,
     clearVfGH
 };
 
-function fetchBundesrecht(searchQuery, isBrowseAction) {
+function fetchBundesrecht(searchQuery) {
     return dispatch => {
-        if (isBrowseAction) dispatch(browseRequest(searchQuery));
+        if (searchQuery.isBrowseAction) dispatch(browseRequest(searchQuery));
         else dispatch(request(searchQuery));
 
         searchRIS_Service.fetchBundesrecht(searchQuery)
@@ -50,9 +53,9 @@ function clearBundesrecht() {
   return { type: searchRIS_Constants.BUNDESRECHT_CLEAR };
 }
 
-function fetchLandesrecht(searchQuery, isBrowseAction) {
+function fetchLandesrecht(searchQuery) {
     return dispatch => {
-        if (isBrowseAction) dispatch(browseRequest(searchQuery));
+        if (searchQuery.isBrowseAction) dispatch(browseRequest(searchQuery));
         else dispatch(request(searchQuery));
 
         searchRIS_Service.fetchLandesrecht(searchQuery)
@@ -83,9 +86,9 @@ function clearLandesrecht() {
     return { type: searchRIS_Constants.LANDESRECHT_CLEAR };
   }
 
-function fetchVwGH(searchQuery, isBrowseAction) {
+function fetchVwGH(searchQuery) {
     return dispatch => {
-        if (isBrowseAction) dispatch(browseRequest(searchQuery));
+        if (searchQuery.isBrowseAction) dispatch(browseRequest(searchQuery));
         else dispatch(request(searchQuery));
 
         searchRIS_Service.fetchVwGH(searchQuery)
@@ -116,9 +119,9 @@ function clearVwGH() {
   return { type: searchRIS_Constants.VWGH_CLEAR };
 }
 
-function fetchVfGH(searchQuery, isBrowseAction) {
+function fetchVfGH(searchQuery) {
     return dispatch => {
-        if (isBrowseAction) dispatch(browseRequest(searchQuery));
+        if (searchQuery.isBrowseAction) dispatch(browseRequest(searchQuery));
         else dispatch(request(searchQuery));
 
         searchRIS_Service.fetchVfGH(searchQuery)

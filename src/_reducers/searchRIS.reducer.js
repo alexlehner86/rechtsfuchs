@@ -22,7 +22,6 @@ export function searchRIS_Bundesrecht(state = {}, action) {
       };
     case searchRIS_Constants.BUNDESRECHT_FAILURE:
       return { 
-        pageTitle: 'Bundesrecht',
         error: action.error
       };
     case searchRIS_Constants.BUNDESRECHT_ADD_DOCUMENT:
@@ -43,6 +42,7 @@ export function searchRIS_Landesrecht(state = {}, action) {
     case searchRIS_Constants.LANDESRECHT_REQUEST:
       return {
         ...state,
+        pageTitle: 'Landesrecht',
         fetchingData: true,
         searchQuery: action.searchQuery
       };
@@ -79,6 +79,7 @@ export function searchRIS_VwGH(state = {}, action) {
     case searchRIS_Constants.VWGH_REQUEST:
       return {
         ...state,
+        pageTitle: 'Verwaltungsgerichtshof',
         fetchingData: true,
         searchQuery: action.searchQuery
       };
@@ -115,6 +116,7 @@ export function searchRIS_VfGH(state = {}, action) {
     case searchRIS_Constants.VFGH_REQUEST:
       return {
         ...state,
+        pageTitle: 'Verfassungsgerichtshof',
         fetchingData: true,
         searchQuery: action.searchQuery
       };

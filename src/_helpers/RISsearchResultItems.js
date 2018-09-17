@@ -22,12 +22,8 @@ class RISsearchResultItem {
 }
 
 class BundesrechtItem extends RISsearchResultItem {
-    constructor(bundesnormTyp,
-                artikelParagraphAnlage,
-                kurztitel,
-                inkrafttreteDatum,
-                kundmachungsorgan,
-                weblinks) {
+    constructor(bundesnormTyp, artikelParagraphAnlage, kurztitel,
+                inkrafttreteDatum, kundmachungsorgan, weblinks) {
         super('Bundesrecht',
               bundesnormTyp,
               artikelParagraphAnlage + ', ' + kurztitel,
@@ -41,13 +37,46 @@ class BundesrechtItem extends RISsearchResultItem {
     }
 }
 
+class LandesrechtItem extends RISsearchResultItem {
+    constructor(bundesland, landesnormTyp, artikelParagraphAnlage, kurztitel,
+                inkrafttreteDatum, kundmachungsorgan, weblinks) {
+        super('Landesrecht',
+              bundesland + ': ' + landesnormTyp,
+              artikelParagraphAnlage + ', ' + kurztitel,
+              'Inkrafttrete-Datum: ' + inkrafttreteDatum + '  |  ' + kundmachungsorgan,
+              weblinks);
+        this.landesnormTyp = landesnormTyp;
+        this.artikelParagraphAnlage = artikelParagraphAnlage;
+        this.kurztitel = kurztitel;
+        this.inkrafttreteDatum = inkrafttreteDatum;
+        this.kundmachungsorgan = kundmachungsorgan;
+    }
+}
+
+class VfghVwghItem extends RISsearchResultItem {
+    constructor(rechtsquelle, entscheidungsart, dokumenttyp, schlagworte,
+                entscheidungsdatum, geschaeftszahl, weblinks) {
+        super(rechtsquelle,
+              entscheidungsart,
+              dokumenttyp + ': ' + schlagworte,
+              'Entscheidungsdatum: ' + entscheidungsdatum + '  |  Geschäftszahl: ' + geschaeftszahl,
+              weblinks);
+        this.entscheidungsart = entscheidungsart;
+        this.dokumenttyp = dokumenttyp;
+        this.schlagworte = schlagworte;
+        this.entscheidungsdatum = entscheidungsdatum;
+        this.geschaeftszahl = geschaeftszahl;
+    }
+}
+
 class RISsearchResultItemGroup {
-    constructor(title, pageNumber, totalNumberOfPages, totalNumberOfHits, resultsArray) {
+    constructor(title, resultsMetaInfo, resultsArray, reduxActions) {
         this.title = title;
-        this.pageNumber = pageNumber;
-        this.totalNumberOfPages = totalNumberOfPages;
-        this.totalNumberOfHits = totalNumberOfHits;
+        this.pageNumber = resultsMetaInfo.pageNumber;
+        this.totalNumberOfPages = resultsMetaInfo.totalNumberOfPages;
+        this.totalNumberOfHits = resultsMetaInfo.totalNumberOfHits;
         this.resultsArray = resultsArray;
+        this.reduxActions = reduxActions;
     }
 
     // Turns e.g. the number "1543" into "1.543"
@@ -68,4 +97,4 @@ class RISsearchResultItemGroup {
     }
 }
 
-export { RISweblinks, RISsearchResultItemGroup, BundesrechtItem };
+export { RISweblinks, RISsearchResultItemGroup, BundesrechtItem, LandesrechtItem, VfghVwghItem };

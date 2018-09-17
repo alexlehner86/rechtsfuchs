@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DeleteDocButton } from './DeleteDocButton';
-import '../SearchPage/SearchResults/SearchResults.css';
+import '../SearchPage/SearchResults.css';
 
 class ProjectDocuments extends Component {
 

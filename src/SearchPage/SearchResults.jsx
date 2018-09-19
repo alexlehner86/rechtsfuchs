@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DocumentLinkButtons, AddDocButton } from './components';
+import { SearchInProgressPage, SearchResultsGrid, NoSearchResultsPage,
+         BrowseButtonsAtTop, BrowseButtonsAtBottom } from './components';
 
 const isAtBottomOfPage = true;
 const isNotAtBottomOfPage = false;
@@ -16,7 +17,6 @@ class SearchResults extends Component {
     this.handleBrowseResults = this.handleBrowseResults.bind(this);
     this.browseBackwardClick = this.browseBackwardClick.bind(this);
     this.browseForwardClick  = this.browseForwardClick.bind(this);
-    this.createDocumentLinkButtons = this.createDocumentLinkButtons.bind(this);
   }
   
   render() {
@@ -24,73 +24,31 @@ class SearchResults extends Component {
     const searchResultsDivID = 'SearchResults' + pageTitle;
   
     if (fetchingData) {
-      return (
-        <div className="resultsDIV">
-          <div className="resultsOverview">
-              <h1>{pageTitle}</h1>
-          </div>
-          <p className="resultsContent"><img src="./icons/in-progress.gif" alt="In Progress" className="progressAnimation" />&nbsp;Daten werden abgerufen...</p>
-        </div>
-      ); 
-    } else if (results) {
-      if (results.totalNumberOfHits > 0) {
+      return <SearchInProgressPage pageTitle={pageTitle} />
+    }
+    else if (results.totalNumberOfHits > 0) {
         return (
            <div id={searchResultsDivID} className="resultsDIV">
              <div className="resultsOverview">
                <h1>{pageTitle}</h1><br />
                <p>(Seite {results.pageNumber} von {results.totalNumberOfPagesFormatted}, Anzahl Treffer: {results.totalNumberOfHitsFormatted})</p>
-               <div id="BrowseBackw" className="arrowLink" onClick={this.handleBrowseResults}>
-                 <img src="./icons/back.svg" alt="" />
-               </div>
-               <div id="BrowseForw" className="arrowLink" onClick={this.handleBrowseResults}>
-                 <img src="./icons/forward.svg" alt="" />
-               </div>
+               <BrowseButtonsAtTop handleBrowseResults={this.handleBrowseResults} />
              </div>
-             <div className="resultsGrid">
-               {results.resultsArray.map(function(item, i){
-                 const itemNr = (results.pageNumber - 1) * 20 + i + 1;
-                 return (
-                   <div key={itemNr} className="resultBox">
-                     <div className="itemNrDIV">#{itemNr}</div>
-                     <h4 className="bottomLine">{item.headline}</h4>
-                     <p className="resultInfoText">{item.resultInfoText}</p>
-                     <p className="buttonAndLinksDIV bottomLine">
-                       <DocumentLinkButtons weblinks={item.weblinks} /> &nbsp;
-                       <AddDocButton resultID={i} addSearchResults={results.reduxActions.addSearchResult} />
-                     </p>
-                     <p className="resultSmallInfoText">{item.resultSmallprint}</p>
-                  </div>
-                 );
-               })}  
-             </div>
-             <div className="hCenterBrowseButtons">
-               <div id="BrowseBackw-Bottom" className="arrowLink" onClick={this.handleBrowseResults}>
-                 <img src="./icons/back.svg" alt="" />
-               </div>
-               <div id="BrowseForw-Bottom" className="arrowLink" onClick={this.handleBrowseResults}>
-                 <img src="./icons/forward.svg" alt="" />
-               </div>
-             </div>
+             <SearchResultsGrid results={results} />
+             <BrowseButtonsAtBottom handleBrowseResults={this.handleBrowseResults} />
            </div>
-      );
-    } else {
-         return (
-           <div className="resultsDIV">
-             <div className="resultsOverview">
-               <h1>{pageTitle}</h1>
-             </div>
-             <p className="resultsContent">Keine Suchergebnisse gefunden!</p>
-           </div>
-          ); 
+        );
+    }
+    else {
+      return <NoSearchResultsPage pageTitle={pageTitle} />
     } 
-   } else return null;
   }
 
   handleBrowseResults(e) {
     const event = e || window.event;
+    let eveTarget = event.target || event.srcElement;
 
     // if click-event was triggered by img-element, get parent-div that stores the id
-    let eveTarget = event.target || event.srcElement;
     while (eveTarget.nodeName !== 'DIV') {
       eveTarget = eveTarget.parentNode;
     }
@@ -147,14 +105,6 @@ class SearchResults extends Component {
         document.getElementById(searchResultsDivID).scrollIntoView(true);
       }
     }
-  }
-
-  //create buttons that open the linked documents (PDF, DOC or webpage) in a new tab
-  createDocumentLinkButtons(weblinks) {
-    let links = [];   
-    
- 
-    return <span>{links}</span>;
   }
 }
 

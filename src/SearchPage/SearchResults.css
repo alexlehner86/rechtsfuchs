@@ -39,8 +39,11 @@
     padding: 0; }
 
 .arrowLink {
+  display: inline-block;
+  width: 30px;
+  height: 24px;
   margin: 0 2px;
-  padding: 3px 8px;
+  padding: 0 8px;
   background-color: white;
   border: 1px solid #555;
   vertical-align: middle; }
@@ -153,10 +156,6 @@
   margin: 0 auto 10px;
   padding: 0;
   width: 68px; }
-  .hCenterBrowseButtons .arrowLink {
-    display: inline-block;
-    width: 30px;
-    height: 30px; }
 
 @media (max-width: 1000px) {
   .resultsGrid {

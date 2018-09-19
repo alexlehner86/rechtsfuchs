@@ -5,8 +5,8 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CreateProjectPage, EditProjectPage, DeleteProjectPage, 
-         CreateProjectDocPage, DeleteProjectDocPage } from './Pages';
+import { CreateProject, CreateProjectDocument, DeleteProject,
+         DeleteProjectDocument, EditProject } from './';
 
 class ProjectManagement extends Component {
 
@@ -23,11 +23,11 @@ class ProjectManagement extends Component {
               {alertProjectMgmt.message &&
                 <div className={`alert ${alertProjectMgmt.type}`}>{alertProjectMgmt.message}</div>
               }
-              {alertProjectMgmt.overlayToDisplay === 'CreateProject' && <CreateProjectPage />}
-              {alertProjectMgmt.overlayToDisplay === 'EditProject' && <EditProjectPage />}
-              {alertProjectMgmt.overlayToDisplay === 'DeleteProject' && <DeleteProjectPage />}
-              {alertProjectMgmt.overlayToDisplay === 'CreateProjectDoc' && <CreateProjectDocPage />}
-              {alertProjectMgmt.overlayToDisplay === 'DeleteProjectDoc' && <DeleteProjectDocPage />}
+              {alertProjectMgmt.overlayToDisplay === 'CreateProject' && <CreateProject />}
+              {alertProjectMgmt.overlayToDisplay === 'EditProject' && <EditProject />}
+              {alertProjectMgmt.overlayToDisplay === 'DeleteProject' && <DeleteProject />}
+              {alertProjectMgmt.overlayToDisplay === 'CreateProjectDoc' && <CreateProjectDocument />}
+              {alertProjectMgmt.overlayToDisplay === 'DeleteProjectDoc' && <DeleteProjectDocument />}
             </div>
           </div>
       );

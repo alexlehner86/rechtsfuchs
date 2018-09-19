@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions, alertActionsProjectMgmt } from '../../_actions';
+import { projectActions, alertActionsProjectMgmt } from '../_actions';
 
-class CreateProjectPage extends React.Component {
+class CreateProject extends React.Component {
     constructor(props) {
         super(props);
 
@@ -18,40 +18,6 @@ class CreateProjectPage extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleExit = this.handleExit.bind(this);
-    }
-
-    // save changes in the form to the component's state
-    handleChange(event) {
-        const { name, value } = event.target;
-        const { project } = this.state;
-        this.setState({
-            project: {
-                ...project,
-                [name]: value
-            }
-        });
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-
-        this.setState({ submitted: true });
-        const { dispatch } = this.props;
-        const { project } = this.state;
-
-        // only save the project in the database, if a project title is set
-        if (project.projectTitle) {
-            if (project.description === '') project.description = '–';
-            dispatch(projectActions.create(project));
-        }
-    }
-
-    handleExit(e) {
-        e.preventDefault();
-        const { dispatch } = this.props;
-
-        //pass 'Clear' to Redux-Store to exit the create project window
-        dispatch(alertActionsProjectMgmt.clearAndOverlayChange("Clear"));
     }
 
     render() {
@@ -89,6 +55,40 @@ class CreateProjectPage extends React.Component {
             </div>
         );
     }
+
+        // save changes in the form to the component's state
+    handleChange(event) {
+        const { name, value } = event.target;
+        const { project } = this.state;
+        this.setState({
+            project: {
+                ...project,
+                [name]: value
+            }
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+
+        this.setState({ submitted: true });
+        const { dispatch } = this.props;
+        const { project } = this.state;
+
+        // only save the project in the database, if a project title is set
+        if (project.projectTitle) {
+            if (project.description === '') project.description = '–';
+            dispatch(projectActions.create(project));
+        }
+    }
+
+    handleExit(e) {
+        e.preventDefault();
+        const { dispatch } = this.props;
+
+        //pass 'Clear' to Redux-Store to exit the create project window
+        dispatch(alertActionsProjectMgmt.clearAndOverlayChange("Clear"));
+    }
 }
 
 function mapStateToProps(state) {
@@ -100,5 +100,5 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedCreateProjectPage = connect(mapStateToProps)(CreateProjectPage);
-export { connectedCreateProjectPage as CreateProjectPage };
+const connectedCreateProjectPage = connect(mapStateToProps)(CreateProject);
+export { connectedCreateProjectPage as CreateProject };

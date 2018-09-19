@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectDocActions, alertActionsProjectMgmt } from '../../_actions';
+import { projectDocActions, alertActionsProjectMgmt } from '../_actions';
 
-class DeleteProjectDocPage extends React.Component {
+class DeleteProjectDocument extends React.Component {
     constructor(props) {
         super(props);
 
@@ -19,23 +19,6 @@ class DeleteProjectDocPage extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleExit = this.handleExit.bind(this);
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        const { dispatch } = this.props;
-        const { projectDoc } = this.state;
-
-        //delete the document in the database
-        dispatch(projectDocActions.delete(projectDoc));
-    }
-
-    handleExit(e) {
-        e.preventDefault();
-        const { dispatch } = this.props;
-
-        //hide the delete project overlay
-        dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
     }
 
     render() {
@@ -62,6 +45,23 @@ class DeleteProjectDocPage extends React.Component {
             </div>
         );
     }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const { dispatch } = this.props;
+        const { projectDoc } = this.state;
+
+        //delete the document in the database
+        dispatch(projectDocActions.delete(projectDoc));
+    }
+
+    handleExit(e) {
+        e.preventDefault();
+        const { dispatch } = this.props;
+
+        //hide the delete project overlay
+        dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
+    }
 }
 
 function mapStateToProps(state) {
@@ -74,5 +74,5 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedDeleteProjectDocPage = connect(mapStateToProps)(DeleteProjectDocPage);
-export { connectedDeleteProjectDocPage as DeleteProjectDocPage }; 
+const connectedDeleteProjectDocPage = connect(mapStateToProps)(DeleteProjectDocument);
+export { connectedDeleteProjectDocPage as DeleteProjectDocument }; 

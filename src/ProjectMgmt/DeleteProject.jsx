@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions, alertActionsProjectMgmt } from '../../_actions';
+import { projectActions, alertActionsProjectMgmt } from '../_actions';
 
-class DeleteProjectPage extends React.Component {
+class DeleteProject extends React.Component {
     constructor(props) {
         super(props);
 
@@ -18,23 +18,6 @@ class DeleteProjectPage extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleExit = this.handleExit.bind(this);
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        const { dispatch } = this.props;
-        const { project } = this.state;
-
-        // delete the project and its documents
-        dispatch(projectActions.delete(project.id));
-    }
-
-    handleExit(e) {
-        e.preventDefault();
-        const { dispatch } = this.props;
-
-        // hide the delete project overlay
-        dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
     }
 
     render() {
@@ -61,6 +44,23 @@ class DeleteProjectPage extends React.Component {
             </div>
         );
     }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        const { dispatch } = this.props;
+        const { project } = this.state;
+
+        // delete the project and its documents
+        dispatch(projectActions.delete(project.id));
+    }
+
+    handleExit(e) {
+        e.preventDefault();
+        const { dispatch } = this.props;
+
+        // hide the delete project overlay
+        dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
+    }
 }
 
 function mapStateToProps(state) {
@@ -73,5 +73,5 @@ function mapStateToProps(state) {
     };
 }
 
-const connectedDeleteProjectPage = connect(mapStateToProps)(DeleteProjectPage);
-export { connectedDeleteProjectPage as DeleteProjectPage }; 
+const connectedDeleteProjectPage = connect(mapStateToProps)(DeleteProject);
+export { connectedDeleteProjectPage as DeleteProject }; 

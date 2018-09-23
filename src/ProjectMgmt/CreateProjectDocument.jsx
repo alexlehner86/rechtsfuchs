@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectDocActions, searchRIS_Actions,
-         alertActionsProjectMgmt, alertActionsUserMgmt } from '../_actions';
+import { projectDocActions, alertActionsProjectMgmt, alertActionsUserMgmt } from '../_actions';
 import { ProjectsDropdown } from './components';
 
 class CreateProjectDocument extends React.Component {
@@ -16,7 +15,7 @@ class CreateProjectDocument extends React.Component {
         }
         
         //the state contains the result item's information, ready to be stored in the database
-        const risSearchResultItem = this.getRISsearchResultItem();
+        const { risSearchResultItem } = this.props;
         this.state = {
             projectDoc: {
                 project_id: project_id,
@@ -56,7 +55,7 @@ class CreateProjectDocument extends React.Component {
                     </form>
                 </div>
               );
-        } else if (!projectItems) {
+        } else if (!projectItems) { // Projekte noch nicht fertig im Hintergrund von Datenbank geladen
             return (
                 <div className="col-md-auto">
                     <h2>Dokument speichern</h2>
@@ -110,41 +109,6 @@ class CreateProjectDocument extends React.Component {
                 </div>
               );
         }
-    }
-
-    getRISsearchResultItem() {
-        const { dispatch, searchRIS_Bundesrecht, searchRIS_Landesrecht, 
-                searchRIS_VwGH, searchRIS_VfGH } = this.props;
-        let risSearchResultItem = {};
-
-        // Depending on which searchRIS-object in the redux store contains the "resultID"
-        // the component's state is set with the data retrieved from the corresponding result item
-        if (searchRIS_Bundesrecht.resultID !== undefined) {
-            risSearchResultItem = searchRIS_Bundesrecht.results.resultsArray[searchRIS_Bundesrecht.resultID];
-            
-            //delete resultID from the redux store (by setting it as undefined)
-            dispatch(searchRIS_Actions.addBundesrechtResult());
-
-        } else if (searchRIS_Landesrecht.resultID !== undefined) {
-            risSearchResultItem = searchRIS_Landesrecht.results.resultsArray[searchRIS_Landesrecht.resultID];
-
-            //delete resultID from the redux store (by setting it as undefined)
-            dispatch(searchRIS_Actions.addLandesrechtResult());
-
-        } else if (searchRIS_VfGH.resultID !== undefined) {
-            risSearchResultItem = searchRIS_VfGH.results.resultsArray[searchRIS_VfGH.resultID];
-
-            //delete resultID from the redux store (by setting it as undefined)
-            dispatch(searchRIS_Actions.addVfGHResult());
-
-        } else if (searchRIS_VwGH.resultID !== undefined) {
-            risSearchResultItem = searchRIS_VwGH.results.resultsArray[searchRIS_VwGH.resultID];
-
-            //delete resultID from the redux store (by setting it as undefined)
-            dispatch(searchRIS_Actions.addVwGHResult());
-        }
-
-        return risSearchResultItem;
     }
 
     // save changes in the form to the component's state
@@ -201,16 +165,12 @@ class CreateProjectDocument extends React.Component {
 function mapStateToProps(state) {
     const { user } = state.authentication;
     const projectItems = state.projects.items;
-    const { creatingProjectDoc } = state.projectDocs;
-    const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } = state;
+    const { risSearchResultItem, creatingProjectDoc } = state.projectDocs;
     return {
         user,
         projectItems,
-        creatingProjectDoc,
-        searchRIS_Bundesrecht,
-        searchRIS_Landesrecht,
-        searchRIS_VwGH,
-        searchRIS_VfGH
+        risSearchResultItem,
+        creatingProjectDoc
     };
 }
 

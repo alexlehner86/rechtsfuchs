@@ -16,7 +16,7 @@ class SearchResultsGrid extends Component {
               <p className="resultInfoText">{item.resultInfoText}</p>
               <p className="buttonAndLinksDIV bottomLine">
                 <DocumentLinkButtons weblinks={item.weblinks} /> &nbsp;
-                <AddDocButton resultID={i} addSearchResults={results.reduxActions.addSearchResult} />
+                <AddDocButton resultItem={item} />
               </p>
               <p className="resultSmallInfoText">{item.resultSmallprint}</p>
           </div>

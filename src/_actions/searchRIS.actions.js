@@ -4,19 +4,15 @@ import { alertActionsSearchForm } from '../_actions';
 
 export const searchRIS_Actions = {
     fetchBundesrecht,
-    addBundesrechtResult,
     clearBundesrecht,
 
     fetchLandesrecht,
-    addLandesrechtResult,
     clearLandesrecht,
 
     fetchVwGH,
-    addVwGHResult,
     clearVwGH,
 
     fetchVfGH,
-    addVfGHResult,
     clearVfGH
 };
 
@@ -43,10 +39,6 @@ function fetchBundesrecht(searchQuery) {
     function browseRequest(searchQuery) { return { type: searchRIS_Constants.BUNDESRECHT_BROWSE_REQUEST, searchQuery } }
     function success(results) { return { type: searchRIS_Constants.BUNDESRECHT_SUCCESS, results } }
     function failure(error) { return { type: searchRIS_Constants.BUNDESRECHT_FAILURE, error } }
-}
-
-function addBundesrechtResult(resultID) {
-    return { type: searchRIS_Constants.BUNDESRECHT_ADD_DOCUMENT, resultID };
 }
 
 function clearBundesrecht() {
@@ -78,10 +70,6 @@ function fetchLandesrecht(searchQuery) {
     function failure(error) { return { type: searchRIS_Constants.LANDESRECHT_FAILURE, error } }
 }
 
-function addLandesrechtResult(resultID) {
-    return { type: searchRIS_Constants.LANDESRECHT_ADD_DOCUMENT, resultID };
-}
-
 function clearLandesrecht() {
     return { type: searchRIS_Constants.LANDESRECHT_CLEAR };
   }
@@ -111,10 +99,6 @@ function fetchVwGH(searchQuery) {
     function failure(error) { return { type: searchRIS_Constants.VWGH_FAILURE, error } }
 }
 
-function addVwGHResult(resultID) {
-    return { type: searchRIS_Constants.VWGH_ADD_DOCUMENT, resultID };
-}
-
 function clearVwGH() {
   return { type: searchRIS_Constants.VWGH_CLEAR };
 }
@@ -142,10 +126,6 @@ function fetchVfGH(searchQuery) {
     function browseRequest(searchQuery) { return { type: searchRIS_Constants.VFGH_BROWSE_REQUEST, searchQuery } }
     function success(results) { return { type: searchRIS_Constants.VFGH_SUCCESS, results } }
     function failure(error) { return { type: searchRIS_Constants.VFGH_FAILURE, error } }
-}
-
-function addVfGHResult(resultID) {
-    return { type: searchRIS_Constants.VFGH_ADD_DOCUMENT, resultID };
 }
 
 function clearVfGH() {

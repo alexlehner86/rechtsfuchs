@@ -15,6 +15,12 @@ export function projectDocs(state = {}, action) {
         error: action.error
       };
 
+    case projectDocConstants.ADD_SEARCHRESULT_ITEM_FOR_NEW_PROJECTDOC:
+      return {
+        ...state,
+        risSearchResultItem: action.risSearchResultItem
+      };
+
     case projectDocConstants.CREATE_PROJECTDOC_REQUEST:
       return {
         ...state,

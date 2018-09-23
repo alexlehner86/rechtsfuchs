@@ -26,7 +26,7 @@ class ProjectManagement extends Component {
               {alertProjectMgmt.overlayToDisplay === 'CreateProject' && <CreateProject />}
               {alertProjectMgmt.overlayToDisplay === 'EditProject' && <EditProject />}
               {alertProjectMgmt.overlayToDisplay === 'DeleteProject' && <DeleteProject />}
-              {alertProjectMgmt.overlayToDisplay === 'CreateProjectDoc' && <CreateProjectDocument />}
+              {alertProjectMgmt.overlayToDisplay === 'CreateProjectDocument' && <CreateProjectDocument />}
               {alertProjectMgmt.overlayToDisplay === 'DeleteProjectDoc' && <DeleteProjectDocument />}
             </div>
           </div>

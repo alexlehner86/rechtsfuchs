@@ -113,8 +113,7 @@ function createBundesrechtItemGroup(results) {
     const resultsMetaInfo = getResultsMetaInfo(results);
     let resultsArray = [];
     const reduxActions = {
-        fetchSearchResults: searchRIS_Actions.fetchBundesrecht,
-        addSearchResult: searchRIS_Actions.addBundesrechtResult
+        fetchSearchResults: searchRIS_Actions.fetchBundesrecht
     };
 
     if (resultsMetaInfo.totalNumberOfHits > 0) {
@@ -145,8 +144,7 @@ function createLandesrechtItemGroup(results) {
     const resultsMetaInfo = getResultsMetaInfo(results);
     let resultsArray = [];
     const reduxActions = {
-        fetchSearchResults: searchRIS_Actions.fetchLandesrecht,
-        addSearchResult: searchRIS_Actions.addLandesrechtResult
+        fetchSearchResults: searchRIS_Actions.fetchLandesrecht
     };
 
     if (resultsMetaInfo.totalNumberOfHits > 0) {
@@ -178,8 +176,7 @@ function createVfGHItemGroup(results) {
     const resultsMetaInfo = getResultsMetaInfo(results);
     let resultsArray = [];
     const reduxActions = {
-        fetchSearchResults: searchRIS_Actions.fetchVfGH,
-        addSearchResult: searchRIS_Actions.addVfGHResult
+        fetchSearchResults: searchRIS_Actions.fetchVfGH
     };
 
     if (resultsMetaInfo.totalNumberOfHits > 0) {
@@ -211,8 +208,7 @@ function createVwGHItemGroup(results) {
     const resultsMetaInfo = getResultsMetaInfo(results);
     let resultsArray = [];
     const reduxActions = {
-        fetchSearchResults: searchRIS_Actions.fetchVwGH,
-        addSearchResult: searchRIS_Actions.addVwGHResult
+        fetchSearchResults: searchRIS_Actions.fetchVwGH
     };
 
     if (resultsMetaInfo.totalNumberOfHits > 0) {

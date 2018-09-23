@@ -24,11 +24,6 @@ export function searchRIS_Bundesrecht(state = {}, action) {
       return { 
         error: action.error
       };
-    case searchRIS_Constants.BUNDESRECHT_ADD_DOCUMENT:
-      return {
-        ...state,
-        resultID: action.resultID
-      };
     case searchRIS_Constants.BUNDESRECHT_CLEAR:
       return {};
 
@@ -60,11 +55,6 @@ export function searchRIS_Landesrecht(state = {}, action) {
     case searchRIS_Constants.LANDESRECHT_FAILURE:
       return { 
         error: action.error
-      };
-    case searchRIS_Constants.LANDESRECHT_ADD_DOCUMENT:
-      return {
-        ...state,
-        resultID: action.resultID
       };
     case searchRIS_Constants.LANDESRECHT_CLEAR:
       return {};
@@ -98,11 +88,6 @@ export function searchRIS_VwGH(state = {}, action) {
       return { 
         error: action.error
       };
-    case searchRIS_Constants.VWGH_ADD_DOCUMENT:
-      return {
-        ...state,
-        resultID: action.resultID
-      };
     case searchRIS_Constants.VWGH_CLEAR:
       return {};
 
@@ -134,11 +119,6 @@ export function searchRIS_VfGH(state = {}, action) {
     case searchRIS_Constants.VFGH_FAILURE:
       return { 
         error: action.error
-      };
-    case searchRIS_Constants.VFGH_ADD_DOCUMENT:
-      return {
-        ...state,
-        resultID: action.resultID
       };
     case searchRIS_Constants.VFGH_CLEAR:
       return {};

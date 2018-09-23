@@ -4,6 +4,7 @@ import { alertActionsProjectMgmt, projectActions } from './';
 
 export const projectDocActions = {
     getAllByProjectId,
+    addRISsearchResultItem,
     create,
     selectProjectDoc,
     update,
@@ -25,6 +26,12 @@ function getAllByProjectId(project_id) {
     function request(project_id) { return { type: projectDocConstants.GETPROJECTDOCS_BYPROJECTID_REQUEST, project_id } }
     function success(projectDocs) { return { type: projectDocConstants.GETPROJECTDOCS_BYPROJECTID_SUCCESS, projectDocs } }
     function failure(error) { return { type: projectDocConstants.GETPROJECTDOCS_BYPROJECTID_FAILURE, error } }
+}
+
+function addRISsearchResultItem(risSearchResultItem) {
+    return dispatch => {
+        dispatch( { type: projectDocConstants.ADD_SEARCHRESULT_ITEM_FOR_NEW_PROJECTDOC, risSearchResultItem } );
+    }
 }
 
 //Legt ein neues Projekt-Dokument in der DB an und fügt es dem projectDocs-Array im Redux-State hinzu

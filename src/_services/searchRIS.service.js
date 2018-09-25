@@ -12,7 +12,7 @@ export const searchRIS_Service = {
 };
 
 function fetchBundesrecht(searchQuery) {
-    const myParams =  'Seitennummer='    + searchQuery.seitennummer
+    const myParams =  'Seitennummer='    + searchQuery.pageNumber
                        +'&Suchworte='      + searchQuery.suchworte
                        +'&Fassung.VonInkrafttretedatum=' + searchQuery.datumVon
                        +'&Fassung.BisInkrafttretedatum=' + searchQuery.datumBis
@@ -26,7 +26,7 @@ function fetchBundesrecht(searchQuery) {
 
 function fetchLandesrecht(searchQuery) {
     const sucheinschraenkungNachBundesland = `&Bundesland.SucheIn${searchQuery.bundesland}=on`;
-    const myParams =  'Seitennummer='    + searchQuery.seitennummer
+    const myParams =  'Seitennummer='    + searchQuery.pageNumber
                        +'&Suchworte='      + searchQuery.suchworte
                        +'&Fassung.VonInkrafttretedatum=' + searchQuery.datumVon
                        +'&Fassung.BisInkrafttretedatum=' + searchQuery.datumBis
@@ -52,7 +52,7 @@ function fetchVfGH(searchQuery) {
         searchDokumenttyp = '';
     }
   
-    const myParams =  'Seitennummer='    + searchQuery.seitennummer
+    const myParams =  'Seitennummer='    + searchQuery.pageNumber
                        +'&Suchworte='      + searchQuery.suchworte
                        +'&Geschaeftszahl=' + searchQuery.vfghGeschaeftszahl
                        +'&Entscheidungsart=' + searchQuery.vfghEntscheidungsart
@@ -77,7 +77,7 @@ function fetchVwGH(searchQuery) {
         searchDokumenttyp = '';
     }
   
-    const myParams =  'Seitennummer='    + searchQuery.seitennummer
+    const myParams =  'Seitennummer='    + searchQuery.pageNumber
                        +'&Suchworte='      + searchQuery.suchworte
                        +'&Geschaeftszahl=' + searchQuery.vwghGeschaeftszahl
                        +'&Entscheidungsart=' + searchQuery.vwghEntscheidungsart

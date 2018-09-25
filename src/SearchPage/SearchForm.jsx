@@ -15,7 +15,7 @@ class SearchForm extends Component {
 
     // the component's state stores the user's search form input
     this.state = {
-      seitennummer: 1,
+      pageNumber: 1,
       suchworte: '',
       datumVon: '',
       datumBis: new Date(),
@@ -77,7 +77,7 @@ class SearchForm extends Component {
       dispatch(alertActionsSearchForm.clear());
 
       const newSearchQuery = {
-        seitennummer: 1,
+        pageNumber: 1,
         suchworte: this.state.suchworte,
         vwghGeschaeftszahl: this.state.vwghGeschaeftszahl,
         vwghEntscheidungsart: this.state.vwghEntscheidungsart,
@@ -162,7 +162,7 @@ class SearchForm extends Component {
     
     //empty the component's state
     const emptySearchQuery = {
-      seitennummer: 1,
+      pageNumber: 1,
       suchworte: '',
       datumVon: '',
       datumBis: new Date(),
@@ -237,7 +237,7 @@ class SearchForm extends Component {
     }
 
     // if there's at least one searchQuery in the redux store, then set the react component's state
-    if (searchQuery.seitennummer) this.setState(searchQuery);
+    if (searchQuery.pageNumber) this.setState(searchQuery);
   }
 
   render() {

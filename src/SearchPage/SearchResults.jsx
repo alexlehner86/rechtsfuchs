@@ -16,7 +16,9 @@ class SearchResults extends Component {
     
     this.handleBrowseResults = this.handleBrowseResults.bind(this);
     this.browseBackwardClick = this.browseBackwardClick.bind(this);
-    this.browseForwardClick  = this.browseForwardClick.bind(this);
+    this.browseForwardClick = this.browseForwardClick.bind(this);
+    this.fetchSearchResultsFromRISatPageNumber = this.fetchSearchResultsFromRISatPageNumber.bind(this);
+    this.scrollToTheTopOfTheSearchResultsDiv = this.scrollToTheTopOfTheSearchResultsDiv.bind(this);
   }
   
   render() {
@@ -46,14 +48,14 @@ class SearchResults extends Component {
 
   handleBrowseResults(e) {
     const event = e || window.event;
-    let eveTarget = event.target || event.srcElement;
+    let eventTarget = event.target || event.srcElement;
 
     // if click-event was triggered by img-element, get parent-div that stores the id
-    while (eveTarget.nodeName !== 'DIV') {
-      eveTarget = eveTarget.parentNode;
+    while (eventTarget.nodeName !== 'DIV') {
+      eventTarget = eventTarget.parentNode;
     }
   
-    switch (eveTarget.id) {
+    switch (eventTarget.id) {
       case 'BrowseBackw':
         this.browseBackwardClick(isNotAtBottomOfPage);
         break;
@@ -67,44 +69,45 @@ class SearchResults extends Component {
         this.browseForwardClick(isAtBottomOfPage);
         break;
       default:
-        console.log('button id not valid!');
+        console.log('Button id not valid!');
     }
   }
 
   browseBackwardClick(atBottomOfPage) {
-    const { dispatch, searchRIS_Data } = this.props;
+    const { results, searchQuery } = this.props.searchRIS_Data;
     
-    if (searchRIS_Data.results.pageNumber > 1) {
-      // fetch data from the ris api and save it to the redux store
-      let newSearchQuery = JSON.parse(JSON.stringify(searchRIS_Data.searchQuery));
-      newSearchQuery.seitennummer--;
-      newSearchQuery.isBrowseAction = true;
-      dispatch(searchRIS_Data.results.reduxActions.fetchSearchResults(newSearchQuery));
-
-      //scroll to the top of the current "SearchResults" element
+    if (results.pageNumber > 1) {
+      this.fetchSearchResultsFromRISatPageNumber(searchQuery.pageNumber - 1);
       if (atBottomOfPage) {
-        const searchResultsDivID = 'SearchResults' + searchRIS_Data.pageTitle;
-        document.getElementById(searchResultsDivID).scrollIntoView(true);
+        this.scrollToTheTopOfTheSearchResultsDiv();
       }
     }
   }
 
   browseForwardClick(atBottomOfPage) {
-    const { dispatch, searchRIS_Data } = this.props;
+    const { results, searchQuery } = this.props.searchRIS_Data;
 
-    if (searchRIS_Data.results.pageNumber < searchRIS_Data.results.totalNumberOfPages) {
-      // fetch data from the ris api and save it to the redux store
-      let newSearchQuery = JSON.parse(JSON.stringify(searchRIS_Data.searchQuery));
-      newSearchQuery.seitennummer++;
-      newSearchQuery.isBrowseAction = true;
-      dispatch(searchRIS_Data.results.reduxActions.fetchSearchResults(newSearchQuery));
-
-      //scroll to the top of the current "SearchResults" element
+    if (results.pageNumber < results.totalNumberOfPages) {
+      this.fetchSearchResultsFromRISatPageNumber(searchQuery.pageNumber + 1);
       if (atBottomOfPage) {
-        const searchResultsDivID = 'SearchResults' + searchRIS_Data.pageTitle;
-        document.getElementById(searchResultsDivID).scrollIntoView(true);
+        this.scrollToTheTopOfTheSearchResultsDiv();
       }
     }
+  }
+
+  fetchSearchResultsFromRISatPageNumber(pageNumber) {
+    const { dispatch, searchRIS_Data } = this.props;
+
+    let newSearchQuery = JSON.parse(JSON.stringify(searchRIS_Data.searchQuery));
+    newSearchQuery.pageNumber = pageNumber;
+    newSearchQuery.isBrowseAction = true;
+    dispatch(searchRIS_Data.results.reduxActions.fetchSearchResults(newSearchQuery));
+  }
+
+  scrollToTheTopOfTheSearchResultsDiv() {
+    const { pageTitle } = this.props.searchRIS_Data;
+    const searchResultsDivID = 'SearchResults' + pageTitle;
+    document.getElementById(searchResultsDivID).scrollIntoView(true);
   }
 }
 

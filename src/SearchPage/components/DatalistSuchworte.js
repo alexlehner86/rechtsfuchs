@@ -1,7 +1,7 @@
 import React from 'react';
 
-export const datalistSuchworte = (
-    <datalist id="Begriffe">
+const datalistSuchworte = (
+    <datalist id="Begriffe" className="hidden">
      <option value="Absetzbetrag"/>
      <option value="AG"/>
      <option value="Aktiengesellschaft"/>
@@ -93,3 +93,5 @@ export const datalistSuchworte = (
      <option value="Wohnbausteuer"/>
     </datalist>
    );
+
+export { datalistSuchworte };

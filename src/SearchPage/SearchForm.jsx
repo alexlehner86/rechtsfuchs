@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { SearchFormTopInputFields, RechtsquellenItemBundesrecht, RechtsquellenItemLandesrecht,
+         RechtsquellenItemVfgh, RechtsquellenItemVwgh } from './components';
 import { alertActionsSearchForm, searchRIS_Actions } from '../_actions';
-
-import 'moment/locale/de-at.js';
-import { DatePickerInput } from 'rc-datepicker';
-import moment from 'moment';
-import $ from 'jquery';
-import { datalistSuchworte } from './datalists';
 import './SearchForm.css';
+
+import $ from 'jquery';
+import moment from 'moment';
 
 class SearchForm extends Component {
   constructor(props) {
@@ -35,8 +34,41 @@ class SearchForm extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelection = this.handleSelection.bind(this);
+    this.setStateHandler = this.setStateHandler.bind(this);
   }
-  
+
+  render() {
+    // alertSearchForm contains error and success messages
+    const { alertSearchForm} = this.props;
+
+    return (
+      <div className="searchFormWrapper">
+        <h2>Im RIS suchen nach:</h2>
+        {alertSearchForm.message &&
+            <div className={`alert ${alertSearchForm.type}`}>{alertSearchForm.message}</div>
+        }
+        <form onSubmit={this.handleSubmit}>
+          <SearchFormTopInputFields values={this.state} handleChange={this.handleChange} setStateOfParent={this.setStateHandler} />
+          <div className="rechtsquellenContainer">
+            <h3>Rechtsquellen</h3>
+            <RechtsquellenItemBundesrecht values={this.state} handleSelection={this.handleSelection} handleChange={this.handleChange} />
+            <RechtsquellenItemLandesrecht values={this.state} handleSelection={this.handleSelection} handleChange={this.handleChange} />
+            <RechtsquellenItemVfgh values={this.state} handleSelection={this.handleSelection} handleChange={this.handleChange} />
+            <RechtsquellenItemVwgh values={this.state} handleSelection={this.handleSelection} handleChange={this.handleChange} />
+          </div>
+          <div className="centerDIV">
+            <button id="submitButton" className="btn btn-primary" type="submit">Suchen</button>&nbsp;
+            <button id="resetButton" className="btn btn-default" type="reset" onClick={this.handleReset}>Reset</button>
+          </div>
+        </form>
+      </div>
+    );
+  }
+
+  setStateHandler(parameters) {
+    this.setState(parameters);
+  }
+
   handleSubmit(e) {    
     let submitSearchQuery = true;
     let errorMessage = '';
@@ -139,7 +171,7 @@ class SearchForm extends Component {
   }
   
   handleReset(e) {
-    //hide the "Rechtsquellen" (=soruce of law) options
+    // hide the "Rechtsquellen" (=soruce of law) options
     $('#bundesrechtOptionen').hide();
     $('#landesrechtOptionen').hide();
     $('#vwghOptionen').hide();
@@ -150,17 +182,17 @@ class SearchForm extends Component {
     $('#vwghHeader').removeClass('highlightHeader');
     $('#vfghHeader').removeClass('highlightHeader');
 
-    //clear error messages
+    // clear error messages
     const { dispatch } = this.props;
     dispatch(alertActionsSearchForm.clear());
 
-    //clear the data in the redux store
+    // clear the data in the redux store
     dispatch(searchRIS_Actions.clearBundesrecht());
     dispatch(searchRIS_Actions.clearLandesrecht());
     dispatch(searchRIS_Actions.clearVwGH());
     dispatch(searchRIS_Actions.clearVfGH());
     
-    //empty the component's state
+    // empty the component's state
     const emptySearchQuery = {
       pageNumber: 1,
       suchworte: '',
@@ -209,203 +241,28 @@ class SearchForm extends Component {
   componentDidMount() {
     // When the user switches back from a different section of the website to the SearchPage and
     // there's a searchQuery stored in the redux store, then fill out the search form correspondingly
-    const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } = this.props;
-    let searchQuery = {};
-    if (searchRIS_Bundesrecht.searchQuery) {
-      searchQuery = searchRIS_Bundesrecht.searchQuery;
-      $("#bundesrecht").prop("checked", true);
-      $('#bundesrechtHeader').addClass('highlightHeader');
-      $('#bundesrechtOptionen').show();
-    }
-    if (searchRIS_Landesrecht.searchQuery) {
-      searchQuery = searchRIS_Landesrecht.searchQuery;
-      $("#landesrecht").prop("checked", true);
-      $('#landesrechtHeader').addClass('highlightHeader');
-      $('#landesrechtOptionen').show();
-    }
-    if (searchRIS_VwGH.searchQuery) {
-      searchQuery = searchRIS_VwGH.searchQuery;
-      $("#vwgh").prop("checked", true);
-      $('#vwghHeader').addClass('highlightHeader');
-      $('#vwghOptionen').show();
-    }
-    if (searchRIS_VfGH.searchQuery) {
-      searchQuery = searchRIS_VfGH.searchQuery;
-      $("#vfgh").prop("checked", true);
-      $('#vfghHeader').addClass('highlightHeader');
-      $('#vfghOptionen').show();
-    }
+    const rechtsquellenItems = [ { bundesrecht: this.props.searchRIS_Bundesrecht },
+                                 { landesrecht: this.props.searchRIS_Landesrecht },
+                                 { vfgh: this.props.searchRIS_VfGH },
+                                 { vwgh: this.props.searchRIS_VwGH } ];
+    let searchQuery = null;
+
+    rechtsquellenItems.forEach(item => {
+      const rechtsquelleId = Object.keys(item)[0];
+      if (item[rechtsquelleId].searchQuery) {
+        searchQuery = item[rechtsquelleId].searchQuery;
+        this.setRechtsquelleCheckboxToTrueAndShowOptions(rechtsquelleId);
+      }
+    });
 
     // if there's at least one searchQuery in the redux store, then set the react component's state
-    if (searchQuery.pageNumber) this.setState(searchQuery);
+    if (searchQuery) this.setState(searchQuery);
   }
 
-  render() {
-    //alertSearchForm contains error and success messages
-    const { alertSearchForm} = this.props;
-
-    return (
-          <div className="searchFormWrapper">
-            {datalistSuchworte}
-        
-            <h2>Im RIS suchen nach:</h2>
-            {alertSearchForm.message &&
-                <div className={`alert ${alertSearchForm.type}`}>{alertSearchForm.message}</div>
-            }
-            <form className="searchForm" onSubmit={this.handleSubmit}>
-              <p>Suchworte:</p><input id="suchworte" list="Begriffe" value={this.state.suchworte} onChange={this.handleChange} />
-              <p>Datum von:</p>
-                <DatePickerInput 
-                  displayFormat='DD/MM/YYYY'
-                  returnFormat='YYYY-MM-DD'
-                  className='datumInputStyle'
-                  onChange={(jsDate, dateString) => this.setState({ datumVon: dateString })}
-                  value={this.state.datumVon}
-                  showOnInputClick
-                  placeholder=''
-                  locale='de-at'
-                /><br />
-              <p>bis:</p>
-                <DatePickerInput 
-                  displayFormat='DD/MM/YYYY'
-                  returnFormat='YYYY-MM-DD'
-                  className='datumInputStyle'
-                  onChange={(jsDate, dateString) => this.setState({ datumBis: dateString })}
-                  value={this.state.datumBis}
-                  showOnInputClick
-                  placeholder=''
-                  locale='de-at'
-                /><br />
-                
-                <div className="rechtsquellenContainer">
-                 <h3>Rechtsquellen</h3>
-                 
-                 {/* Bundesrecht */}
-                 <div className="rechtsquellenItemsContainer">
-                   <div id="bundesrechtHeader" className="rechtsquellenItemsHeader">
-                     <input type="checkbox" id="bundesrecht" value="bundesrecht" onClick={this.handleSelection} />
-                     <p>Bundesrecht</p>
-                   </div>
-                   <div id="bundesrechtOptionen" className="optionenContainer">
-                    <div className="optionZeile">
-                     <p>Rechtstyp:</p>
-                     <select id="bundesrechtTyp" value={this.state.bundesrechtTyp} onChange={this.handleChange}>
-                      <option value="">Alle</option>
-                      <option value="BVG">Bundesverfassungsgesetze</option>
-                      <option value="BG">Bundesgesetze</option>
-                      <option value="V">Verordnungen</option>
-                      <option value="K">Kundmachungen</option>
-                      <option value="Vertrag">Bi- & multilaterale Verträge</option>
-                     </select> 
-                    </div>
-                   </div>
-                 </div>
-                 
-                 {/* Landesrecht */}
-                 <div className="rechtsquellenItemsContainer">
-                   <div id="landesrechtHeader" className="rechtsquellenItemsHeader">
-                     <input type="checkbox" id="landesrecht" value="landesrecht" onClick={this.handleSelection} />
-                     <p>Landesrecht</p>
-                   </div>
-                   <div id="landesrechtOptionen" className="optionenContainer">
-                    <div className="optionZeile">
-                     <p>Bundesland:</p>
-                     <select id="bundesland" value={this.state.bundesland} onChange={this.handleChange}>
-                      <option value="">Alle</option>
-                      <option value="Burgenland">Burgenland</option>
-                      <option value="Kaernten">Kärnten</option>
-                      <option value="Niederoesterreich">Niederösterreich</option>
-                      <option value="Oberoesterreich">Oberösterreich</option>
-                      <option value="Salzburg">Salzburg</option>
-                      <option value="Steiermark">Steiermark</option>
-                      <option value="Tirol">Tirol</option>
-                      <option value="Vorarlberg">Vorarlberg</option>
-                      <option value="Wien">Wien</option>
-                     </select>
-                    </div>
-                    <div className="optionZeile">
-                     <p>Rechtstyp:</p>
-                     <select id="landesrechtTyp" value={this.state.landesrechtTyp} onChange={this.handleChange}>
-                      <option value="">Alle</option>
-                      <option value="LVG">Landesverfassungsgesetze</option>
-                      <option value="LG">Landesgesetze</option>
-                      <option value="V">Verordnungen</option>
-                      <option value="K">Kundmachungen</option>
-                      <option value="Vereinbarung gem. Art. 15a B-VG">Vereinbarung gem. Art. 15a B-VG</option>
-                     </select> 
-                    </div>
-                   </div>
-                 </div>
-                 
-                 {/* VfGH */}
-                 <div className="rechtsquellenItemsContainer">
-                   <div id="vfghHeader" className="rechtsquellenItemsHeader">
-                     <input type="checkbox" id="vfgh" value="vfgh" onClick={this.handleSelection} />
-                     <p>Verfassungsgerichtshof</p>
-                   </div>
-                   <div id="vfghOptionen" className="optionenContainer">
-                    <div className="optionZeile">
-                     <p>Geschäftszahl:</p>
-                     <input id="vfghGeschaeftszahl" value={this.state.vfghGeschaeftszahl} onChange={this.handleChange} /><br />
-                    </div>
-                    <div className="optionZeile">
-                     <p>Entscheidungsart:</p>
-                     <select id="vfghEntscheidungsart" value={this.state.vfghEntscheidungsart} onChange={this.handleChange}>
-                      <option value="">Alle</option>
-                      <option value="Beschluss">Beschluss</option>
-                      <option value="Erkenntnis">Erkenntnis</option>
-                      <option value="Vergleich">Vergleich</option>
-                     </select> 
-                    </div>
-                    <div className="optionZeile">
-                     <p>Dokumenttyp:</p>
-                     <select id="vfghDokumenttyp" value={this.state.vfghDokumenttyp} onChange={this.handleChange}>
-                      <option value="">Alle</option>
-                      <option value="Rechtssatz">Rechtssatz</option>
-                      <option value="Entscheidungstext">Entscheidungstext</option>
-                     </select> 
-                    </div>
-                   </div>
-                  </div>
-
-                {/* VwGH */}
-                <div className="rechtsquellenItemsContainer">
-                   <div id="vwghHeader" className="rechtsquellenItemsHeader">
-                     <input type="checkbox" id="vwgh" value="vwgh" onClick={this.handleSelection} />
-                     <p>Verwaltungsgerichtshof</p>
-                   </div>
-                   <div id="vwghOptionen" className="optionenContainer">
-                    <div className="optionZeile">
-                     <p>Geschäftszahl:</p>
-                     <input id="vwghGeschaeftszahl" value={this.state.vwghGeschaeftszahl} onChange={this.handleChange} /><br />
-                    </div>
-                    <div className="optionZeile">
-                     <p>Entscheidungsart:</p>
-                     <select id="vwghEntscheidungsart" value={this.state.vwghEntscheidungsart} onChange={this.handleChange}>
-                      <option value="">Alle</option>
-                      <option value="Beschluss">Beschluss</option>
-                      <option value="Erkenntnis">Erkenntnis</option>
-                     </select> 
-                    </div>
-                    <div className="optionZeile">
-                     <p>Dokumenttyp:</p>
-                     <select id="vwghDokumenttyp" value={this.state.vwghDokumenttyp} onChange={this.handleChange}>
-                      <option value="">Alle</option>
-                      <option value="Rechtssatz">Rechtssatz</option>
-                      <option value="Entscheidungstext">Entscheidungstext</option>
-                     </select> 
-                    </div>
-                   </div>
-                 </div>
-                </div>
-                 
-              <div className="centerDIV">
-                <button id="submitButton" className="btn btn-primary" type="submit">Suchen</button>&nbsp;
-                <button id="resetButton" className="btn btn-default" type="reset" onClick={this.handleReset}>Reset</button>
-              </div>
-            </form>
-          </div>
-    );
+  setRechtsquelleCheckboxToTrueAndShowOptions(rechtsquelleId) {
+    $(`#${rechtsquelleId}`).prop('checked', true);
+    $(`#${rechtsquelleId}Header`).addClass('highlightHeader');
+    $(`#${rechtsquelleId}Optionen`).show();
   }
 }
 

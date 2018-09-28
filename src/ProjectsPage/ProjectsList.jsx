@@ -88,7 +88,7 @@ class ProjectsList extends Component {
         { loadingProjects && (
           <div className="projectListWrapper">
             <h2>Meine Projekte</h2>
-            <p className="progressAniWrapper2"><img src="./icons/in-progress.gif" alt="In Progress" className="progressAnimation" />&nbsp;Daten werden abgerufen...</p>
+            <p className="progressAniWrapper2"><img src="./icons/in-progress.gif" alt="" className="progressAnimation" />&nbsp;Daten werden abgerufen...</p>
           </div>
         )}
         { /* Der Nutzer hat bereits Projekte angelegt */ }
@@ -100,13 +100,13 @@ class ProjectsList extends Component {
               { selectedProjectID !== undefined && (
                <div className="buttonFloatRight">
                 <button type="button" id="CreateProject" className="btn btn-default btn-sm vAlignBottom" title="Neues Projekt anlegen" onClick={this.handleButton}>
-                  <img src="./icons/add-document.svg" height="16px" alt="Neues Projekt anlegen" />
+                  <img src="./icons/add-document.svg" height="16px" alt="" />
                 </button>
                 <button type="button" id="EditProject" className="btn btn-default btn-sm vAlignBottom" title="Projekt bearbeiten" onClick={this.handleButton}>
-                  <img src="./icons/edit-document.svg" height="16px" alt="Projekt bearbeiten" />
+                  <img src="./icons/edit-document.svg" height="16px" alt="" />
                 </button>
                 <button type="button" id="DeleteProject" className="btn btn-default btn-sm vAlignBottom" title="Projekt löschen" onClick={this.handleButton}>
-                  <img src="./icons/delete-document.svg" height="16px" alt="Projekt löschen" />
+                  <img src="./icons/delete-document.svg" height="16px" alt="" />
                 </button>
                </div>
               )}
@@ -114,13 +114,13 @@ class ProjectsList extends Component {
               { selectedProjectID === undefined && (
                <div className="buttonFloatRight">
                 <button type="button" id="CreateProject" className="btn btn-default btn-sm vAlignBottom" title="Neues Projekt anlegen" onClick={this.handleButton}>
-                  <img src="./icons/add-document.svg" height="16px" alt="Neues Projekt anlegen" />
+                  <img src="./icons/add-document.svg" height="16px" alt="" />
                 </button>
                 <button type="button" id="EditProject" className="btn btn-default btn-sm vAlignBottom" disabled>
-                  <img src="./icons/edit-document.svg" height="16px" alt="Projekt bearbeiten" />
+                  <img src="./icons/edit-document.svg" height="16px" alt="" />
                 </button>
                 <button type="button" id="DeleteProject" className="btn btn-default btn-sm vAlignBottom" disabled>
-                  <img src="./icons/delete-document.svg" height="16px" alt="Projekt löschen" />
+                  <img src="./icons/delete-document.svg" height="16px" alt="" />
                 </button>
                </div>
               )}

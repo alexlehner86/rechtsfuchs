@@ -5,8 +5,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { projectActions, alertActionsUserMgmt, alertActionsSearchForm,
-         alertActionsProjectMgmt } from './_actions';
+import { projectActions, alertActionsUserMgmt, alertActionsProjectMgmt } from './_actions';
 
 import { HomePage } from './HomePage';
 import { UserManagement } from './UserMgmt';
@@ -35,14 +34,6 @@ class App extends Component {
       navChoice: 'Start'  // at the start the website is rendered with the HomePage component
     };
   }
-
-  changeNavChoice(newNavChoice) {
-    // when user switches to the SearchPage, possible alerts are cleared first
-    const { dispatch } = this.props;
-    if (newNavChoice === 'Suche') dispatch(alertActionsSearchForm.clear());
-
-    this.setState( {navChoice: newNavChoice });
-  }
   
   render() {
     const { navChoice }  = this.state;
@@ -54,7 +45,6 @@ class App extends Component {
         <UserManagement />
         <ProjectManagement />
 
-        {/* navigation menu */}
         <nav>
           <Navigation onChangeNavChoice={this.changeNavChoice} />
         </nav>
@@ -72,6 +62,10 @@ class App extends Component {
         </footer>
       </div>
     );
+  }
+
+  changeNavChoice(newNavChoice) {
+    this.setState( { navChoice: newNavChoice });
   }
 }
 

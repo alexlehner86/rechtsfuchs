@@ -26,6 +26,9 @@ function fetchBundesrecht(searchQuery) {
 
 function fetchLandesrecht(searchQuery) {
     const sucheinschraenkungNachBundesland = `&Bundesland.SucheIn${searchQuery.bundesland}=on`;
+    if (searchQuery.bundesland === 'Wien') {
+        searchQuery.landesrechtTyp = convertLandesrechtTypForVienna(searchQuery.landesrechtTyp);
+    }
     const myParams =  'Seitennummer='    + searchQuery.pageNumber
                        +'&Suchworte='      + searchQuery.suchworte
                        +'&Fassung.VonInkrafttretedatum=' + searchQuery.datumVon
@@ -37,6 +40,20 @@ function fetchLandesrecht(searchQuery) {
     const endpoint = `${config.RIS_apiURL}/Landesnormen?${myParams}`;
 
     return fetch(endpoint).then(response => handleResponse(response, createLandesrechtItemGroup));
+}
+
+function convertLandesrechtTypForVienna(landesrechtTyp) {
+    // if "Wien" is chosen, then the "landesrechtTyp" has to be adapted
+    switch (landesrechtTyp) {
+        case 'LG':
+            return 'Landesgesetz';
+        case 'V':
+            return 'Verordnung';
+        case 'K':
+            return 'Kundmachung';
+        default:
+            return landesrechtTyp;
+    }    
 }
 
 function fetchVfGH(searchQuery) {

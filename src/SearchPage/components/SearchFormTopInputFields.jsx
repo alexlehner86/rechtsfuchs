@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { datalistSuchworte } from './';
+import { datalistSuchworte } from '../helpers';
 import 'moment/locale/de-at.js';
 import { DatePickerInput } from 'rc-datepicker';
 

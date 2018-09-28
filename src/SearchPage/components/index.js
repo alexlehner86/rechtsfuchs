@@ -4,6 +4,5 @@ export * from './BrowseButtons';
 export * from './SearchResultsGrid';
 export * from './SearchInProgressPage';
 export * from './NoSearchResultsPage';
-export * from './DatalistSuchworte';
 export * from './SearchFormTopInputFields';
 export * from './SearchFormRechtsquellenItems';

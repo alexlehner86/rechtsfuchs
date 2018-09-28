@@ -88,6 +88,7 @@
   padding: 10px;
   background-color: #eee; }
   .resultBox h4, .resultBoxProjectsPage h4 {
+    padding-right: 12%;
     width: 100%;
     font-size: 13px;
     font-weight: bolder;

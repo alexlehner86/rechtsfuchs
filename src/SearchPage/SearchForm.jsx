@@ -5,19 +5,22 @@ import { SearchFormTopInputFields, RechtsquellenItemBundesrecht, RechtsquellenIt
 import { ErrorMessages } from './helpers';
 import { searchRIS_Actions, alertActionsSearchForm } from '../_actions';
 import './SearchForm.css';
-
 import $ from 'jquery';
 import moment from 'moment';
 
 const rechtsquellenArray = [ 
   { id: 'bundesrecht', reduxObjectName: 'searchRIS_Bundesrecht', 
-    fetchResults: searchRIS_Actions.fetchBundesrecht, clearResults: searchRIS_Actions.clearBundesrecht },
+    fetchResults: searchRIS_Actions.fetchBundesrecht, clearResults: searchRIS_Actions.clearBundesrecht,
+    defaultValues: { bundesrechtTyp: '', bundesrechtParagraphArtAnlTyp: '', bundesrechtParagraphArtAnlNummer: '' } },
   { id: 'landesrecht', reduxObjectName: 'searchRIS_Landesrecht', 
-    fetchResults: searchRIS_Actions.fetchLandesrecht, clearResults: searchRIS_Actions.clearLandesrecht },
+    fetchResults: searchRIS_Actions.fetchLandesrecht, clearResults: searchRIS_Actions.clearLandesrecht,
+    defaultValues: { bundesland: '', landesrechtTyp: '', landesrechtParagraphArtAnlTyp: '', landesrechtParagraphArtAnlNummer: '' } },
   { id: 'vfgh', reduxObjectName: 'searchRIS_VfGH', 
-    fetchResults: searchRIS_Actions.fetchVfGH, clearResults: searchRIS_Actions.clearVfGH },
+    fetchResults: searchRIS_Actions.fetchVfGH, clearResults: searchRIS_Actions.clearVfGH,
+    defaultValues: { vwghGeschaeftszahl: '', vwghEntscheidungsart: '', vwghDokumenttyp: '' } },
   { id: 'vwgh', reduxObjectName: 'searchRIS_VwGH', 
-    fetchResults: searchRIS_Actions.fetchVwGH, clearResults: searchRIS_Actions.clearVwGH }
+    fetchResults: searchRIS_Actions.fetchVwGH, clearResults: searchRIS_Actions.clearVwGH,
+    defaultValues: { vfghGeschaeftszahl: '', vfghEntscheidungsart: '', vfghDokumenttyp: '' } }
 ];
 
 class SearchForm extends Component {
@@ -25,21 +28,7 @@ class SearchForm extends Component {
     super(props);
 
     // the component's state stores the user's search form input
-    this.state = {
-      pageNumber: 1,
-      suchworte: '',
-      datumVon: '',
-      datumBis: new Date(),
-      bundesrechtTyp: '',
-      bundesland: '',
-      landesrechtTyp: '',
-      vwghGeschaeftszahl: '',
-      vwghEntscheidungsart: '',
-      vwghDokumenttyp: '',
-      vfghGeschaeftszahl: '',
-      vfghEntscheidungsart: '',
-      vfghDokumenttyp: ''
-    }
+    this.state = this.getDefaultSearchFormValues();
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -76,6 +65,21 @@ class SearchForm extends Component {
     );
   }
 
+  getDefaultSearchFormValues() {
+    let defaultValues = {
+      pageNumber: 1,
+      suchworte: '',
+      datumVon: '',
+      datumBis: new Date()
+    }
+
+    rechtsquellenArray.forEach(rechtsquelle => {
+      Object.assign(defaultValues, rechtsquelle.defaultValues);
+    });
+
+    return defaultValues;
+  }
+
   componentDidMount() {
     // When the user switches back from a different section of the website to the SearchPage and
     // there's a searchQuery stored in the redux store, then fill out the search form correspondingly
@@ -93,8 +97,8 @@ class SearchForm extends Component {
   }
 
   setRechtsquelleCheckboxToTrueAndShowOptions(rechtsquelleId) {
-    $(`#${rechtsquelleId}`).prop('checked', true);
-    $(`#${rechtsquelleId}Header`).addClass('highlightHeader');
+    $(`#${rechtsquelleId}`).addClass('highlightHeader');
+    $(`#${rechtsquelleId}Checkbox`).prop('checked', true);
     $(`#${rechtsquelleId}Optionen`).show();
   }
 
@@ -118,19 +122,31 @@ class SearchForm extends Component {
   handleSelection(e) {
     // if user selects a "Rechtsquelle" (= source of law), then set the options to their default values,
     // show the options and highlight the "Rechtsquelle"-header (on deselect: hide options and de-highlight)
-    const selectedRechtsquelle = e.target.id;
-    const resetValues = { 
-            bundesrecht: { bundesrechtTyp: '' },
-            landesrecht: { bundesland: '', landesrechtTyp: '' },
-            vwgh: { vwghGeschaeftszahl: '', vwghEntscheidungsart: '', vwghDokumenttyp: '' },
-            vfgh: { vfghGeschaeftszahl: '', vfghEntscheidungsart: '', vfghDokumenttyp: '' }
-    };
+    const event = e || window.event;
+    let eventTarget = event.target || event.srcElement;
+    const triggeringElementIsCheckbox = eventTarget.nodeName === 'INPUT';
 
-    $(`#${selectedRechtsquelle}Header`).toggleClass('highlightHeader');
-    $(`#${selectedRechtsquelle}Optionen`).slideToggle('fast');
-    if ($(`#${selectedRechtsquelle}`).is(':checked')) {
-      this.setState(resetValues[selectedRechtsquelle]);
+    // if click-event was not triggered by the div element, get parent-div that stores the correct id
+    if (eventTarget.nodeName !== 'DIV') {
+      eventTarget = eventTarget.parentNode;
     }
+    const selectedRechtsquelleId = eventTarget.id;
+    
+    if (!triggeringElementIsCheckbox) {
+      this.toggleRechtsquelleCheckbox(selectedRechtsquelleId);
+    }
+
+    $(`#${selectedRechtsquelleId}`).toggleClass('highlightHeader');
+    $(`#${selectedRechtsquelleId}Optionen`).slideToggle('fast');
+    if ($(`#${selectedRechtsquelleId}Checkbox`).is(':checked')) {
+      const defaultValues = rechtsquellenArray.find(rechtsquelle => rechtsquelle.id === selectedRechtsquelleId).defaultValues;
+      this.setState(defaultValues);
+    }
+  }
+
+  toggleRechtsquelleCheckbox(rechtsquelleId) {
+    const rechtsquelleCheckboxStatus = $(`#${rechtsquelleId}Checkbox`).is(':checked');
+    $(`#${rechtsquelleId}Checkbox`).prop('checked', !rechtsquelleCheckboxStatus);
   }
 
   handleSubmit(e) {
@@ -147,7 +163,7 @@ class SearchForm extends Component {
       newSearchQuery.datumBis = this.convertDateIntoFormatYYYYMMDD(this.state.datumBis);
 
       rechtsquellenArray.forEach(rechtsquelle => {
-        if ($(`#${rechtsquelle.id}`).is(':checked')) {
+        if ($(`#${rechtsquelle.id}Checkbox`).is(':checked')) {
           dispatch(rechtsquelle.fetchResults(newSearchQuery));
         } else {
           dispatch(rechtsquelle.clearResults());
@@ -162,9 +178,14 @@ class SearchForm extends Component {
 
   checkUserInputForErrors() {
     let errorMessages = new ErrorMessages();
-     
-    if (!$('#bundesrecht').is(':checked') && !$('#landesrecht').is(':checked') &&
-        !$('#vwgh').is(':checked') && !$('#vfgh').is(':checked')) {
+
+    let isAtLeastOneRechtsquelleChecked = false; 
+    rechtsquellenArray.forEach(rechtsquelle => {
+      if ($(`#${rechtsquelle.id}Checkbox`).is(':checked')) {
+        isAtLeastOneRechtsquelleChecked = true;
+      }
+    });
+    if (!isAtLeastOneRechtsquelleChecked) {
       errorMessages.addMessage('Bitte mindestens eine Rechtsquelle auswählen');
     }
 
@@ -202,13 +223,13 @@ class SearchForm extends Component {
   handleReset(e) {
     this.hideRechtsquellenOptions();
     this.clearDataInReduxStore();
-    this.resetStateValues();
+    this.setState(this.getDefaultSearchFormValues());
   }
 
   hideRechtsquellenOptions() {
     rechtsquellenArray.forEach(rechtsquelle => {
       $(`#${rechtsquelle.id}Optionen`).hide();
-      $(`#${rechtsquelle.id}Header`).removeClass('highlightHeader');
+      $(`#${rechtsquelle.id}`).removeClass('highlightHeader');
     });
   }
 
@@ -219,24 +240,6 @@ class SearchForm extends Component {
       dispatch(rechtsquelle.clearResults());
     });
     dispatch(alertActionsSearchForm.clear());
-  }
-
-  resetStateValues() {
-    this.setState({
-      pageNumber: 1,
-      suchworte: '',
-      datumVon: '',
-      datumBis: new Date(),
-      bundesrechtTyp: '',
-      bundesland: '',
-      landesrechtTyp: '',
-      vwghGeschaeftszahl: '',
-      vwghEntscheidungsart: '',
-      vwghDokumenttyp: '',
-      vfghGeschaeftszahl: '',
-      vfghEntscheidungsart: '',
-      vfghDokumenttyp: ''
-    });
   }
 }
 

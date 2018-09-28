@@ -27,6 +27,8 @@
   margin: 0 0 10px 10px;
   padding: 5px;
   width: 66%;
+  border: 1px solid #ccc;
+  border-radius: 3px;
   font-size: 10pt;
   text-align: center; }
 
@@ -64,13 +66,6 @@
   padding: 0;
   margin: 0;
   border-bottom: 1px solid black; }
-  .rechtsquellenItemsContainer input {
-    margin: 2px 0;
-    padding: 0;
-    display: inline-block;
-    width: 20px;
-    float: left;
-    vertical-align: middle; }
   .rechtsquellenItemsContainer p {
     margin: 0;
     padding: 0;
@@ -82,7 +77,15 @@
   margin: 0;
   padding: 7px 5px;
   width: 100%;
-  height: 35px; }
+  height: 35px;
+  cursor: pointer; }
+  .rechtsquellenItemsHeader input {
+    margin-top: 3px;
+    padding: 0;
+    display: inline-block;
+    width: 20px;
+    float: left;
+    cursor: pointer; }
 
 .highlightHeader {
   color: white;
@@ -95,27 +98,32 @@
 
 .optionZeile {
   width: 100%;
-  height: 37px;
-  padding: 4px 0;
-  margin: 0;
+  height: 40px;
+  padding-top: 5px;
   vertical-align: middle;
   background-color: #f0f4f5; }
-  .optionZeile p {
-    padding: 5px 5px 0 0;
+  .optionZeile p, .optionZeile input, .optionZeile select {
     margin: 0;
+    font-size: 9pt; }
+  .optionZeile p {
+    padding: 6px 5px 0 0;
     width: 42%;
-    font-size: 9pt;
     text-align: right;
     vertical-align: middle; }
-  .optionZeile input {
-    padding: 4px;
-    margin: 0;
-    width: 54%;
-    font-size: 9pt;
-    text-align: center; }
-  .optionZeile select {
-    padding: 5px;
-    margin: 0;
+  .optionZeile input, .optionZeile select {
+    padding: 0;
     width: 55%;
-    font-size: 9pt;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: white;
     text-align: center; }
+  .optionZeile input {
+    float: none; }
+
+#bundesrechtParagraphArtAnlNummer, #landesrechtParagraphArtAnlNummer {
+  width: 24%;
+  margin-left: 1%; }
+
+#bundesrechtParagraphArtAnlTyp, #landesrechtParagraphArtAnlTyp {
+  width: 30%; }

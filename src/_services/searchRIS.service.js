@@ -12,12 +12,15 @@ export const searchRIS_Service = {
 };
 
 function fetchBundesrecht(searchQuery) {
-    const myParams =  'Seitennummer='    + searchQuery.pageNumber
-                       +'&Suchworte='      + searchQuery.suchworte
-                       +'&Fassung.VonInkrafttretedatum=' + searchQuery.datumVon
-                       +'&Fassung.BisInkrafttretedatum=' + searchQuery.datumBis
-                       +'&Typ=' + searchQuery.bundesrechtTyp
-                       +'&Sortierung.SortedByColumn=Inkrafttretedatum&Sortierung.SortDirection=Descending';
+    const myParams = 'Seitennummer=' + searchQuery.pageNumber
+                       + '&Suchworte=' + searchQuery.suchworte
+                       + '&Abschnitt.Von=' + searchQuery.bundesrechtParagraphArtAnlNummer
+                       + '&Abschnitt.Bis=' + searchQuery.bundesrechtParagraphArtAnlNummer
+                       + '&Abschnitt.Typ=' + searchQuery.bundesrechtParagraphArtAnlTyp
+                       + '&Fassung.VonInkrafttretedatum=' + searchQuery.datumVon
+                       + '&Fassung.BisInkrafttretedatum=' + searchQuery.datumBis
+                       + '&Typ=' + searchQuery.bundesrechtTyp
+                       + '&Sortierung.SortedByColumn=Inkrafttretedatum&Sortierung.SortDirection=Descending';
 
     const endpoint = `${config.RIS_apiURL}/Bundesnormen?${myParams}`;
 
@@ -29,13 +32,16 @@ function fetchLandesrecht(searchQuery) {
     if (searchQuery.bundesland === 'Wien') {
         searchQuery.landesrechtTyp = convertLandesrechtTypForVienna(searchQuery.landesrechtTyp);
     }
-    const myParams =  'Seitennummer='    + searchQuery.pageNumber
-                       +'&Suchworte='      + searchQuery.suchworte
-                       +'&Fassung.VonInkrafttretedatum=' + searchQuery.datumVon
-                       +'&Fassung.BisInkrafttretedatum=' + searchQuery.datumBis
-                       +'&Typ=' + searchQuery.landesrechtTyp
+    const myParams =  'Seitennummer=' + searchQuery.pageNumber
+                       + '&Suchworte=' + searchQuery.suchworte
+                       + '&Abschnitt.Von=' + searchQuery.landesrechtParagraphArtAnlNummer
+                       + '&Abschnitt.Bis=' + searchQuery.landesrechtParagraphArtAnlNummer
+                       + '&Abschnitt.Typ=' + searchQuery.landesrechtParagraphArtAnlTyp
+                       + '&Fassung.VonInkrafttretedatum=' + searchQuery.datumVon
+                       + '&Fassung.BisInkrafttretedatum=' + searchQuery.datumBis
+                       + '&Typ=' + searchQuery.landesrechtTyp
                        + sucheinschraenkungNachBundesland                       
-                       +'&Sortierung.SortedByColumn=Inkrafttretedatum&Sortierung.SortDirection=Descending';
+                       + '&Sortierung.SortedByColumn=Inkrafttretedatum&Sortierung.SortDirection=Descending';
                        
     const endpoint = `${config.RIS_apiURL}/Landesnormen?${myParams}`;
 

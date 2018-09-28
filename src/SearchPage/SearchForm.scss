@@ -1,3 +1,6 @@
+$inputSelectBorder: 1px solid #ccc;
+$inputSelectBorderRadius: 3px;
+
 .searchFormWrapper {
   padding: 20px;
   background-color: #DDD;
@@ -35,6 +38,8 @@
     margin: 0 0 10px 10px;
     padding: 5px;
     width: 66%;
+    border: $inputSelectBorder;
+    border-radius: $inputSelectBorderRadius;
     font-size: 10pt;
     text-align: center;
   }
@@ -81,15 +86,6 @@
   margin: 0;
   border-bottom: 1px solid black;
 
-  input {
-    margin: 2px 0;
-    padding: 0;
-    display: inline-block;
-    width: 20px;
-    float: left;
-    vertical-align: middle;
-  }
-
   p {
     margin: 0;
     padding: 0;
@@ -104,6 +100,16 @@
   padding: 7px 5px;
   width: 100%;
   height: 35px;
+  cursor: pointer;
+
+  input {
+    margin-top: 3px;
+    padding: 0;
+    display: inline-block;
+    width: 20px;
+    float: left;
+    cursor: pointer;
+  }
 }
 
 .highlightHeader {
@@ -119,34 +125,43 @@
 
 .optionZeile {
   width: 100%;
-  height: 37px;
-  padding: 4px 0;
-  margin: 0;
+  height: 40px;
+  padding-top: 5px;
   vertical-align: middle;
   background-color: #f0f4f5;
 
-  p {
-    padding: 5px 5px 0 0;
+  p, input, select {
     margin: 0;
-    width: 42%;
     font-size: 9pt;
+  }
+
+  p {
+    padding: 6px 5px 0 0;
+    width: 42%;
     text-align: right;
     vertical-align: middle;
   }
 
-  input {
-    padding: 4px;
-    margin: 0;
-    width: 54%;
-    font-size: 9pt;
+  input, select {
+    padding: 0;
+    width: 55%;
+    height: 30px;
+    border: $inputSelectBorder;
+    border-radius: $inputSelectBorderRadius;
+    background-color: white;
     text-align: center;
   }
 
-  select {
-    padding: 5px;
-    margin: 0;
-    width: 55%;
-    font-size: 9pt;
-    text-align: center;
+  input {
+    float: none;
   }
+}
+
+#bundesrechtParagraphArtAnlNummer, #landesrechtParagraphArtAnlNummer {
+  width: 24%;
+  margin-left: 1%;
+}
+
+#bundesrechtParagraphArtAnlTyp, #landesrechtParagraphArtAnlTyp {
+  width: 30%;
 }

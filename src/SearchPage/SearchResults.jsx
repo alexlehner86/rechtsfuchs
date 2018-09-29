@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { SearchInProgressPage, SearchResultsGrid, NoSearchResultsPage,
-         BrowseButtonsAtTop, BrowseButtonsAtBottom } from './components';
+import { SearchInProgressPage, SearchResultsGrid, NoSearchResultsPage, SearchResultsBrowseButtons } from './components';
 
 const isAtBottomOfPage = true;
 const isNotAtBottomOfPage = false;
@@ -33,11 +32,11 @@ class SearchResults extends Component {
            <div id={searchResultsDivID} className="resultsDIV">
              <div className="resultsOverview">
                <h1>{pageTitle}</h1><br />
-               <p>(Seite {results.pageNumber} von {results.totalNumberOfPagesFormatted}, Anzahl Treffer: {results.totalNumberOfHitsFormatted})</p>
-               <BrowseButtonsAtTop handleBrowseResults={this.handleBrowseResults} />
+               <p>(Seite {results.pageNumber} von {results.totalNumberOfPagesFormatted}, Anzahl Treffer: {results.totalNumberOfHitsFormatted})</p>    
              </div>
+             <SearchResultsBrowseButtons position="Top" handleBrowseResults={this.handleBrowseResults} />
              <SearchResultsGrid results={results} />
-             <BrowseButtonsAtBottom handleBrowseResults={this.handleBrowseResults} />
+             <SearchResultsBrowseButtons position="Bottom" handleBrowseResults={this.handleBrowseResults} />
            </div>
         );
     }
@@ -56,16 +55,16 @@ class SearchResults extends Component {
     }
   
     switch (eventTarget.id) {
-      case 'BrowseBackw':
+      case 'BrowseBackwardTop':
         this.browseBackwardClick(isNotAtBottomOfPage);
         break;
-      case 'BrowseBackw-Bottom':
+      case 'BrowseBackwardBottom':
         this.browseBackwardClick(isAtBottomOfPage);
         break;
-      case 'BrowseForw':
+      case 'BrowseForwardTop':
         this.browseForwardClick(isNotAtBottomOfPage);
         break;
-      case 'BrowseForw-Bottom':
+      case 'BrowseForwardBottom':
         this.browseForwardClick(isAtBottomOfPage);
         break;
       default:

@@ -88,7 +88,7 @@
   padding: 10px;
   background-color: #eee; }
   .resultBox h4, .resultBoxProjectsPage h4 {
-    padding-right: 12%;
+    padding-right: 40px;
     width: 100%;
     font-size: 13px;
     font-weight: bolder;
@@ -125,16 +125,17 @@
 
 .itemNrDIV {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: -4px;
+  right: -4px;
   margin: 0;
-  padding: 3px;
+  padding: 4px;
   min-width: 40px;
   font-size: 11pt;
-  font-weight: bolder;
+  border-radius: 4px;
+  font-weight: 500;
   text-align: center;
   background-color: #4a4a4a;
-  color: white; }
+  color: #fefefe; }
 
 .deleteButtonDIV {
   position: absolute;
@@ -153,10 +154,15 @@
   background-color: darkred;
   cursor: pointer; }
 
-.hCenterBrowseButtons {
-  margin: 0 auto 10px;
+.hCenterBrowseButtonsTop, .hCenterBrowseButtonsBottom {
   padding: 0;
   width: 68px; }
+
+.hCenterBrowseButtonsTop {
+  margin: 10px auto 0; }
+
+.hCenterBrowseButtonsBottom {
+  margin: 0 auto 10px; }
 
 @media (max-width: 1000px) {
   .resultsGrid {

@@ -27,7 +27,8 @@ function getAllByUsername(username) {
         headers: authHeader()
     };
 
-    return fetch(`${config.mongoDB_apiUrl}/projects/ofuser/${username}`, requestOptions).then(handleResponse);
+    return fetch(`${config.mongoDB_apiUrl}/projects/ofuser/${username}`, requestOptions)
+           .then(response => handleResponse(response, sortByProjectTitleAlphabetically));
 }
 
 function getById(id) {
@@ -78,7 +79,7 @@ function deleteAllByUsername(username) {
     return fetch(`${config.mongoDB_apiUrl}/projects/ofuser/${username}`, requestOptions).then(handleResponse);
 }
 
-function handleResponse(response) {
+function handleResponse(response, processDataFunction) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
         if (!response.ok) {
@@ -91,6 +92,20 @@ function handleResponse(response) {
             return Promise.reject(error);
         }
 
-        return data;
+        if (processDataFunction) return processDataFunction(data);
+        else return data;
     });
+}
+
+function sortByProjectTitleAlphabetically(projects) {
+    return projects.sort(function (a, b) {
+        if (a.projectTitle > b.projectTitle) {
+          return 1;
+        }
+        if (a.projectTitle < b.projectTitle) {
+          return -1;
+        }
+        // if a equals b
+        return 0;
+      });
 }

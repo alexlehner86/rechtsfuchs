@@ -1,8 +1,6 @@
 import { projectConstants } from '../_constants';
 
 export function projects(state = {}, action) {
-  let newList;
-
   switch (action.type) {
     case projectConstants.GETPROJECTS_BYUSERNAME_REQUEST:
       return { 
@@ -11,11 +9,19 @@ export function projects(state = {}, action) {
       };
     case projectConstants.GETPROJECTS_BYUSERNAME_SUCCESS:
       return {
-        listOfRIS_Projects: action.listOfRIS_Projects
+        listOfRIS_Projects: action.listOfRIS_Projects,
+        selectedSortLogic: 'alphabetically'
       };
     case projectConstants.GETPROJECTS_BYUSERNAME_FAILURE:
       return { 
         error: action.error
+      };
+
+    case projectConstants.SET_SORT_PROJECTS_LOGIC:
+      state.listOfRIS_Projects.setSortFunction(action.sortLogic);
+      return {
+        ...state,
+        selectedSortLogic: action.sortLogic
       };
 
     case projectConstants.SELECT_PROJECT:
@@ -50,13 +56,10 @@ export function projects(state = {}, action) {
         projectToChange: action.projectToChange
       };
     case projectConstants.UPDATE_PROJECT_SUCCESS:
-      newList = state.listOfRIS_Projects;
-      newList.updateProject(action.updatedProject);
-      newList.sortProjects();
+      state.listOfRIS_Projects.updateProject(action.updatedProject);
+      state.listOfRIS_Projects.sortProjects();
       return {
-        listOfRIS_Projects: newList,
-        projectIsSelected: true,
-        selectedProjectID: state.selectedProjectID,
+        ...state,
         editingProject: false
       };
     case projectConstants.UPDATE_PROJECT_FAILURE: 
@@ -73,11 +76,12 @@ export function projects(state = {}, action) {
         deleting: true
       };
     case projectConstants.DELETE_PROJECT_SUCCESS:
-      newList = state.listOfRIS_Projects;
-      newList.deleteProject(action.id);
+      state.listOfRIS_Projects.deleteProject(action.id);
       return {
-        listOfRIS_Projects: newList,
-        projectIsSelected: false
+        ...state,
+        projectIsSelected: false,
+        selectedProjectID: null,
+        deleting: false
       };
     case projectConstants.DELETE_PROJECT_FAILURE: 
       return { 

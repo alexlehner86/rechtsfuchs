@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { alertActionsProjectMgmt } from '../_actions';
-import { LoadingProjectsInProgressPage, NoProjectsStoredPage, ProjectManagementButtons, ProjectsAsListGroup } from './components';
+import { alertActionsProjectMgmt, projectActions } from '../_actions';
+import { LoadingProjectsInProgressPage, NoProjectsStoredPage, ProjectManagementButtons, 
+         ProjectsAsListGroup, SortProjectListButtons } from './components';
+import { climbUpDOMtreeUntilElementOfType } from '../_helpers';
 import './ProjectsList.css';
 
 class ProjectsList extends Component {
@@ -9,12 +11,13 @@ class ProjectsList extends Component {
     super(props);
 
     this.handleButton = this.handleButton.bind(this);
+    this.handleSortLogicChange = this.handleSortLogicChange.bind(this);
   }
 
   render() {
-    const { loadingProjects, listOfRIS_Projects, projectIsSelected, selectedProjectID } = this.props;
+    const { loadingProjects, listOfRIS_Projects, selectedSortLogic, projectIsSelected, selectedProjectID } = this.props;
 
-    if (loadingProjects) {
+    if (loadingProjects || !listOfRIS_Projects) {
       return <LoadingProjectsInProgressPage />;
     }
     else if (listOfRIS_Projects.isEmpty()) {
@@ -27,6 +30,7 @@ class ProjectsList extends Component {
             Meine Projekte
             <ProjectManagementButtons projectIsSelected={projectIsSelected} handleButton={this.handleButton} />
           </h2>
+          <SortProjectListButtons selectedSortLogic={selectedSortLogic} handleSortLogicChange={this.handleSortLogicChange} />
           <ProjectsAsListGroup projects={listOfRIS_Projects.projects} selectedProjectID={selectedProjectID} />
         </div>
       )
@@ -37,22 +41,28 @@ class ProjectsList extends Component {
     const { dispatch } = this.props;
     const event = e || window.event;
     let eventTarget = event.target || event.srcElement;
-
-    // if click-event was triggered by a child element of the button, climb up DOM to button that stores the correct id
-    while (eventTarget.getAttribute('type') !== 'button') {
-      eventTarget = eventTarget.parentElement;
-    }
+    eventTarget = climbUpDOMtreeUntilElementOfType(eventTarget, 'BUTTON');
 
     // pass id ('CreateProject', 'EditProject' or 'DeleteProject') to Redux-Store to show corresponding page
     dispatch(alertActionsProjectMgmt.clearAndOverlayChange(eventTarget.id));
   }
+
+  handleSortLogicChange(e) {
+    const { dispatch } = this.props;
+    const event = e || window.event;
+    let eventTarget = event.target || event.srcElement;
+
+    // pass id ('alphabetically' or 'chronologically') to Redux-Store to sort listOfRIS_Projects
+    dispatch(projectActions.setSortLogic(eventTarget.id));
+  }
 }
 
 function mapStateToProps(state) {
-  const { loadingProjects, listOfRIS_Projects, projectIsSelected, selectedProjectID, editingProject } = state.projects;
+  const { loadingProjects, listOfRIS_Projects, selectedSortLogic, projectIsSelected, selectedProjectID, editingProject } = state.projects;
   return {
     loadingProjects,
     listOfRIS_Projects,
+    selectedSortLogic,
     projectIsSelected,
     selectedProjectID,
     editingProject

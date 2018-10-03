@@ -4,6 +4,7 @@ import { alertActionsProjectMgmt } from './';
 
 export const projectActions = {
     getAllByUsername,
+    setSortLogic,
     selectProject,
     create,
     update,
@@ -26,6 +27,12 @@ function getAllByUsername(username) {
     function request(username) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_REQUEST, username } }
     function success(listOfRIS_Projects) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_SUCCESS, listOfRIS_Projects } }
     function failure(error) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_FAILURE, error } }
+}
+
+function setSortLogic(sortLogic) {
+    return dispatch => {
+        dispatch( { type: projectConstants.SET_SORT_PROJECTS_LOGIC, sortLogic } );
+    }
 }
 
 function selectProject(selectedProjectID) {

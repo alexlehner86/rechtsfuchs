@@ -18,9 +18,7 @@ class ListOfRIS_Projects {
         } else {
             this.projects = [];
         }
-        this.selectedSortFunction = this.sortAlphabeticallyByProjectTitle;
-
-        this.sortProjects();
+        this.setSortFunction('alphabetically');
     }
 
     isEmpty() {
@@ -31,11 +29,36 @@ class ListOfRIS_Projects {
         this.projects.sort(this.selectedSortFunction);
     }
 
+    setSortFunction(sortLogic) {
+        switch (sortLogic) {
+            case 'alphabetically':
+                this.selectedSortFunction = this.sortAlphabeticallyByProjectTitle;
+                break;
+            case 'chronologically':
+                this.selectedSortFunction = this.sortChronologicallyByCreatedDate;
+                break;
+            default:
+                console.log('ListOfRIS_Projects: Invalid sortLogic!');
+        }
+        this.sortProjects();
+    }
+
     sortAlphabeticallyByProjectTitle(a, b) {
         if (a.projectTitle.toUpperCase() > b.projectTitle.toUpperCase()) {
             return 1;
         }
         if (a.projectTitle.toUpperCase() < b.projectTitle.toUpperCase()) {
+            return -1;
+        }
+        // if a equals b
+        return 0;
+    }
+
+    sortChronologicallyByCreatedDate(a, b) {
+        if (a.createdDate < b.createdDate) {
+            return 1;
+        }
+        if (a.createdDate > b.createdDate) {
             return -1;
         }
         // if a equals b

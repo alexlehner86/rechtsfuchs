@@ -20,6 +20,20 @@
   top: -5px;
   vertical-align: text-bottom; }
 
+.sortProjectListButtons {
+  margin: 7px 0; }
+  .sortProjectListButtons p {
+    display: inline;
+    padding: 3px;
+    font-size: 9pt;
+    color: #777; }
+  .sortProjectListButtons .activeSortLogic {
+    font-weight: bold; }
+  .sortProjectListButtons .inactiveSortLogic {
+    cursor: pointer; }
+    .sortProjectListButtons .inactiveSortLogic:hover {
+      color: black; }
+
 .descriptionText {
   font-size: 9pt;
   color: #555; }

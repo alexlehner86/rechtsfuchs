@@ -8,10 +8,10 @@ class CreateProjectDocument extends React.Component {
         super(props);
 
         // if the redux store contains project items, then retrieve the project_id of the first project
-        const { projectItems } = this.props;
+        const { listOfRIS_Projects } = this.props;
         let project_id = '';
-        if (projectItems) {
-          if (projectItems.length > 0) project_id = projectItems[0].id;
+        if (listOfRIS_Projects && !listOfRIS_Projects.isEmpty()) {
+          project_id = listOfRIS_Projects.projects[0].id;
         }
         
         //the state contains the result item's information, ready to be stored in the database
@@ -39,7 +39,7 @@ class CreateProjectDocument extends React.Component {
     }
 
     render() {
-        const { user, projectItems, creatingProjectDoc  } = this.props;
+        const { user, listOfRIS_Projects, creatingProjectDoc  } = this.props;
         const { projectDoc, submitted } = this.state;
 
         if (!user) {
@@ -55,7 +55,7 @@ class CreateProjectDocument extends React.Component {
                     </form>
                 </div>
               );
-        } else if (!projectItems) { // Projekte noch nicht fertig im Hintergrund von Datenbank geladen
+        } else if (!listOfRIS_Projects) { // projects have not been succesfully retrieved yet
             return (
                 <div className="col-md-auto">
                     <h2>Dokument speichern</h2>
@@ -64,7 +64,7 @@ class CreateProjectDocument extends React.Component {
                     </div>
                 </div>
               );
-        } else if (projectItems.length === 0) {
+        } else if (listOfRIS_Projects.isEmpty()) {
             return (
                 <div className="col-md-auto">
                     <h2>Dokument speichern</h2>
@@ -84,7 +84,7 @@ class CreateProjectDocument extends React.Component {
                     <form name="form" onSubmit={this.handleSubmit}>
                         <div className="form-group">
                           <label htmlFor="project">Im Projekt-Ordner</label><br />
-                          <ProjectsDropdown projectItems={projectItems} projectId={projectDoc.project_id} callHandleChange={this.handleChange} />
+                          <ProjectsDropdown projects={listOfRIS_Projects.projects} projectId={projectDoc.project_id} callHandleChange={this.handleChange} />
                         </div>
                         <div className={'form-group' + (submitted && !projectDoc.maintext ? ' has-error' : '')}>
                           <label htmlFor="maintext">Beschreibungstext</label>
@@ -164,11 +164,11 @@ class CreateProjectDocument extends React.Component {
 
 function mapStateToProps(state) {
     const { user } = state.authentication;
-    const projectItems = state.projects.items;
+    const { listOfRIS_Projects } = state.projects;
     const { risSearchResultItem, creatingProjectDoc } = state.projectDocs;
     return {
         user,
-        projectItems,
+        listOfRIS_Projects,
         risSearchResultItem,
         creatingProjectDoc
     };

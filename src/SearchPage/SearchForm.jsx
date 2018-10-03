@@ -4,6 +4,7 @@ import { SearchFormTopInputFields, RechtsquellenItemBundesrecht, RechtsquellenIt
          RechtsquellenItemVfgh, RechtsquellenItemVwgh } from './components';
 import { ErrorMessages } from './helpers';
 import { searchRIS_Actions, alertActionsSearchForm } from '../_actions';
+import { climbUpDOMtreeUntilElementOfType, scrollToTheTopOfElementWithId } from '../_helpers';
 import './SearchForm.css';
 import $ from 'jquery';
 import moment from 'moment';
@@ -125,11 +126,7 @@ class SearchForm extends Component {
     const event = e || window.event;
     let eventTarget = event.target || event.srcElement;
     const triggeringElementIsCheckbox = eventTarget.nodeName === 'INPUT';
-
-    // if click-event was not triggered by the div element, get parent-div that stores the correct id
-    if (eventTarget.nodeName !== 'DIV') {
-      eventTarget = eventTarget.parentNode;
-    }
+    eventTarget = climbUpDOMtreeUntilElementOfType(eventTarget, 'DIV');
     const selectedRechtsquelleId = eventTarget.id;
     
     if (!triggeringElementIsCheckbox) {
@@ -155,7 +152,7 @@ class SearchForm extends Component {
 
     if (!errorMessages.isEmpty()) {
       dispatch(alertActionsSearchForm.error(errorMessages.getErrorStringWithSeparator('///')));
-      this.scrollToTheTopOfElementWithId('Search-Form', 0);
+      scrollToTheTopOfElementWithId('Search-Form', 0);
 
     } else {
       const newSearchQuery = JSON.parse(JSON.stringify(this.state));
@@ -170,7 +167,7 @@ class SearchForm extends Component {
         }
       });
       this.clearSearchFormAlerts();
-      this.scrollToTheTopOfElementWithId('Search-Results', 500);
+      scrollToTheTopOfElementWithId('Search-Results', 500);
     }
 
     e.preventDefault();
@@ -212,12 +209,6 @@ class SearchForm extends Component {
 
   convertDateIntoFormatYYYYMMDD(dateToConvert) {
     return new Date(dateToConvert).toJSON().slice(0,10);
-  }
-
-  scrollToTheTopOfElementWithId(id, delayInMilliseconds) {
-    setTimeout(() => {
-      document.getElementById(id).scrollIntoView(true);
-    }, delayInMilliseconds);
   }
   
   handleReset(e) {

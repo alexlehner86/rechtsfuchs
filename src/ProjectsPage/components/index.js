@@ -7,3 +7,4 @@ export * from './ProjectDocumentsGrid';
 export * from './ProjectListGroupItem';
 export * from './ProjectManagementButtons';
 export * from './ProjectsAsListGroup';
+export * from './SortProjectListButtons';

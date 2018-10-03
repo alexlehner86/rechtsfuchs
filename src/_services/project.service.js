@@ -19,7 +19,8 @@ function getAll() {
         headers: authHeader()
     };
 
-    return fetch(`${config.mongoDB_apiUrl}/projects`, requestOptions).then(handleResponse);
+    return fetch(`${config.mongoDB_apiUrl}/projects`, requestOptions)
+           .then(response => handleResponse(response, create_RIS_ProjectList));
 }
 
 function getAllByUsername(username) {

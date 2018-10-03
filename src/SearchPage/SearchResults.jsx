@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SearchInProgressPage, SearchResultsGrid, NoSearchResultsPage, SearchResultsBrowseButtons } from './components';
+import { climbUpDOMtreeUntilElementOfType } from '../_helpers';
 
 const isAtBottomOfPage = true;
 const isNotAtBottomOfPage = false;
@@ -48,11 +49,7 @@ class SearchResults extends Component {
   handleBrowseResults(e) {
     const event = e || window.event;
     let eventTarget = event.target || event.srcElement;
-
-    // if click-event was triggered by img-element, get parent-div that stores the id
-    while (eventTarget.nodeName !== 'DIV') {
-      eventTarget = eventTarget.parentNode;
-    }
+    eventTarget = climbUpDOMtreeUntilElementOfType(eventTarget, 'DIV');
   
     switch (eventTarget.id) {
       case 'BrowseBackwardTop':

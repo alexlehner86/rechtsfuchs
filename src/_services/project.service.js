@@ -1,6 +1,7 @@
 import { authHeader } from '../_helpers';
 import { config } from './config';
 import { userService } from './user.service';
+import { ListOfRIS_Projects } from '../_helpers';
 
 export const projectService = {
     getAll,
@@ -28,7 +29,7 @@ function getAllByUsername(username) {
     };
 
     return fetch(`${config.mongoDB_apiUrl}/projects/ofuser/${username}`, requestOptions)
-           .then(response => handleResponse(response, sortByProjectTitleAlphabetically));
+           .then(response => handleResponse(response, create_RIS_ProjectList));
 }
 
 function getById(id) {
@@ -97,15 +98,6 @@ function handleResponse(response, processDataFunction) {
     });
 }
 
-function sortByProjectTitleAlphabetically(projects) {
-    return projects.sort(function (a, b) {
-        if (a.projectTitle > b.projectTitle) {
-          return 1;
-        }
-        if (a.projectTitle < b.projectTitle) {
-          return -1;
-        }
-        // if a equals b
-        return 0;
-      });
+function create_RIS_ProjectList(projectsArray) {
+    return new ListOfRIS_Projects(projectsArray);
 }

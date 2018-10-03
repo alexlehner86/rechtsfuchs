@@ -1,6 +1,8 @@
 import { projectConstants } from '../_constants';
 
 export function projects(state = {}, action) {
+  let newList;
+
   switch (action.type) {
     case projectConstants.GETPROJECTS_BYUSERNAME_REQUEST:
       return { 
@@ -9,17 +11,17 @@ export function projects(state = {}, action) {
       };
     case projectConstants.GETPROJECTS_BYUSERNAME_SUCCESS:
       return {
-        items: action.projects
+        listOfRIS_Projects: action.listOfRIS_Projects
       };
     case projectConstants.GETPROJECTS_BYUSERNAME_FAILURE:
       return { 
-        items: [],
         error: action.error
       };
 
     case projectConstants.SELECT_PROJECT:
       return {
         ...state,
+        projectIsSelected: true,
         selectedProjectID: action.selectedProjectID
       };
 
@@ -48,14 +50,14 @@ export function projects(state = {}, action) {
         projectToChange: action.projectToChange
       };
     case projectConstants.UPDATE_PROJECT_SUCCESS:
+      newList = state.listOfRIS_Projects;
+      newList.updateProject(action.updatedProject);
+      newList.sortProjects();
       return {
-        ...state,
-        editingProject: false,
-        items: state.items.map(project =>
-          project.id === action.changedProject.id
-            ? action.changedProject
-            : project
-        )
+        listOfRIS_Projects: newList,
+        projectIsSelected: true,
+        selectedProjectID: state.selectedProjectID,
+        editingProject: false
       };
     case projectConstants.UPDATE_PROJECT_FAILURE: 
       return { 
@@ -71,9 +73,11 @@ export function projects(state = {}, action) {
         deleting: true
       };
     case projectConstants.DELETE_PROJECT_SUCCESS:
+      newList = state.listOfRIS_Projects;
+      newList.deleteProject(action.id);
       return {
-        items: state.items.filter(project => project.id !== action.id),
-        selectedProject: undefined
+        listOfRIS_Projects: newList,
+        projectIsSelected: false
       };
     case projectConstants.DELETE_PROJECT_FAILURE: 
       return { 
@@ -89,10 +93,8 @@ export function projects(state = {}, action) {
       };
     case projectConstants.DEL_PROJECTS_BYUSERNAME_SUCCESS:
       //when successfully deleted all projects in db...
-      //...empty the stored project-items as well
-      return {
-        items: []
-      };
+      //...empty the stored listOfRIS_Projects as well
+      return { };
     case projectConstants.DEL_PROJECTS_BYUSERNAME_FAILURE: 
       return { 
         ...state,

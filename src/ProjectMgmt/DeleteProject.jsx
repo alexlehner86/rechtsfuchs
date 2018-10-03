@@ -6,8 +6,8 @@ class DeleteProject extends React.Component {
     constructor(props) {
         super(props);
 
-        const { projectItems, selectedProjectID } = this.props;
-        const projectToDelete = projectItems.find( project => project.id === selectedProjectID );
+        const { listOfRIS_Projects, selectedProjectID } = this.props;
+        const projectToDelete = listOfRIS_Projects.getProjectById(selectedProjectID);
 
         this.state = {
             project: {
@@ -50,7 +50,6 @@ class DeleteProject extends React.Component {
         const { dispatch } = this.props;
         const { project } = this.state;
 
-        // delete the project and its documents
         dispatch(projectActions.delete(project.id));
     }
 
@@ -58,16 +57,14 @@ class DeleteProject extends React.Component {
         e.preventDefault();
         const { dispatch } = this.props;
 
-        // hide the delete project overlay
         dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
     }
 }
 
 function mapStateToProps(state) {
-    const projectItems = state.projects.items;
-    const { selectedProjectID, deleting } = state.projects;
+    const { listOfRIS_Projects, selectedProjectID, deleting } = state.projects;
     return {
-        projectItems,
+        listOfRIS_Projects,
         selectedProjectID,
         deleting
     };

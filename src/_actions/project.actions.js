@@ -18,13 +18,13 @@ function getAllByUsername(username) {
 
         projectService.getAllByUsername(username)
             .then(
-                projects => dispatch(success(projects)),
+                listOfRIS_Projects => dispatch(success(listOfRIS_Projects)),
                 error => dispatch(failure(error.toString()))
             );
     };
 
     function request(username) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_REQUEST, username } }
-    function success(projects) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_SUCCESS, projects } }
+    function success(listOfRIS_Projects) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_SUCCESS, listOfRIS_Projects } }
     function failure(error) { return { type: projectConstants.GETPROJECTS_BYUSERNAME_FAILURE, error } }
 }
 
@@ -72,7 +72,7 @@ function update(projectToChange) {
 
         projectService.update(projectToChange)
             .then(
-                changedProject => { 
+                dummy => { 
                     dispatch(success(projectToChange));
                     dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
                 },
@@ -84,7 +84,7 @@ function update(projectToChange) {
     }; 
 
     function request(projectToChange) { return { type: projectConstants.UPDATE_PROJECT_REQUEST, projectToChange } }
-    function success(changedProject) { return { type: projectConstants.UPDATE_PROJECT_SUCCESS, changedProject } }
+    function success(updatedProject) { return { type: projectConstants.UPDATE_PROJECT_SUCCESS, updatedProject } }
     function failure(error) { return { type: projectConstants.UPDATE_PROJECT_FAILURE, error } }
 }
 
@@ -96,10 +96,10 @@ function _delete(id) {
         projectService.delete(id)
             .then(
                 project => {
-                    //wenn Projekt erfolgreich gelöscht, dann auch alle Dokumente löschen
+                    // wenn Projekt erfolgreich gelöscht, dann auch alle Dokumente löschen
                     projectDocService.deleteAllByProjectId(id);
 
-                    //erfolgreich gelöschtes Projekt aus Projects-Array entfernen --> success(id)
+                    // erfolgreich gelöschtes Projekt aus Projects-Array entfernen --> success(id)
                     dispatch(success(id));
                     dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
                 },

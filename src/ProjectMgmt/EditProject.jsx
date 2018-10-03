@@ -6,19 +6,9 @@ class EditProject extends React.Component {
     constructor(props) {
         super(props);
 
-        const { projectItems, selectedProjectID } = this.props;
-        const projectToEdit = projectItems.find( project => project.id === selectedProjectID );
-
+        const { listOfRIS_Projects, selectedProjectID } = this.props;
         this.state = {
-            project: {
-                _id: projectToEdit._id,
-                projectTitle: projectToEdit.projectTitle,
-                description: projectToEdit.description,
-                username: projectToEdit.username,
-                numberOfDocs: projectToEdit.numberOfDocs,
-                createdDate: projectToEdit.createdDate,
-                id: projectToEdit.id
-            },
+            project: listOfRIS_Projects.getProjectById(selectedProjectID),
             submitted: false
         };
     
@@ -63,7 +53,7 @@ class EditProject extends React.Component {
         );
     }
 
-        // save changes in the form to the component's state
+    // save changes in the form to the component's state
     handleChange(event) {
         const { name, value } = event.target;
         const { project } = this.state;
@@ -99,10 +89,9 @@ class EditProject extends React.Component {
 }
 
 function mapStateToProps(state) {
-    const projectItems = state.projects.items;
-    const { selectedProjectID, editingProject } = state.projects;
+    const { listOfRIS_Projects, selectedProjectID, editingProject } = state.projects;
     return {
-        projectItems,
+        listOfRIS_Projects,
         selectedProjectID,
         editingProject
     };

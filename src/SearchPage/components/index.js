@@ -1,4 +1,5 @@
 export * from './AddDocButton.jsx';
+export * from './BackgroundLogo';
 export * from './DocumentLinkButtons.jsx';
 export * from './SearchResultsBrowseButtons';
 export * from './SearchResultsGrid';

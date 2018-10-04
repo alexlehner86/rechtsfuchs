@@ -1,14 +1,15 @@
 // ---------------------------------------------------------------------------
 //  The SearchPage component is rendered in the main section of the website.
-//  It displays a simplified search form on the left side, witch which the user
+//  It displays a simplified search form (SearchForm component), with which the user
 //  can search the Legal Information System of the Republic of Austria (RIS).
-//  The search results are displayed on the right by the SearchResult component
+//  The search results are displayed by the SearchResults components.
 // ---------------------------------------------------------------------------
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SearchForm } from './SearchForm';
 import { SearchResults } from './SearchResults';
+import { BackgroundLogo } from './components';
 
 import './SearchPage.css';
 import './SearchResults.css';
@@ -19,10 +20,6 @@ class SearchPage extends Component {
 
   render() {
     const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } = this.props;
-    let showBackgroundLogo = false;
-    //show background logo when no search has been initiated; e.g. after reset
-    if (!searchRIS_Bundesrecht.searchQuery && !searchRIS_Landesrecht.searchQuery && 
-        !searchRIS_VwGH.searchQuery && !searchRIS_VfGH.searchQuery) showBackgroundLogo = true;
 
     return (
       <div className="Search-Grid">
@@ -32,13 +29,7 @@ class SearchPage extends Component {
         </div>
         <div id="Search-Results" className="Search-Right">
           <div className="pufferBoxRight"></div>
-          { showBackgroundLogo && (
-              <div className="logoDIV">
-                <div className="logoCenteringDIV">
-                 <img src="./logo.svg" alt="" className="logoCentered" />
-                </div>
-              </div>
-          )}
+          { this.noSearchHasBeenInitiated() && <BackgroundLogo /> }
           { searchRIS_Bundesrecht.searchQuery && <SearchResults searchRIS_Data={searchRIS_Bundesrecht} /> }
           { searchRIS_Landesrecht.searchQuery && <SearchResults searchRIS_Data={searchRIS_Landesrecht} /> }
           { searchRIS_VfGH.searchQuery && <SearchResults searchRIS_Data={searchRIS_VfGH} /> }
@@ -46,6 +37,15 @@ class SearchPage extends Component {
         </div>
       </div>
     );
+  }
+
+  noSearchHasBeenInitiated() {
+    const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } = this.props;
+
+    return !searchRIS_Bundesrecht.searchQuery && 
+           !searchRIS_Landesrecht.searchQuery && 
+           !searchRIS_VwGH.searchQuery && !searchRIS_VfGH.searchQuery; 
+
   }
 }
 

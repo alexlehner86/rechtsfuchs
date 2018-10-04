@@ -26,13 +26,13 @@
     display: inline;
     padding: 3px;
     font-size: 9pt;
-    color: #777; }
+    color: #999; }
   .sortProjectListButtons .activeSortLogic {
     font-weight: bold; }
   .sortProjectListButtons .inactiveSortLogic {
     cursor: pointer; }
     .sortProjectListButtons .inactiveSortLogic:hover {
-      color: black; }
+      color: #555; }
 
 .descriptionText {
   font-size: 9pt;

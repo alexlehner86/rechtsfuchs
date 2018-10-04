@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 
 import { ProjectsList } from './ProjectsList';
 import { ProjectDocuments } from './ProjectDocuments';
+import { LogInToViewProjectsList } from './components';
+import { BackgroundLogo } from '../SearchPage/components';
 import './ProjectsPage.css';
 
 class ProjectsPage extends Component {
@@ -18,30 +20,15 @@ class ProjectsPage extends Component {
 
     return (
       <div className="Projects-Grid">
-      
-        {/* display left-side element: list of the user's projects */}
         <div id="Projects-List" className="Projects-Left">
           <div className="pufferBox"></div>
           { loggedIn && <ProjectsList /> }
-          { !loggedIn && (
-            <div className="projectListWrapper">
-              <h2>Meine Projekte</h2>
-              <p>Log dich ein, um deine Projekte zu verwalten!</p>
-            </div>
-          )}
+          { !loggedIn && <LogInToViewProjectsList /> }
         </div>
-
-        {/* display right-side element: list of the selected project's documents */} 
         <div id="Documents-List" className="Projects-Right">
           <div className="pufferBoxRight"></div>
           { (loggedIn && selectedProjectID) && <ProjectDocuments /> }
-          { (!loggedIn || !selectedProjectID) && (
-               <div className="logoDIV">
-                <div className="logoCenteringDIV">
-                 <img src="./logo.svg" alt="" className="logoCentered" />
-                </div>
-               </div>
-          )}
+          { (!loggedIn || !selectedProjectID) && <BackgroundLogo /> }
         </div>
       </div>
     );

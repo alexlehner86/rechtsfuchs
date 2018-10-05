@@ -54,6 +54,7 @@ function register(user) {
             .then(
                 user => { 
                     dispatch(success());
+                    dispatch(alertActionsUserMgmt.clearAndOverlayChange('RegisterWasSuccessful'));
                     dispatch(alertActionsUserMgmt.success('Registrierung war erfolgreich'));
                 },
                 error => {

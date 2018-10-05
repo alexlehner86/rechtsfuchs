@@ -8,39 +8,13 @@ class Navigation extends Component {
     super(props);
 
     this.handleNavChange = this.handleNavChange.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleUserMgmtChange = this.handleUserMgmtChange.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
-    this.handleUserDelete = this.handleUserDelete.bind(this);
-  }
-  
-  handleNavChange(e) {
-    const id = e.target.id;
-    this.props.onChangeNavChoice(id);
-  }
-
-  handleLogin(e) {
-    //Login-Overlay anzeigen
-    const { dispatch } = this.props;
-    dispatch(alertActionsUserMgmt.clearAndOverlayChange('Login'));
-  }
-
-  handleLogout(e) {
-    //Logout veranlassen
-    const { dispatch } = this.props;
-    dispatch(userActions.logout());
-  }
-
-  handleUserDelete(e) {
-    //Delete-User-Overlay anzeigen
-    const { dispatch } = this.props;
-    dispatch(alertActionsUserMgmt.clearAndOverlayChange('DeleteUser'));
   }
 
   render() {
     const { user, loggedIn } = this.props;
-    let buttonTitle = '';
-    //Überprüfen, ob Nutzer bereits eingeloggt ist
-    if (loggedIn) buttonTitle = `Hallo ${user.firstName}!`;
+    const buttonTitle = loggedIn ? `Hallo ${user.firstName}!` : '';
 
     return (
            <div className="navDIV">
@@ -48,19 +22,34 @@ class Navigation extends Component {
             <p id="Suche" onClick={this.handleNavChange}>Suche</p>
             <p id="Projekte" onClick={this.handleNavChange}>Projekte</p>
             <p id="Info" onClick={this.handleNavChange}>Info</p>&nbsp;
+            
             {!loggedIn && (
-              <Button id="Login" onClick={this.handleLogin} bsStyle="default" bsSize="xsmall">
+              <Button id="Login" onClick={this.handleUserMgmtChange} bsStyle="default" bsSize="xsmall">
                 Login
               </Button>
             )}
             {loggedIn && (
               <DropdownButton title={buttonTitle} bsSize="xsmall" id="bg-nested-dropdown">
                 <MenuItem eventKey="1" onClick={this.handleLogout}>Logout</MenuItem>
-                <MenuItem eventKey="2" onClick={this.handleUserDelete}>Konto löschen</MenuItem>
+                <MenuItem id="DeleteUser" eventKey="2" onClick={this.handleUserMgmtChange}>Konto löschen</MenuItem>
               </DropdownButton>
             )}
           </div>
     );
+  }
+
+  handleNavChange(e) {
+    this.props.onChangeNavChoice(e.target.id);
+  }
+
+  handleUserMgmtChange(e) {
+    const { dispatch } = this.props;
+    dispatch(alertActionsUserMgmt.clearAndOverlayChange(e.target.id));
+  }
+
+  handleLogout(e) {
+    const { dispatch } = this.props;
+    dispatch(userActions.logout());
   }
 }
 

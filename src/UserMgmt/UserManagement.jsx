@@ -3,33 +3,36 @@
 //  to register a user account, login and delete their user account
 // ---------------------------------------------------------------------------
 
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LoginPage, RegisterPage, UserDeletePage } from './Pages';
+import { Login, Register, RegisterWasSuccessful, DeleteUserAndProjects } from './components';
+import { ShowAlertMessage } from './components';
 
 class UserManagement extends Component {
 
   render() {
-   // the redux store object "alertUserMgmt" serves to functions:
-   // 1) its parameter "overlaytoDisplay" defines, which overlay (e.g. LoginPage) to show
+   // the redux store object "alertUserMgmt" serves two functions:
+   // 1) its parameter "overlaytoDisplay" defines, which overlay component (e.g. Login) to show
    // 2) it contains error messages that can result from user management operations
-   const { alertUserMgmt } = this.props;
+   const { type, message, overlayToDisplay } = this.props.alertUserMgmt;
    
-   if (alertUserMgmt.overlayToDisplay !== 'Clear')
+   if (overlayToDisplay !== 'Clear') {
      return (
           <div className="overlayContainer">
             <div className="overlayWhiteBox">
-              {alertUserMgmt.message &&
-                <div className={`alert ${alertUserMgmt.type}`}>{alertUserMgmt.message}</div>
-              }
-              {alertUserMgmt.overlayToDisplay === 'Login' && <LoginPage />}
-              {alertUserMgmt.overlayToDisplay === 'Register' && <RegisterPage />}
-              {alertUserMgmt.overlayToDisplay === 'DeleteUser' && <UserDeletePage />}
+              {message && (
+                <ShowAlertMessage type={type} message={message} />
+              )}
+              {overlayToDisplay === 'Login' && <Login />}
+              {overlayToDisplay === 'Register' && <Register />}
+              {overlayToDisplay === 'RegisterWasSuccessful' && <RegisterWasSuccessful />}
+              {overlayToDisplay === 'DeleteUser' && <DeleteUserAndProjects />}
             </div>
           </div>
       );
-    else return null;
+    } else {
+      return null;
+    }
   }
 }
 

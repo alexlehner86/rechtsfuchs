@@ -29,17 +29,18 @@ class SearchResults extends Component {
       return <SearchInProgressPage pageTitle={pageTitle} />
     }
     else if (results.totalNumberOfHits > 0) {
-        return (
-           <div id={searchResultsDivID} className="resultsDIV">
-             <div className="resultsOverview">
-               <h1>{pageTitle}</h1><br />
-               <p>(Seite {results.pageNumber} von {results.totalNumberOfPagesFormatted}, Anzahl Treffer: {results.totalNumberOfHitsFormatted})</p>    
-             </div>
-             <SearchResultsBrowseButtons position="Top" handleBrowseResults={this.handleBrowseResults} />
-             <SearchResultsGrid results={results} />
-             <SearchResultsBrowseButtons position="Bottom" handleBrowseResults={this.handleBrowseResults} />
-           </div>
-        );
+      return (
+        <div id={searchResultsDivID} className="resultsDIV">
+          <div className="resultsOverview">
+            <h1>{pageTitle}</h1><br />
+            <p>(Seite {results.pageNumber} von {results.totalNumberOfPagesFormatted}, Anzahl Treffer: {results.totalNumberOfHitsFormatted})</p>    
+          </div>
+
+          {results.totalNumberOfHits > 20 && <SearchResultsBrowseButtons position="Top" handleBrowseResults={this.handleBrowseResults} /> }
+          <SearchResultsGrid results={results} />
+          {results.totalNumberOfHits > 20 && <SearchResultsBrowseButtons position="Bottom" handleBrowseResults={this.handleBrowseResults} /> }
+        </div>
+      );
     }
     else {
       return <NoSearchResultsPage pageTitle={pageTitle} />
@@ -49,7 +50,7 @@ class SearchResults extends Component {
   handleBrowseResults(e) {
     const event = e || window.event;
     let eventTarget = event.target || event.srcElement;
-    eventTarget = climbUpDOMtreeUntilElementOfType(eventTarget, 'DIV');
+    eventTarget = climbUpDOMtreeUntilElementOfType(eventTarget, 'BUTTON');
   
     switch (eventTarget.id) {
       case 'BrowseBackwardTop':

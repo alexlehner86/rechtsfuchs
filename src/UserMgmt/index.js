@@ -1,1 +1,1 @@
-export * from './UserManagement.jsx';
+export * from './UserManagement';

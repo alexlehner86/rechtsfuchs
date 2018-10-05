@@ -6,28 +6,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CreateProject, CreateProjectDocument, DeleteProject,
-         DeleteProjectDocument, EditProject } from './';
+         DeleteProjectDocument, EditProject } from './components';
+import { ShowAlertMessage } from '../UserMgmt/components';
 
 class ProjectManagement extends Component {
 
   render() {
-   // the redux store object "alertProjectMgmt" serves to functions:
-   // 1) its parameter "overlaytoDisplay" defines, which overlay (e.g. CreateProjectPage) to show
+   // the redux store object "alertProjectMgmt" serves two functions:
+   // 1) its parameter "overlaytoDisplay" defines, which overlay component (e.g. CreateProject) to show
    // 2) it contains error messages that can result from project management operations
-   const { alertProjectMgmt } = this.props;
+   const { type, message, overlayToDisplay } = this.props.alertProjectMgmt;
    
-   if (alertProjectMgmt.overlayToDisplay !== 'Clear')
+   if (overlayToDisplay !== 'Clear')
      return (
           <div className="overlayContainer">
             <div className="overlayWhiteBox">
-              {alertProjectMgmt.message &&
-                <div className={`alert ${alertProjectMgmt.type}`}>{alertProjectMgmt.message}</div>
+              {message &&
+                <ShowAlertMessage type={type} message={message} />
               }
-              {alertProjectMgmt.overlayToDisplay === 'CreateProject' && <CreateProject />}
-              {alertProjectMgmt.overlayToDisplay === 'EditProject' && <EditProject />}
-              {alertProjectMgmt.overlayToDisplay === 'DeleteProject' && <DeleteProject />}
-              {alertProjectMgmt.overlayToDisplay === 'CreateProjectDocument' && <CreateProjectDocument />}
-              {alertProjectMgmt.overlayToDisplay === 'DeleteProjectDoc' && <DeleteProjectDocument />}
+              {overlayToDisplay === 'CreateProject' && <CreateProject />}
+              {overlayToDisplay === 'EditProject' && <EditProject />}
+              {overlayToDisplay === 'DeleteProject' && <DeleteProject />}
+              {overlayToDisplay === 'CreateProjectDocument' && <CreateProjectDocument />}
+              {overlayToDisplay === 'DeleteProjectDoc' && <DeleteProjectDocument />}
             </div>
           </div>
       );

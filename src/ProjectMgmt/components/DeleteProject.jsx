@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectActions, alertActionsProjectMgmt } from '../_actions';
+import { ShowInProgressAnimation } from '../../UserMgmt/components';
+import { projectActions, alertActionsProjectMgmt } from '../../_actions';
 
 class DeleteProject extends React.Component {
     constructor(props) {
@@ -28,11 +29,8 @@ class DeleteProject extends React.Component {
             <div className="col-md-auto">
                 <h2>Projekt löschen</h2>
                 <p>Willst du das Projekt <span className="makeBold">"{project.projectTitle}"</span> wirklich löschen? Alle im Projekt-Ordner abgespeicherten Dokumente werden ebenfalls gelöscht.</p>
-                {deleting && (
-                      <div className="progressAniBox">
-                        <img src="./icons/in-progress.gif" className="progressAniCenter" alt="In Progress" />             
-                      </div>
-                )}
+                
+                {deleting && <ShowInProgressAnimation /> }
                 {!deleting && (
                   <form name="form" onSubmit={this.handleSubmit}>
                     <div className="form-group">

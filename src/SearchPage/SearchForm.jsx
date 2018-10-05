@@ -156,6 +156,7 @@ class SearchForm extends Component {
 
     } else {
       const newSearchQuery = JSON.parse(JSON.stringify(this.state));
+      newSearchQuery.pageNumber = 1;
       newSearchQuery.datumVon = this.state.datumVon ? this.convertDateIntoFormatYYYYMMDD(this.state.datumVon) : '';
       newSearchQuery.datumBis = this.convertDateIntoFormatYYYYMMDD(this.state.datumBis);
 

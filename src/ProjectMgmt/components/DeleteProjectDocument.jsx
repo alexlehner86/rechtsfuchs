@@ -1,20 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { projectDocActions, alertActionsProjectMgmt } from '../_actions';
+import { ShowInProgressAnimation } from '../../UserMgmt/components';
+import { projectDocActions, alertActionsProjectMgmt } from '../../_actions';
 
 class DeleteProjectDocument extends React.Component {
     constructor(props) {
         super(props);
 
-        const { projectDocItems, selectedProjectDocID } = this.props;
-        const projectDocToDelete = projectDocItems.find( projectDoc => projectDoc.id === selectedProjectDocID );
-
+        const { projectDocuments, selectedProjectDocID } = this.props;
         this.state = {
-            projectDoc: {
-                id: projectDocToDelete.id,
-                maintext: projectDocToDelete.maintext,
-                project_id: projectDocToDelete.project_id
-            }
+            projectDocument: projectDocuments.find( projectDoc => projectDoc.id === selectedProjectDocID )
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,17 +18,14 @@ class DeleteProjectDocument extends React.Component {
 
     render() {
         const { deleting } = this.props;
-        const { projectDoc } = this.state;
+        const { projectDocument } = this.state;
 
         return (
             <div className="col-md-auto">
                 <h2>Dokument löschen</h2>
-                <p>Willst du das Dokument <span className="makeBold">"{projectDoc.maintext}"</span> wirklich löschen?</p>
-                {deleting && (
-                      <div className="progressAniBox">
-                        <img src="./icons/in-progress.gif" className="progressAniCenter" alt="In Progress" />             
-                      </div>
-                )}
+                <p>Willst du das Dokument <span className="makeBold">"{projectDocument.maintext}"</span> wirklich löschen?</p>
+                
+                {deleting && <ShowInProgressAnimation /> }
                 {!deleting && (
                   <form name="form" onSubmit={this.handleSubmit}>
                     <div className="form-group">
@@ -46,29 +38,27 @@ class DeleteProjectDocument extends React.Component {
         );
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
+    handleSubmit(event) {
+        event.preventDefault();
         const { dispatch } = this.props;
-        const { projectDoc } = this.state;
+        const { projectDocument } = this.state;
 
-        //delete the document in the database
-        dispatch(projectDocActions.delete(projectDoc));
+        dispatch(projectDocActions.delete(projectDocument));
     }
 
-    handleExit(e) {
-        e.preventDefault();
+    handleExit(event) {
+        event.preventDefault();
         const { dispatch } = this.props;
 
-        //hide the delete project overlay
         dispatch(alertActionsProjectMgmt.clearAndOverlayChange('Clear'));
     }
 }
 
 function mapStateToProps(state) {
-    const projectDocItems = state.projectDocs.items;
+    const projectDocuments = state.projectDocs.items;
     const { selectedProjectDocID, deleting } = state.projectDocs;
     return {
-        projectDocItems,
+        projectDocuments,
         selectedProjectDocID,
         deleting
     };

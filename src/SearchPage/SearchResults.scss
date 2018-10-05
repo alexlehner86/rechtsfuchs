@@ -51,7 +51,7 @@
   }
 }
 
-.arrowLink {
+.arrowButton {
   display: inline-block;
   width: 30px;
   height: 24px;
@@ -67,17 +67,24 @@
     padding: 0;
     margin: 0;
   }
-}
 
-.arrowLink:active {
-  background-color: #ccc;
-  border: 1px solid white;
-  cursor: pointer;
-}
+  &:focus, &:active, &.active, &:focus:active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
 
-.arrowLink:hover {
-  background-color: #ccc;
-  cursor: pointer;
+  &:active {
+    background-color: #ccc;
+    border: 1px solid white;
+    cursor: pointer;
+  }
+
+  &:hover {
+    background-color: #ccc;
+    cursor: pointer;
+  }
 }
 
 .urlLinkIcon {
@@ -152,38 +159,34 @@
   font-family: 'Lato', sans-serif;
 }
 
-.itemNrDIV {
+.itemNrDIV, .deleteButtonDIV {
   position: absolute;
   top: -4px;
   right: -4px;
   margin: 0;
-  padding: 4px;
-  min-width: 40px;
-  font-size: 11pt;
   border-radius: 4px;
-  font-weight: 500;
   text-align: center;
   background-color: #4a4a4a;
   color: #fefefe;
 }
 
+.itemNrDIV {
+  padding: 4px;
+  min-width: 40px;
+  font-size: 11pt;
+  font-weight: 500;
+}
+
 .deleteButtonDIV {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  margin: 0;
   padding: 0 0 3px 0;
   width: 30px;
   font-size: 14pt;
   font-weight: bolder;
-  text-align: center;
-  background-color: #4a4a4a;
-  color: white;
-}
 
-.deleteButtonDIV:hover {
-  background-color: darkred;
-  cursor: pointer;
+  &:hover {
+    background-color: darkred;
+    cursor: pointer;
+  }
 }
 
 .hCenterBrowseButtonsTop, .hCenterBrowseButtonsBottom {

@@ -6,12 +6,12 @@ class SearchResultsBrowseButtons extends Component {
 
     return (
       <div className={'hCenterBrowseButtons' + position}>
-        <div id={'BrowseBackward' + position} className="arrowLink" onClick={this.props.handleBrowseResults}>
+        <button type="button" id={'BrowseBackward' + position} className="arrowButton" title="Vorherige Seite" onClick={this.props.handleBrowseResults}>
           <img src="./icons/back.svg" alt="" />
-        </div>
-        <div id={'BrowseForward' + position} className="arrowLink" onClick={this.props.handleBrowseResults}>
+        </button>
+        <button type="button" id={'BrowseForward' + position} className="arrowButton" title="Nächste Seite" onClick={this.props.handleBrowseResults}>
           <img src="./icons/forward.svg" alt="" />
-        </div>
+        </button>
       </div>
     );
   }

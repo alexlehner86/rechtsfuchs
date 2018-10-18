@@ -11,8 +11,8 @@ class AddDocButton extends Component {
   
   render() {
     return (
-      <button className="btn btn-default btn-sm" type="button" onClick={this.handleAddDocument} title="Dokument in Projekt-Ordner speichern">
-        <img src="./icons/save.svg" className="addButton" alt="" /> &nbsp;Speichern
+      <button className="btn btn-default btn-sm addButton" type="button" onClick={this.handleAddDocument} title="Dokument in Projekt-Ordner speichern">
+        <img src="./icons/save.svg" className="addIcon" alt="" /> &nbsp;Speichern
       </button>
     );
   }

@@ -38,7 +38,7 @@ p {
   font-weight: bold; }
 
 .setHighlightColor {
-  color: #2990bb;
+  color: #003366;
   font-size: 9pt;
   font-weight: 300; }
 
@@ -59,7 +59,9 @@ nav {
   height: 40px;
   margin: 0;
   padding: 0;
-  background-color: #2990bb; }
+  background-color: #003366;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 
 .navDIV {
   padding: 9px 0px; }
@@ -88,7 +90,7 @@ footer {
   height: 30px;
   margin: 0;
   padding: 0;
-  background-color: #2990bb; }
+  background-color: #003366; }
   footer p {
     color: rgba(255, 255, 255, 0.7);
     font-size: 8pt;

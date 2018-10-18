@@ -1,6 +1,9 @@
+$mainColorMedium: #337ab7;
+$mainColorVeryBright: #e6f2ff;
+
 .resultsDIV {
   margin-bottom: 20px;
-  border: 1px solid #337ab7;
+  border: 1px solid $mainColorMedium;
   background-color: white;
   border-radius: 10px;
 }
@@ -10,7 +13,7 @@
   margin: 0;
   padding: 10px;
   color: white;
-  background-color: #337ab7;
+  background-color: $mainColorMedium;
   border-radius: 7px 7px 0 0;
 
   h1 {
@@ -58,7 +61,8 @@
   margin: 0 2px;
   padding: 0 8px;
   background-color: white;
-  border: 1px solid #555;
+  border: 1px solid #333;
+  opacity: 0.8;
   vertical-align: middle;
 
   img {
@@ -76,14 +80,16 @@
   }
 
   &:active {
-    background-color: #ccc;
-    border: 1px solid white;
+    background-color: white;
+    border: 1px solid #555;
     cursor: pointer;
   }
 
   &:hover {
-    background-color: #ccc;
+    background-color: $mainColorVeryBright;
+    border: 1px solid black;
     cursor: pointer;
+    opacity: 1;
   }
 }
 
@@ -138,10 +144,27 @@
   font-size: 12pt;
 }
 
-.addButton {
+.addIcon {
   height: 18px;
   padding: 0;
   margin: 0;
+}
+
+.addButton {
+  opacity: 0.8;
+  color: black;
+
+  &:focus, &:active, &.active, &:focus:active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+
+  &:hover {
+    background-color: $mainColorVeryBright;
+    opacity: 1;
+  }
 }
 
 .buttonAndLinksDIV {

@@ -1,5 +1,7 @@
 $inputSelectBorder: 1px solid #ccc;
 $inputSelectBorderRadius: 3px;
+$mainColorMedium: #337ab7;
+$mainColorBright: #72c2e4;
 
 .searchFormWrapper {
   padding: 20px;
@@ -64,7 +66,7 @@ $inputSelectBorderRadius: 3px;
 
 .rechtsquellenContainer {
   width: 100%;
-  background-color: #337ab7;
+  background-color: $mainColorMedium;
   margin: 10px 0 15px 0;
   padding: 0;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
@@ -117,7 +119,7 @@ $inputSelectBorderRadius: 3px;
 
 .highlightHeader {
   color: white;
-  background-color: #72c2e4;
+  background-color: $mainColorBright;
 }
 
 .optionenContainer {

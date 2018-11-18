@@ -45,9 +45,7 @@ class App extends Component {
         <UserManagement />
         <ProjectManagement />
 
-        <nav>
-          <Navigation onChangeNavChoice={this.changeNavChoice} />
-        </nav>
+        <Navigation onChangeNavChoice={this.changeNavChoice} />
         
         {/* App-main contains the main elements of the website, e.g. RIS search, projects */}
         <div className="App-main">

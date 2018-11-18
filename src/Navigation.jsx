@@ -14,27 +14,31 @@ class Navigation extends Component {
 
   render() {
     const { user, loggedIn } = this.props;
-    const buttonTitle = loggedIn ? `Hallo ${user.firstName}!` : '';
+    const welcomeMessage = loggedIn ? `Hallo, ${user.firstName}!` : '';
 
     return (
-           <div className="navDIV">
-            <p id="Start" onClick={this.handleNavChange}>Home</p>
-            <p id="Suche" onClick={this.handleNavChange}>Suche</p>
-            <p id="Projekte" onClick={this.handleNavChange}>Projekte</p>
-            <p id="Info" onClick={this.handleNavChange}>Info</p>&nbsp;
-            
-            {!loggedIn && (
-              <Button id="Login" onClick={this.handleUserMgmtChange} bsStyle="default" bsSize="xsmall">
-                Login
-              </Button>
-            )}
-            {loggedIn && (
-              <DropdownButton title={buttonTitle} bsSize="xsmall" id="bg-nested-dropdown">
-                <MenuItem eventKey="1" onClick={this.handleLogout}>Logout</MenuItem>
-                <MenuItem id="DeleteUser" eventKey="2" onClick={this.handleUserMgmtChange}>Konto löschen</MenuItem>
-              </DropdownButton>
-            )}
-          </div>
+      <nav>
+        <div className="navDIV">
+          <Button id="Start" onClick={this.handleNavChange} bsStyle="link">Home</Button>
+          <Button id="Suche" onClick={this.handleNavChange} bsStyle="link">Suche</Button>
+          <Button id="Projekte" onClick={this.handleNavChange} bsStyle="link">Projekte</Button>
+          
+          {!loggedIn && (
+            <Button id="Login" onClick={this.handleUserMgmtChange} bsStyle="link">
+              Login
+            </Button>
+          )}
+          {loggedIn && (
+            <DropdownButton title="Konto" bsStyle="link" id="bg-nested-dropdown">
+              <MenuItem header>{welcomeMessage}</MenuItem>
+              <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
+              <MenuItem id="DeleteUser" onClick={this.handleUserMgmtChange}>Konto löschen</MenuItem>
+            </DropdownButton>
+          )}
+
+          <Button id="Info" onClick={this.handleNavChange} bsStyle="link">Info</Button>
+        </div>
+      </nav>
     );
   }
 

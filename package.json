@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://alexlehner86.github.io/rechtsfuchs/",
   "dependencies": {
+    "crawler-request": "^1.2.2",
     "gh-pages": "^1.2.0",
     "history": "^4.6.3",
     "jquery": "^3.3.1",

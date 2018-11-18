@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { crawler } from 'crawler-request';
+import { myPDFcrawler } from '../_services';
 import './HomePage.css';
 
 class HomePage extends Component {
@@ -18,10 +18,7 @@ class HomePage extends Component {
   }
 
   parsePDF() {
-    crawler("http://careers.stackoverflow.com/stack_overflow_careers.pdf").then(function(response){
-      // handle response
-      console.log(response.text.lenght);
-    });
+    myPDFcrawler.fetchPdfAsText('./test.pdf');
   }
 }
 

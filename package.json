@@ -4,12 +4,12 @@
   "private": true,
   "homepage": "https://alexlehner86.github.io/rechtsfuchs/",
   "dependencies": {
-    "crawler-request": "^1.2.2",
     "gh-pages": "^1.2.0",
     "history": "^4.6.3",
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
     "node-sass-chokidar": "^1.3.3",
+    "pdfjs-dist": "^2.0.943",
     "rc-datepicker": "^5.0.13",
     "react": "^16.4.1",
     "react-bootstrap": "^0.32.1",

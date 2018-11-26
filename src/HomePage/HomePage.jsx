@@ -25,8 +25,7 @@ class HomePage extends Component {
   }
 
   parseHtmlPage() {
-    // myPDFcrawler.fetchPdfAsText('./test.pdf');
-    myHTMLcrawler.getPage('https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40205588/NOR40205588.html');
+    myHTMLcrawler.getPage('https://www.ris.bka.gv.at/Dokumente/Vfgh/JFR_20181010_17E04248_01/JFR_20181010_17E04248_01.html');
   }
 }
 

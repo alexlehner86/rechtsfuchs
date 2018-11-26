@@ -7,3 +7,4 @@ export * from './SearchInProgressPage';
 export * from './NoSearchResultsPage';
 export * from './SearchFormTopInputFields';
 export * from './SearchFormRechtsquellenItems';
+export * from './HighlightSearchTerm';

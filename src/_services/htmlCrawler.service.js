@@ -1,45 +1,103 @@
 import $ from 'jquery';
 
-export const myHTMLcrawler = { getPage };
+export const myHTMLcrawler = { fetchPageFromUrl, findAndHighlightSearchTerm };
 
 const itemsToKeep = [
     'Text',
     'Leitsatz',
-    'Rechtssatz'
+    'Rechtssatz',
+    'Spruch',
+    'Begründung',
+    'Ratifikationstext',
+    'Präambel',
+    'Präambel/Promulgationsklausel'
 ];
+const charBuffer = 150;
 
-function getPage(urlToCrawl) {
+function fetchPageFromUrl(urlToCrawl) {
     const url = "http://allorigins.me/get?url=" + encodeURIComponent(urlToCrawl) + "&callback=?";
   
-    $.ajax({
+    return $.ajax({
         dataType: "json",
         contentType: "application/x-www-form-urlencoded;charset=ISO-8859-1",
-        url: url,
-        success: success
+        url: url
     });
 }
 
-function success(response){
+function findAndHighlightSearchTerm(response, searchTerm){
+    const textObject = {
+        textBeforeSearchTerm: '',
+        highlightedSearchTerm: '',
+        textAfterSearchTerm: ''
+    };
     const parsedToHtmlNodes = $.parseHTML(response.contents);
-    const lastNodeIndex = parsedToHtmlNodes.length - 1;
-    document.getElementById('show-results').innerHTML = getRelevantContentAsText(parsedToHtmlNodes[lastNodeIndex]);
+    let index = -1;
+    // find node with class 'paperw' which holds the content text
+    for (let i = 0; i < parsedToHtmlNodes.length; i++) {
+        if (parsedToHtmlNodes[i].className === 'paperw') {
+            index = i;
+            break;
+        }
+    }
+    // if no node with the content text was found, return default textObject
+    if (index === -1) {
+        return textObject;
+    }
+    const relevantTextArray = getRelevantContentAsText(parsedToHtmlNodes[index]);
+    
+    index = -1;
+    let textSnippet = '';
+    for (let text of relevantTextArray) {
+        const lowercaseText = text.toLowerCase();
+        index = lowercaseText.indexOf(searchTerm.toLowerCase());
+        if (index > -1) {
+            textSnippet = text;
+            break;
+        }
+    }
+
+    if (index > -1) {
+        let startDots = '...';
+        let endDots = '...';
+        let startIndex = index - charBuffer;
+        if (startIndex < 0) {
+            startDots = '';
+            startIndex = 0;
+        }
+        let endIndex = index + searchTerm.length + charBuffer; 
+        if (endIndex >= textSnippet.length) {
+            endDots = '';
+            endIndex = textSnippet.length - 1;
+        }
+        textObject.textBeforeSearchTerm = startDots + textSnippet.substring(startIndex, index);
+        textObject.highlightedSearchTerm = textSnippet.substring(index, index + searchTerm.length);
+        textObject.textAfterSearchTerm = textSnippet.substring(index + searchTerm.length, endIndex + 1) + endDots;
+    } 
+    return textObject;
 }
 
 function getRelevantContentAsText(htmlNode) {
-    let contentText = '';
+    let relevantTextArray = [];
     let foundRelevantContent = false;
 
-    for (let child of htmlNode.children) {
-        if (foundRelevantContent) {
-            contentText += '<br>' + child.innerText;
-        } else {
-            if (itemsToKeep.includes(child.innerText)) {
-                foundRelevantContent = true;
-                contentText += '<br>' + child.innerText;
+    if (htmlNode.children) {
+        for (let child of htmlNode.children) {
+            if (foundRelevantContent) {
+                // add relevant text paragraph to text array
+                relevantTextArray.push(child.innerText);
             } else {
-                contentText += getRelevantContentAsText(child);
-            }       
+                if (itemsToKeep.includes(child.innerText)) {
+                    // found relevant title e.g. "Text" or "Leitsatz", therefore the 
+                    // following siblings of this child contain relevant text paragraphs
+                    foundRelevantContent = true;
+                } else {
+                    const childrenContent = getRelevantContentAsText(child);
+                    if (childrenContent.length > 0) {
+                        relevantTextArray.push(...childrenContent);
+                    }
+                }       
+            }
         }
     }
-    return contentText;
+    return relevantTextArray;
 }

@@ -30,10 +30,10 @@ class SearchPage extends Component {
         <div id="Search-Results" className="Search-Right">
           <div className="pufferBoxRight"></div>
           { this.noSearchHasBeenInitiated() && <BackgroundLogo /> }
-          { searchRIS_Bundesrecht.searchQuery && <SearchResults searchRIS_Data={searchRIS_Bundesrecht} /> }
-          { searchRIS_Landesrecht.searchQuery && <SearchResults searchRIS_Data={searchRIS_Landesrecht} /> }
-          { searchRIS_VfGH.searchQuery && <SearchResults searchRIS_Data={searchRIS_VfGH} /> }
-          { searchRIS_VwGH.searchQuery && <SearchResults searchRIS_Data={searchRIS_VwGH} /> }
+          { searchRIS_Bundesrecht.searchQuery && <SearchResults searchRIS_Data={searchRIS_Bundesrecht} searchTerm={searchRIS_Bundesrecht.searchQuery.suchworte} /> }
+          { searchRIS_Landesrecht.searchQuery && <SearchResults searchRIS_Data={searchRIS_Landesrecht} searchTerm={searchRIS_Landesrecht.searchQuery.suchworte} /> }
+          { searchRIS_VfGH.searchQuery && <SearchResults searchRIS_Data={searchRIS_VfGH} searchTerm={searchRIS_VfGH.searchQuery.suchworte} /> }
+          { searchRIS_VwGH.searchQuery && <SearchResults searchRIS_Data={searchRIS_VwGH} searchTerm={searchRIS_VwGH.searchQuery.suchworte} /> }
         </div>
       </div>
     );

@@ -37,7 +37,7 @@ class SearchResults extends Component {
           </div>
 
           {results.totalNumberOfHits > 20 && <SearchResultsBrowseButtons position="Top" handleBrowseResults={this.handleBrowseResults} /> }
-          <SearchResultsGrid results={results} />
+          <SearchResultsGrid results={results} searchTerm={this.props.searchTerm} />
           {results.totalNumberOfHits > 20 && <SearchResultsBrowseButtons position="Bottom" handleBrowseResults={this.handleBrowseResults} /> }
         </div>
       );

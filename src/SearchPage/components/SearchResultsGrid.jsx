@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { DocumentLinkButtons, AddDocButton } from './';
+import { DocumentLinkButtons, AddDocButton, HighlightSearchTerm } from './';
 
 class SearchResultsGrid extends Component {
   render() {
-    const { results } = this.props;
+    const { results, searchTerm } = this.props;
     
     return (
       <div className="resultsGrid">
@@ -14,6 +14,7 @@ class SearchResultsGrid extends Component {
               <div className="itemNrDIV">#{itemNr}</div>
               <h4 className="bottomLine">{item.headline}</h4>
               <p className="resultInfoText">{item.resultInfoText}</p>
+              <HighlightSearchTerm searchTerm={searchTerm} urlToCrawl={item.weblinks.web_url} />
               <p className="buttonAndLinksDIV bottomLine">
                 <DocumentLinkButtons weblinks={item.weblinks} /> &nbsp;
                 <AddDocButton resultItem={item} />

@@ -225,6 +225,14 @@ $mainColorVeryBright: #e6f2ff;
   margin: 0 auto 10px;
 }
 
+.highlightSearchTerm {
+  padding: 10px;
+  border: 1px solid #4a4a4a;
+  background-color: #d4d4d4;
+  font-style: italic;
+  font-size: 10pt;
+}
+
 @media (max-width: 1000px) {
   .resultsGrid {
     grid-template-columns: 100%;

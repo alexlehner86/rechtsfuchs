@@ -176,12 +176,17 @@
 .hCenterBrowseButtonsBottom {
   margin: 0 auto 10px; }
 
-.highlightSearchTerm {
+.highlightSearchTermContainer {
   padding: 10px;
+  width: 100%;
   border: 1px solid #4a4a4a;
   background-color: #d4d4d4;
   font-style: italic;
   font-size: 10pt; }
+
+.highlightSearchTerm {
+  background-color: lightblue;
+  font-weight: bold; }
 
 @media (max-width: 1000px) {
   .resultsGrid {

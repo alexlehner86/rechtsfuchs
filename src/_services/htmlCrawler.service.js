@@ -20,7 +20,10 @@ function fetchPageFromUrl(urlToCrawl) {
     return $.ajax({
         dataType: "json",
         contentType: "application/x-www-form-urlencoded;charset=ISO-8859-1",
-        url: url
+        url: url,
+        error: (XMLHttpRequest, textStatus, errorThrown) => {
+            console.log('Error in AJAX-Call: ' + errorThrown);
+        }
     });
 }
 
@@ -31,21 +34,22 @@ function findAndHighlightSearchTerm(response, searchTerm){
         textAfterSearchTerm: ''
     };
     const parsedToHtmlNodes = $.parseHTML(response.contents);
-    let index = -1;
+    let indexOfContentNode = -1;
     // find node with class 'paperw' which holds the content text
     for (let i = 0; i < parsedToHtmlNodes.length; i++) {
         if (parsedToHtmlNodes[i].className === 'paperw') {
-            index = i;
+            indexOfContentNode = i;
             break;
         }
     }
     // if no node with the content text was found, return default textObject
-    if (index === -1) {
+    if (indexOfContentNode === -1) {
+        console.log('Error: Crawled html page does not contain "paperw" content element!');
         return textObject;
     }
-    const relevantTextArray = getRelevantContentAsText(parsedToHtmlNodes[index]);
+    const relevantTextArray = getRelevantContentAsText(parsedToHtmlNodes[indexOfContentNode]);
     
-    index = -1;
+    let index = -1;
     let textSnippet = '';
     for (let text of relevantTextArray) {
         const lowercaseText = text.toLowerCase();

@@ -15,9 +15,9 @@ export class HighlightSearchTerm extends Component {
   
   render() {
     return (
-      <p className="highlightSearchTerm">
+      <p className="highlightSearchTermContainer">
         { this.state.textBeforeSearchTerm }
-        <span style={{backgroundColor: 'lightblue', fontWeight: 'bold'}}>{ this.state.highlightedSearchTerm }</span>
+        <span className="highlightSearchTerm">{ this.state.highlightedSearchTerm }</span>
         { this.state.textAfterSearchTerm }
       </p>
     );
@@ -26,8 +26,12 @@ export class HighlightSearchTerm extends Component {
   componentDidMount() {
     myHTMLcrawler.fetchPageFromUrl(this.props.urlToCrawl)
     .then(response => {
-      const text = myHTMLcrawler.findAndHighlightSearchTerm(response, this.props.searchTerm);
-      this.setState({...text});
+      if (response.status.error) {
+        console.log('Error in AJAX-Call', response.status.error);
+      } else {
+        const text = myHTMLcrawler.findAndHighlightSearchTerm(response, this.props.searchTerm);
+        this.setState({...text});
+      }
     });
   }
 }

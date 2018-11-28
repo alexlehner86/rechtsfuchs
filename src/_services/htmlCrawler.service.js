@@ -15,7 +15,7 @@ const itemsToKeep = [
 const charBuffer = 150;
 
 function fetchPageFromUrl(urlToCrawl) {
-    const url = "http://allorigins.me/get?url=" + encodeURIComponent(urlToCrawl) + "&callback=?";
+    const url = "https://allorigins.me/get?url=" + encodeURIComponent(urlToCrawl) + "&callback=?";
   
     return $.ajax({
         dataType: "json",

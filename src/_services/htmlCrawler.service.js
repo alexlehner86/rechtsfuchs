@@ -32,7 +32,7 @@ function fetchPageFromUrl(urlToCrawl) {
 
 function findAndHighlightSearchTerm(response, searchTerm){
     const textObject = {
-        textBeforeSearchTerm: '(Suchworte nicht gefunden)',
+        textBeforeSearchTerm: '(Suchworte im Dokument nicht gefunden)',
         highlightedSearchTerm: '',
         textAfterSearchTerm: ''
     };

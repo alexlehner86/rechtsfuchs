@@ -14,7 +14,7 @@ class SearchResultsGrid extends Component {
               <div className="itemNrDIV">#{itemNr}</div>
               <h4 className="bottomLine">{item.headline}</h4>
               <p className="resultInfoText">{item.resultInfoText}</p>
-              <HighlightSearchTerm searchTerm={searchTerm} urlToCrawl={item.weblinks.web_url} />
+              { searchTerm && <HighlightSearchTerm searchTerm={searchTerm} urlToCrawl={item.weblinks.web_url} /> }
               <p className="buttonAndLinksDIV bottomLine">
                 <DocumentLinkButtons weblinks={item.weblinks} /> &nbsp;
                 <AddDocButton resultItem={item} />

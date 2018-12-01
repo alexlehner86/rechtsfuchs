@@ -5,15 +5,15 @@
   text-align: left; 
 }
 
-  .Projects-Left {
-    padding: 10px 0;
-    margin: 10px 0 0 10px;
-  }
-  .Projects-Right {
-    padding: 20px;
-  }
+.Projects-Left {
+  padding: 10px 0;
+  margin: 10px 0 0 10px;
+}
+.Projects-Right {
+  padding: 20px;
+}
 
-@media (max-width: 700px) {
+@media screen and (max-width: 700px) {
   .Projects-Grid {
     grid-template: auto / 100%; 
   }

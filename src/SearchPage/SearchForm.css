@@ -5,7 +5,7 @@
   .searchFormWrapper h2 {
     margin-top: 0; }
 
-@media (max-width: 700px) {
+@media screen and (max-width: 700px) {
   .searchFormWrapper {
     padding: 0; }
     .searchFormWrapper h2 {

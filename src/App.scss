@@ -158,7 +158,7 @@ footer {
   width: 200px;
 }
 
-@media (max-width: 550px) {
+@media screen and (max-width: 550px) {
   h1 {
     font-size: 14pt;
   }
@@ -200,7 +200,7 @@ footer {
   }
 }
 
-@media (min-width: 800px) {
+@media screen and (min-width: 800px) {
   .App-main {
     width: 90%;
     margin: 0 auto 20px auto;

@@ -27,7 +27,7 @@ export class HighlightSearchTerm extends Component {
     myHTMLcrawler.fetchPageFromUrl(this.props.urlToCrawl)
     .then(response => {
       if (response.status.error) {
-        console.log('Error in AJAX-Call', response.status.error);
+        console.log('Error in AJAX-Call:', response.status.error);
       } else {
         const text = myHTMLcrawler.findAndHighlightSearchTerm(response, this.props.searchTerm);
         this.setState({...text});

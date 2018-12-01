@@ -2,6 +2,7 @@ import $ from 'jquery';
 
 export const myHTMLcrawler = { fetchPageFromUrl, findAndHighlightSearchTerm };
 
+const anyOriginUrl = "https://api.allorigins.ml";
 const itemsToKeep = [
     'Text',
     'Leitsatz',
@@ -15,7 +16,7 @@ const itemsToKeep = [
 const charBuffer = 150;
 
 function fetchPageFromUrl(urlToCrawl) {
-    const url = "https://allorigins.me/get?url=" + encodeURIComponent(urlToCrawl) + "&callback=?";
+    const url = anyOriginUrl + "/get?url=" + encodeURIComponent(urlToCrawl) + "&callback=?";
   
     return $.ajax({
         dataType: "json",

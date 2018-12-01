@@ -62,23 +62,10 @@ function findAndHighlightSearchTerm(response, searchTerm){
     }
 
     if (textSnippet.index > -1) {
-        let startDots = '...';
-        let endDots = '...';
-        let startIndex = textSnippet.index - charBuffer;
-        if (startIndex < 0) {
-            startDots = '';
-            startIndex = 0;
-        }
-        let endIndex = textSnippet.index + searchTerm.length + charBuffer; 
-        if (endIndex >= textSnippet.text.length) {
-            endDots = '';
-            endIndex = textSnippet.text.length - 1;
-        }
-        textObject.textBeforeSearchTerm = startDots + textSnippet.text.substring(startIndex, textSnippet.index);
-        textObject.highlightedSearchTerm = textSnippet.text.substring(textSnippet.index, textSnippet.index + searchTerm.length);
-        textObject.textAfterSearchTerm = textSnippet.text.substring(textSnippet.index + searchTerm.length, endIndex + 1) + endDots;
-    } 
-    return textObject;
+        return createTextObject(textSnippet, searchTerm);
+    } else {
+        return textObject; 
+    }
 }
 
 function getContentNode(contents) {
@@ -132,4 +119,24 @@ function getTextSnippetContainingSearchTerm(textArray, searchTerm) {
         }
     }
     return textSnippet;
+}
+
+function createTextObject(textSnippet, searchTerm) {
+    let startDots = '...';
+    let endDots = '...';
+    let startIndex = textSnippet.index - charBuffer;
+    if (startIndex < 0) {
+        startDots = '';
+        startIndex = 0;
+    }
+    let endIndex = textSnippet.index + searchTerm.length + charBuffer; 
+    if (endIndex >= textSnippet.text.length) {
+        endDots = '';
+        endIndex = textSnippet.text.length - 1;
+    }
+    return {
+        textBeforeSearchTerm: startDots + textSnippet.text.substring(startIndex, textSnippet.index),
+        highlightedSearchTerm: textSnippet.text.substring(textSnippet.index, textSnippet.index + searchTerm.length),
+        textAfterSearchTerm: textSnippet.text.substring(textSnippet.index + searchTerm.length, endIndex + 1) + endDots,  
+    }
 }

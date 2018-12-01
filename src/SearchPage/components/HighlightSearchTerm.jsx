@@ -7,7 +7,7 @@ export class HighlightSearchTerm extends Component {
     super(props);
 
     this.state = {
-      textBeforeSearchTerm: '...',
+      textBeforeSearchTerm: 'Suche im Dokument läuft...',
       highlightedSearchTerm: '',
       textAfterSearchTerm: ''
     }

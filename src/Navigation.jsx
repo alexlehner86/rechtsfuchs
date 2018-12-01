@@ -19,7 +19,6 @@ class Navigation extends Component {
     return (
       <nav>
         <div className="navDIV">
-          <Button id="Start" onClick={this.handleNavChange} bsStyle="link">Home</Button>
           <Button id="Suche" onClick={this.handleNavChange} bsStyle="link">Suche</Button>
           <Button id="Projekte" onClick={this.handleNavChange} bsStyle="link">Projekte</Button>
           

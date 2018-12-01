@@ -1,5 +1,13 @@
 $mainColorMedium: #337ab7;
 $mainColorVeryBright: #e6f2ff;
+@mixin linebreak() {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+}
 
 .resultsDIV {
   margin-bottom: 20px;
@@ -62,7 +70,6 @@ $mainColorVeryBright: #e6f2ff;
   padding: 0 8px;
   background-color: white;
   border: 1px solid #333;
-  opacity: 0.8;
   vertical-align: middle;
 
   img {
@@ -89,7 +96,6 @@ $mainColorVeryBright: #e6f2ff;
     background-color: $mainColorVeryBright;
     border: 1px solid black;
     cursor: pointer;
-    opacity: 1;
   }
 }
 
@@ -142,6 +148,7 @@ $mainColorVeryBright: #e6f2ff;
 
 .resultInfoText {
   font-size: 12pt;
+  @include linebreak();
 }
 
 .addIcon {
@@ -227,14 +234,12 @@ $mainColorVeryBright: #e6f2ff;
 
 .highlightSearchTermContainer {
   padding: 10px;
-//  word-wrap: break-word;
-//  overflow-wrap: break-word;
-//  word-break: break-all;
   width: 100%;
-  border: 1px solid #4a4a4a;
-  background-color: #d4d4d4;
+  border: none;
+  background-color: #ddd;
   font-style: italic;
   font-size: 10pt;
+  @include linebreak();
 }
 
 .highlightSearchTerm {

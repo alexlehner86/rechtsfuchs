@@ -11,7 +11,9 @@ const itemsToKeep = [
     'Begründung',
     'Ratifikationstext',
     'Präambel',
-    'Präambel/Promulgationsklausel'
+    'Präambel/Promulgationsklausel',
+    'Anmerkung',
+    'Schlagworte'
 ];
 const charBuffer = 150;
 
@@ -30,58 +32,67 @@ function fetchPageFromUrl(urlToCrawl) {
 
 function findAndHighlightSearchTerm(response, searchTerm){
     const textObject = {
-        textBeforeSearchTerm: '',
+        textBeforeSearchTerm: '(Suchworte nicht gefunden)',
         highlightedSearchTerm: '',
         textAfterSearchTerm: ''
     };
-    const parsedToHtmlNodes = $.parseHTML(response.contents);
-    let indexOfContentNode = -1;
-    // find node with class 'paperw' which holds the content text
-    for (let i = 0; i < parsedToHtmlNodes.length; i++) {
-        if (parsedToHtmlNodes[i].className === 'paperw') {
-            indexOfContentNode = i;
-            break;
-        }
+
+    const searchTermIsPhrase = searchTerm[0] === "'";
+    if (searchTermIsPhrase) {
+        searchTerm = searchTerm.slice(1, searchTerm.length - 1);
     }
+
+    const contentNode = getContentNode(response.contents);
     // if no node with the content text was found, return default textObject
-    if (indexOfContentNode === -1) {
+    if (!contentNode) {
         console.log('Error: Crawled html page does not contain "paperw" content element!');
         return textObject;
     }
-    const relevantTextArray = getRelevantContentAsText(parsedToHtmlNodes[indexOfContentNode]);
-    
-    let index = -1;
-    let textSnippet = '';
-    for (let text of relevantTextArray) {
-        const lowercaseText = text.toLowerCase();
-        index = lowercaseText.indexOf(searchTerm.toLowerCase());
-        if (index > -1) {
-            textSnippet = text;
-            break;
+
+    const relevantTextArray = getRelevantContentAsTextArray(contentNode);
+    let textSnippet = getTextSnippetContainingSearchTerm(relevantTextArray, searchTerm);
+    if (textSnippet.index === -1) {
+        // if the search term wasn't found, then check if there are several search terms
+        // (separated by ' ') and only search for the first search term
+        const indexOfFirstSpaceChar = searchTerm.indexOf(' ');
+        if (indexOfFirstSpaceChar > -1) {
+            searchTerm = searchTerm.slice(0, indexOfFirstSpaceChar);
+            textSnippet = getTextSnippetContainingSearchTerm(relevantTextArray, searchTerm);
         }
     }
 
-    if (index > -1) {
+    if (textSnippet.index > -1) {
         let startDots = '...';
         let endDots = '...';
-        let startIndex = index - charBuffer;
+        let startIndex = textSnippet.index - charBuffer;
         if (startIndex < 0) {
             startDots = '';
             startIndex = 0;
         }
-        let endIndex = index + searchTerm.length + charBuffer; 
-        if (endIndex >= textSnippet.length) {
+        let endIndex = textSnippet.index + searchTerm.length + charBuffer; 
+        if (endIndex >= textSnippet.text.length) {
             endDots = '';
-            endIndex = textSnippet.length - 1;
+            endIndex = textSnippet.text.length - 1;
         }
-        textObject.textBeforeSearchTerm = startDots + textSnippet.substring(startIndex, index);
-        textObject.highlightedSearchTerm = textSnippet.substring(index, index + searchTerm.length);
-        textObject.textAfterSearchTerm = textSnippet.substring(index + searchTerm.length, endIndex + 1) + endDots;
+        textObject.textBeforeSearchTerm = startDots + textSnippet.text.substring(startIndex, textSnippet.index);
+        textObject.highlightedSearchTerm = textSnippet.text.substring(textSnippet.index, textSnippet.index + searchTerm.length);
+        textObject.textAfterSearchTerm = textSnippet.text.substring(textSnippet.index + searchTerm.length, endIndex + 1) + endDots;
     } 
     return textObject;
 }
 
-function getRelevantContentAsText(htmlNode) {
+function getContentNode(contents) {
+    // find node with class 'paperw' which holds the content text
+    const parsedToHtmlNodes = $.parseHTML(contents);
+    for (let i = 0; i < parsedToHtmlNodes.length; i++) {
+        if (parsedToHtmlNodes[i].className === 'paperw') {
+            return parsedToHtmlNodes[i];
+        }
+    }
+    return null;
+}
+
+function getRelevantContentAsTextArray(htmlNode) {
     let relevantTextArray = [];
     let foundRelevantContent = false;
 
@@ -96,7 +107,7 @@ function getRelevantContentAsText(htmlNode) {
                     // following siblings of this child contain relevant text paragraphs
                     foundRelevantContent = true;
                 } else {
-                    const childrenContent = getRelevantContentAsText(child);
+                    const childrenContent = getRelevantContentAsTextArray(child);
                     if (childrenContent.length > 0) {
                         relevantTextArray.push(...childrenContent);
                     }
@@ -105,4 +116,20 @@ function getRelevantContentAsText(htmlNode) {
         }
     }
     return relevantTextArray;
+}
+
+function getTextSnippetContainingSearchTerm(textArray, searchTerm) {
+    const textSnippet = {
+        index: -1,
+        text: ''
+    };
+    for (let text of textArray) {
+        const lowercaseText = text.toLowerCase();
+        textSnippet.index = lowercaseText.indexOf(searchTerm.toLowerCase());
+        if (textSnippet.index > -1) {
+            textSnippet.text = text;
+            return textSnippet;
+        }
+    }
+    return textSnippet;
 }

@@ -61,7 +61,7 @@ p {
 }
 
 /* -------------------------------------------------------- */
-/* CSS for central elements of the website (nav, App-main, footer, etc.) */
+/* CSS for central elements of the website (nav, main, footer, etc.) */
 
 nav, footer {
   color: white;
@@ -107,7 +107,7 @@ nav {
   }
 }
   
-.App-main {
+main {
   padding: 0;
   margin: 0 0 20px 0;
   width: 100%;
@@ -176,7 +176,7 @@ footer {
     }
   }
 
-  .App-main {
+  main {
     margin: 0 0 20px 0;
     width: 100%;
   }
@@ -201,7 +201,7 @@ footer {
 }
 
 @media screen and (min-width: 800px) {
-  .App-main {
+  main {
     width: 90%;
     margin: 0 auto 20px auto;
   }

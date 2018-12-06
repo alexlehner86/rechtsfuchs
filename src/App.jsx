@@ -48,12 +48,12 @@ class App extends Component {
         <Navigation onChangeNavChoice={this.changeNavChoice} />
         
         {/* App-main contains the main elements of the website, e.g. RIS search, projects */}
-        <div className="App-main">
+        <main>
           {navChoice === 'Start' && <HomePage />}
           {navChoice === 'Suche' && <SearchPage />}
           {navChoice === 'Projekte' && <ProjectsPage />}
           {navChoice === 'Info' && <InfoPage />}
-        </div>
+        </main>
 
         <footer>
           <p>&copy; Rechtsfuchs</p>

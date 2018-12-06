@@ -46,7 +46,7 @@ p {
   margin: 0 auto; }
 
 /* -------------------------------------------------------- */
-/* CSS for central elements of the website (nav, App-main, footer, etc.) */
+/* CSS for central elements of the website (nav, main, footer, etc.) */
 nav, footer {
   color: white;
   text-align: center; }
@@ -82,7 +82,7 @@ nav {
   .navDIV button:visited {
     color: white; }
 
-.App-main {
+main {
   padding: 0;
   margin: 0 0 20px 0;
   width: 100%;
@@ -135,7 +135,7 @@ footer {
     .navDIV button {
       padding: 0px 7px;
       font-size: 10pt; }
-  .App-main {
+  main {
     margin: 0 0 20px 0;
     width: 100%; }
   footer {
@@ -150,7 +150,7 @@ footer {
     display: none; } }
 
 @media screen and (min-width: 800px) {
-  .App-main {
+  main {
     width: 90%;
     margin: 0 auto 20px auto; } }
 

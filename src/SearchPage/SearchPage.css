@@ -1,7 +1,11 @@
 .Search-Grid {
   width: 100%;
+  display: -ms-grid;
   display: grid;
-  grid-template: 100% / 340px 1fr;
+  -ms-grid-columns: 340px 1fr;
+  grid-template-columns: 340px 1fr;
+  -ms-grid-rows: 100%;
+  grid-template-rows: 100%;
   text-align: left;
 }
 
@@ -15,7 +19,10 @@
 
 @media screen and (max-width: 700px) {
   .Search-Grid {
-    grid-template: auto / 100%;
+    -ms-grid-columns: 100%;
+    grid-template-columns: 100%;
+    -ms-grid-rows: auto;
+    grid-template-rows: auto;
   }
   .Search-Left, .Search-Right {
     padding: 15px;

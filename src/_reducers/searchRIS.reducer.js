@@ -12,12 +12,14 @@ export function searchRIS_Bundesrecht(state = {}, action) {
     case searchRIS_Constants.BUNDESRECHT_BROWSE_REQUEST:
       return {
         ...state,
+        browseRequestFetchingData: true,
         searchQuery: action.searchQuery
       };
     case searchRIS_Constants.BUNDESRECHT_SUCCESS:
       return {
         ...state,
         fetchingData: false,
+        browseRequestFetchingData: false,
         results: action.results
       };
     case searchRIS_Constants.BUNDESRECHT_FAILURE:
@@ -44,12 +46,14 @@ export function searchRIS_Landesrecht(state = {}, action) {
     case searchRIS_Constants.LANDESRECHT_BROWSE_REQUEST:
       return {
         ...state,
+        browseRequestFetchingData: true,
         searchQuery: action.searchQuery
       };
     case searchRIS_Constants.LANDESRECHT_SUCCESS:
       return {
         ...state,
         fetchingData: false,
+        browseRequestFetchingData: false,
         results: action.results
       };
     case searchRIS_Constants.LANDESRECHT_FAILURE:
@@ -76,12 +80,14 @@ export function searchRIS_VwGH(state = {}, action) {
     case searchRIS_Constants.VWGH_BROWSE_REQUEST:
       return {
         ...state,
+        browseRequestFetchingData: true,
         searchQuery: action.searchQuery
       };
     case searchRIS_Constants.VWGH_SUCCESS:
       return {
         ...state,
         fetchingData: false,
+        browseRequestFetchingData: false,
         results: action.results
       };
     case searchRIS_Constants.VWGH_FAILURE:
@@ -108,12 +114,14 @@ export function searchRIS_VfGH(state = {}, action) {
     case searchRIS_Constants.VFGH_BROWSE_REQUEST:
       return {
         ...state,
+        browseRequestFetchingData: true,
         searchQuery: action.searchQuery
       };
     case searchRIS_Constants.VFGH_SUCCESS:
       return {
         ...state,
         fetchingData: false,
+        browseRequestFetchingData: false,
         results: action.results
       };
     case searchRIS_Constants.VFGH_FAILURE:

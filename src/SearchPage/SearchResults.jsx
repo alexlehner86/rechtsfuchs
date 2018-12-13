@@ -22,7 +22,7 @@ class SearchResults extends Component {
   }
   
   render() {
-    const { fetchingData, results, pageTitle } = this.props.searchRIS_Data;
+    const { fetchingData, browseRequestFetchingData, results, pageTitle } = this.props.searchRIS_Data;
     const searchResultsDivID = 'SearchResults' + pageTitle;
   
     if (fetchingData) {
@@ -39,6 +39,12 @@ class SearchResults extends Component {
           {results.totalNumberOfHits > 20 && <SearchResultsBrowseButtons position="Top" handleBrowseResults={this.handleBrowseResults} /> }
           <SearchResultsGrid results={results} searchTerm={this.props.searchTerm} />
           {results.totalNumberOfHits > 20 && <SearchResultsBrowseButtons position="Bottom" handleBrowseResults={this.handleBrowseResults} /> }
+
+          {browseRequestFetchingData && (
+            <div className="browse-request-ongoing-overlay">
+              <p>Daten werden abgerufen...</p>
+            </div>
+          )}
         </div>
       );
     }

@@ -10,10 +10,26 @@ $mainColorVeryBright: #e6f2ff;
 }
 
 .resultsDIV {
+  position: relative;
   margin-bottom: 20px;
   border: 1px solid $mainColorMedium;
   background-color: white;
   border-radius: 10px;
+
+  .browse-request-ongoing-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 75px);
+    margin-top: 75px;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    p {
+      margin: 10px;
+      color: white;
+    }
+  }
 }
 
 .resultsOverview {

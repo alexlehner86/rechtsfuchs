@@ -1,8 +1,20 @@
 .resultsDIV {
+  position: relative;
   margin-bottom: 20px;
   border: 1px solid #337ab7;
   background-color: white;
   border-radius: 10px; }
+  .resultsDIV .browse-request-ongoing-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 75px);
+    margin-top: 75px;
+    background-color: rgba(0, 0, 0, 0.7); }
+    .resultsDIV .browse-request-ongoing-overlay p {
+      margin: 10px;
+      color: white; }
 
 .resultsOverview {
   width: 100%;

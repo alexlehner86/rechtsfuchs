@@ -1,0 +1,40 @@
+@import "../_helpers/mixins";
+
+.Projects-Grid {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  @include gridColumns(340px 1fr);
+  @include gridRows(100%);
+  text-align: left; 
+}
+
+.Projects-Left {
+  @include msGridRowColumn(1, 1);
+  padding: 10px 0;
+  margin: 10px 0 0 10px;
+}
+.Projects-Right {
+  @include msGridRowColumn(1, 2);
+  padding: 20px;
+}
+
+@media screen and (max-width: 700px) {
+  .Projects-Grid {
+    @include gridColumns(100%);
+    @include gridRows(auto);
+  }
+  .Projects-Left, .Projects-Right {
+    padding: 15px; 
+  }
+  .Projects-Left {
+    padding: 20px;
+    margin: 0;
+    min-height: 150px;
+    background-color: #DDD;
+  }
+  .Projects-Right {
+    @include msGridRowColumn(2, 1);
+    min-height: 300px; 
+  } 
+}

@@ -1,0 +1,18 @@
+@mixin gridColumns($columns...) {
+    @each $col in $columns {
+        -ms-grid-columns: #{$col};
+        grid-template-columns: #{$col};
+    }
+}
+
+@mixin gridRows($rows...) {
+    @each $row in $rows {
+        -ms-grid-rows: #{$row};
+        grid-template-rows: #{$row};
+    }
+}
+
+@mixin msGridRowColumn($row, $column) {
+    -ms-grid-row: $row;
+    -ms-grid-column: $column;
+}

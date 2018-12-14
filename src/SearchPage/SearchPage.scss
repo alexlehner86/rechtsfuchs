@@ -1,0 +1,40 @@
+@import "../_helpers/mixins";
+
+.Search-Grid {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  @include gridColumns(340px 1fr);
+  @include gridRows(100%);
+  text-align: left;
+}
+
+.Search-Left {
+  @include msGridRowColumn(1, 1);
+  padding: 10px 0;
+  margin: 10px 0 0 10px;
+}
+.Search-Right {
+  @include msGridRowColumn(1, 2);
+  padding: 20px;
+}
+
+@media screen and (max-width: 700px) {
+  .Search-Grid {
+    @include gridColumns(100%);
+    @include gridRows(auto);
+  }
+  .Search-Left, .Search-Right {
+    padding: 15px;
+  }
+  .Search-Left {
+    padding: 20px;
+    margin: 0;
+    min-height: 300px;
+    background-color: #DDD;
+  }
+  .Search-Right {
+    @include msGridRowColumn(2, 1);
+    min-height: 100px;
+  }
+}

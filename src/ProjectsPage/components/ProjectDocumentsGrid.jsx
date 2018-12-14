@@ -22,6 +22,10 @@ class ProjectDocumentsGrid extends Component {
             </div>
           );
         })}
+        <div className="placeholder"></div>
+        <div className="placeholder"></div>
+        <div className="placeholder"></div>
+        <div className="placeholder"></div>
       </div>
     );
   }

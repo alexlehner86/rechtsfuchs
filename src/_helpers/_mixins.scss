@@ -16,3 +16,53 @@
     -ms-grid-row: $row;
     -ms-grid-column: $column;
 }
+
+@mixin linebreak() {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}
+
+@mixin loading-spinner($activeColor: "#EF6565", $size: 40px, $border: 3px, $selector: "&::before", $time: 1.5s) {
+    // Animation Keyframes
+    @keyframes spinner {
+        0% {
+            transform: translate3d(-50%, -50%, 0) rotate(0deg);
+        }
+        100% {
+                transform: translate3d(-50%, -50%, 0) rotate(360deg);
+        }
+    }
+
+    // These styles are being applied the element
+    // where we include the mixin. I'd recommend for 
+    // maintainability to keep these as minimal as possible.
+    position: relative;
+
+    // Styles to fade out spinner when loaded
+    &.-loaded { 
+        opacity: 0;
+        transition: opacity linear 0.1s;
+    }
+
+    // Spinner 
+    #{$selector} {
+        animation: $time linear infinite spinner;
+        border: solid $border #eee;
+        border-bottom-color: #{$activeColor};
+        border-radius: 50%;
+        content: "";
+        height: $size;
+        left: 50%;
+        opacity: inherit;
+        position: absolute;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        transform-origin: center;
+        width: $size;
+        will-change: transform;
+    }
+}

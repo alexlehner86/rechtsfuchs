@@ -20,9 +20,13 @@ class SearchResultsGrid extends Component {
                 <AddDocButton resultItem={item} />
               </p>
               <p className="resultSmallInfoText">{item.resultSmallprint}</p>
-          </div>
+            </div>
           );
-        })}  
+        })}
+        <div className="placeholder"></div>
+        <div className="placeholder"></div>
+        <div className="placeholder"></div>
+        <div className="placeholder"></div>
       </div>
     );
   }

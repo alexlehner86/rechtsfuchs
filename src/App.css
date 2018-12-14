@@ -45,7 +45,7 @@ p {
 .horizontalCenter {
   margin: 0 auto; }
 
-/* -------------------------------------------------------- */
+/* ----------------------------------------------------------------- */
 /* CSS for central elements of the website (nav, main, footer, etc.) */
 nav, footer {
   color: white;
@@ -106,7 +106,8 @@ footer {
     margin: 8px auto;
     padding: 0; }
 
-.pufferBox, .pufferBoxRight {
+.pufferBox,
+.pufferBoxRight {
   margin: 0;
   padding: 0;
   height: 35px;

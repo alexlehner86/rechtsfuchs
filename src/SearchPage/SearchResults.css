@@ -9,12 +9,36 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 75px);
-    margin-top: 75px;
+    height: 100%;
+    border-radius: 7px 7px 0 0;
     background-color: rgba(0, 0, 0, 0.7); }
-    .resultsDIV .browse-request-ongoing-overlay p {
-      margin: 10px;
-      color: white; }
+    .resultsDIV .browse-request-ongoing-overlay .spinner {
+      height: 220px;
+      position: relative; }
+
+@keyframes spinner {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg); }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg); } }
+      .resultsDIV .browse-request-ongoing-overlay .spinner.-loaded {
+        opacity: 0;
+        transition: opacity linear 0.1s; }
+      .resultsDIV .browse-request-ongoing-overlay .spinner::before {
+        animation: 1.5s linear infinite spinner;
+        border: solid 5px #eee;
+        border-bottom-color: #337ab7;
+        border-radius: 50%;
+        content: "";
+        height: 150px;
+        left: 50%;
+        opacity: inherit;
+        position: absolute;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        transform-origin: center;
+        width: 150px;
+        will-change: transform; }
 
 .resultsOverview {
   width: 100%;
@@ -87,17 +111,22 @@
 
 .resultsGrid {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-  grid-auto-rows: auto;
-  justify-content: space-around;
-  align-items: stretch;
-  align-content: space-around;
-  grid-auto-flow: row;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: flex-start;
   padding: 5px; }
 
+.placeholder {
+  flex: 1 1 280px;
+  height: 0.1px;
+  background-color: white;
+  margin: 0 10px;
+  padding: 0 10px; }
+
 .resultBox, .resultBoxProjectsPage {
+  flex: 1 1 280px;
   position: relative;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
   margin: 10px;
@@ -182,7 +211,8 @@
     background-color: darkred;
     cursor: pointer; }
 
-.hCenterBrowseButtonsTop, .hCenterBrowseButtonsBottom {
+.hCenterBrowseButtonsTop,
+.hCenterBrowseButtonsBottom {
   padding: 0;
   width: 68px; }
 
@@ -207,12 +237,8 @@
   hyphens: auto; }
 
 .highlightSearchTerm {
-  background-color: lightblue;
+  background-color: rgba(0, 181, 204, 0.3);
   font-weight: bold; }
-
-@media (max-width: 1000px) {
-  .resultsGrid {
-    grid-template-columns: 100%; } }
 
 @media (max-width: 400px) {
   .resultBox {
@@ -226,7 +252,3 @@
   .urlLinkIcon {
     height: 25px;
     padding: 3px 2px 0 2px; } }
-
-@media (min-width: 1600px) {
-  .resultsGrid {
-    grid-template-columns: repeat(3, 1fr); } }

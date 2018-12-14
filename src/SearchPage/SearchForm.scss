@@ -1,7 +1,5 @@
-$inputSelectBorder: 1px solid #ccc;
-$inputSelectBorderRadius: 3px;
-$mainColorMedium: #337ab7;
-$mainColorBright: #72c2e4;
+@import "../_helpers/mixins";
+@import "../_helpers/global-variables";
 
 .searchFormWrapper {
   padding: 20px;

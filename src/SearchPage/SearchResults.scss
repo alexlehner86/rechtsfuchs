@@ -1,13 +1,5 @@
-$mainColorMedium: #337ab7;
-$mainColorVeryBright: #e6f2ff;
-@mixin linebreak() {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
-}
+@import "../_helpers/mixins";
+@import "../_helpers/global-variables";
 
 .resultsDIV {
   position: relative;
@@ -21,13 +13,13 @@ $mainColorVeryBright: #e6f2ff;
     top: 0;
     left: 0;
     width: 100%;
-    height: calc(100% - 75px);
-    margin-top: 75px;
+    height: 100%;
+    border-radius: $resultsOverviewBorderRadius;
     background-color: rgba(0, 0, 0, 0.7);
 
-    p {
-      margin: 10px;
-      color: white;
+    .spinner {
+      height: 220px;
+      @include loading-spinner($mainColorMedium, 150px, 5px);
     }
   }
 }
@@ -38,7 +30,7 @@ $mainColorVeryBright: #e6f2ff;
   padding: 10px;
   color: white;
   background-color: $mainColorMedium;
-  border-radius: 7px 7px 0 0;
+  border-radius: $resultsOverviewBorderRadius;
 
   h1 {
     font-size: 16pt;
@@ -125,18 +117,24 @@ $mainColorVeryBright: #e6f2ff;
 
 .resultsGrid {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: auto;
-  grid-auto-rows: auto;
-  justify-content: space-around;
-  align-items: stretch;
-  align-content: space-around;
-  grid-auto-flow: row;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: flex-start;
   padding: 5px;
 }
 
+.placeholder {
+  flex: 1 1 280px;
+  height: 0.1px;
+  background-color: white;
+  margin: 0 10px;
+  padding: 0 10px;
+}
+
 .resultBox, .resultBoxProjectsPage {
+  flex: 1 1 280px;
   position: relative;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
   margin: 10px;
@@ -235,7 +233,8 @@ $mainColorVeryBright: #e6f2ff;
   }
 }
 
-.hCenterBrowseButtonsTop, .hCenterBrowseButtonsBottom {
+.hCenterBrowseButtonsTop,
+.hCenterBrowseButtonsBottom {
   padding: 0;
   width: 68px;
 }
@@ -259,14 +258,8 @@ $mainColorVeryBright: #e6f2ff;
 }
 
 .highlightSearchTerm {
-  background-color: lightblue;
+  background-color: rgba(0, 181, 204, 0.3);
   font-weight: bold;
-}
-
-@media (max-width: 1000px) {
-  .resultsGrid {
-    grid-template-columns: 100%;
-  }
 }
 
 @media (max-width: 400px) {
@@ -289,11 +282,5 @@ $mainColorVeryBright: #e6f2ff;
   .urlLinkIcon {
     height: 25px;
     padding: 3px 2px 0 2px;
-  }
-}
-
-@media (min-width: 1600px) {
-  .resultsGrid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }

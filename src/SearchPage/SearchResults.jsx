@@ -42,7 +42,7 @@ class SearchResults extends Component {
 
           {browseRequestFetchingData && (
             <div className="browse-request-ongoing-overlay">
-              <p>Daten werden abgerufen...</p>
+              <div class="spinner"></div>
             </div>
           )}
         </div>

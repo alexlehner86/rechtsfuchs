@@ -4,7 +4,8 @@ import { authentication } from './authentication.reducer';
 import { registration } from './registration.reducer';
 import { projects } from './projects.reducer';
 import { projectDocs } from './projectDocs.reducer';
-import { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } from './searchRIS.reducer';
+import { searchRIS_Bundesrecht, searchRIS_Landesrecht, 
+         searchRIS_VwGH, searchRIS_VfGH, searchRIS_Justiz } from './searchRIS.reducer';
 import { alertUserMgmt, alertSearchForm, alertProjectMgmt } from './alert.reducer';
 
 const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   searchRIS_Landesrecht,
   searchRIS_VwGH,
   searchRIS_VfGH,
+  searchRIS_Justiz,
   alertUserMgmt,
   alertSearchForm,
   alertProjectMgmt

@@ -166,5 +166,39 @@ class RechtsquellenItemVwgh extends Component {
   }
 }
 
+// includes the following sources: OGH, 9x OLG (Oberlandesgericht), etc.
+class RechtsquellenItemJustiz extends Component {
+  render() {
+    const { values, handleSelection, handleChange } = this.props;
+
+    return (
+      <div className="rechtsquellenItemsContainer">
+        <div id="justiz" className="rechtsquellenItemsHeader" onClick={handleSelection}>
+          <input type="checkbox" id="vwghCheckbox" value="vwgh" />
+          <p>Justiz (OGH, OLG, etc.)</p>
+        </div>
+        <div id="justizOptionen" className="optionenContainer">
+          <div className="optionZeile">
+            <p>Gericht:</p>
+            <input id="justizGerichtstyp" value={values.justizGerichtstyp} onChange={handleChange} /><br />
+          </div>
+          <div className="optionZeile">
+            <p>Geschäftszahl:</p>
+            <input id="justizGeschaeftszahl" value={values.justizGeschaeftszahl} onChange={handleChange} /><br />
+          </div>
+          <div className="optionZeile">
+            <p>Dokumenttyp:</p>
+            <select id="justizDokumenttyp" value={values.justizDokumenttyp} onChange={handleChange}>
+              <option value="">Alle</option>
+              <option value="Rechtssatz">Rechtssatz</option>
+              <option value="Entscheidungstext">Entscheidungstext</option>
+            </select> 
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
 export { RechtsquellenItemBundesrecht, RechtsquellenItemLandesrecht,
-         RechtsquellenItemVfgh, RechtsquellenItemVwgh };
+         RechtsquellenItemVfgh, RechtsquellenItemVwgh, RechtsquellenItemJustiz };

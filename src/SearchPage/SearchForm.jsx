@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { SearchFormTopInputFields, RechtsquellenItemBundesrecht, RechtsquellenItemLandesrecht,
-         RechtsquellenItemVfgh, RechtsquellenItemVwgh } from './components';
+         RechtsquellenItemVfgh, RechtsquellenItemVwgh, RechtsquellenItemJustiz } from './components';
 import { ErrorMessages } from './helpers';
 import { searchRIS_Actions, alertActionsSearchForm } from '../_actions';
 import { climbUpDOMtreeUntilElementOfType, scrollToTheTopOfElementWithId } from '../_helpers';
@@ -21,8 +21,11 @@ const rechtsquellenArray = [
     defaultValues: { vwghGeschaeftszahl: '', vwghEntscheidungsart: '', vwghDokumenttyp: '' } },
   { id: 'vwgh', reduxObjectName: 'searchRIS_VwGH', 
     fetchResults: searchRIS_Actions.fetchVwGH, clearResults: searchRIS_Actions.clearVwGH,
-    defaultValues: { vfghGeschaeftszahl: '', vfghEntscheidungsart: '', vfghDokumenttyp: '' } }
-];
+    defaultValues: { vfghGeschaeftszahl: '', vfghEntscheidungsart: '', vfghDokumenttyp: '' } },
+  { id: 'justiz', reduxObjectName: 'searchRIS_Justiz', 
+    fetchResults: null, clearResults: null,
+    defaultValues: { justizGerichtstyp: '', justizGeschaeftszahl: '', justizDokumenttyp: '' } }
+]; // TODO add correct functions for fetchResults and clearResults
 
 class SearchForm extends Component {
   constructor(props) {
@@ -54,6 +57,7 @@ class SearchForm extends Component {
             <h3>Rechtsquellen</h3>
             <RechtsquellenItemBundesrecht values={this.state} handleSelection={this.handleSelection} handleChange={this.handleChange} />
             <RechtsquellenItemLandesrecht values={this.state} handleSelection={this.handleSelection} handleChange={this.handleChange} />
+            <RechtsquellenItemJustiz values={this.state} handleSelection={this.handleSelection} handleChange={this.handleChange} />
             <RechtsquellenItemVfgh values={this.state} handleSelection={this.handleSelection} handleChange={this.handleChange} />
             <RechtsquellenItemVwgh values={this.state} handleSelection={this.handleSelection} handleChange={this.handleChange} />
           </div>
@@ -237,13 +241,15 @@ class SearchForm extends Component {
 }
 
 function mapStateToProps(state) {
-  const { alertSearchForm, searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } = state;
+  const { alertSearchForm, searchRIS_Bundesrecht, searchRIS_Landesrecht, 
+          searchRIS_VwGH, searchRIS_VfGH, searchRIS_Justiz } = state;
   return {
     alertSearchForm,
     searchRIS_Bundesrecht,
     searchRIS_Landesrecht,
     searchRIS_VwGH,
-    searchRIS_VfGH
+    searchRIS_VfGH,
+    searchRIS_Justiz
   };
 }
 

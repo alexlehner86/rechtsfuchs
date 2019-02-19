@@ -135,3 +135,37 @@ export function searchRIS_VfGH(state = {}, action) {
       return state
   }
 }
+
+export function searchRIS_Justiz(state = {}, action) {
+  switch (action.type) {
+    case searchRIS_Constants.VFGH_REQUEST:
+      return {
+        ...state,
+        pageTitle: 'Justiz (OGH, OLG, etc.)',
+        fetchingData: true,
+        searchQuery: action.searchQuery
+      };
+    case searchRIS_Constants.VFGH_BROWSE_REQUEST:
+      return {
+        ...state,
+        browseRequestFetchingData: true,
+        searchQuery: action.searchQuery
+      };
+    case searchRIS_Constants.VFGH_SUCCESS:
+      return {
+        ...state,
+        fetchingData: false,
+        browseRequestFetchingData: false,
+        results: action.results
+      };
+    case searchRIS_Constants.VFGH_FAILURE:
+      return { 
+        error: action.error
+      };
+    case searchRIS_Constants.VFGH_CLEAR:
+      return {};
+
+    default:
+      return state
+  }
+}

@@ -53,6 +53,7 @@ class LandesrechtItem extends RISsearchResultItem {
     }
 }
 
+// used for search result items of Justiz, VfGH and VwGH
 class JustizItem extends RISsearchResultItem {
     constructor(rechtsquelle, entscheidungsart, dokumenttyp, schlagworte,
                 entscheidungsdatum, geschaeftszahl, weblinks) {
@@ -70,8 +71,7 @@ class JustizItem extends RISsearchResultItem {
 }
 
 class RISsearchResultItemGroup {
-    constructor(title, resultsMetaInfo, resultsArray, reduxActions) {
-        this.title = title;
+    constructor(resultsMetaInfo, resultsArray, reduxActions) {
         this.pageNumber = resultsMetaInfo.pageNumber;
         this.totalNumberOfPages = resultsMetaInfo.totalNumberOfPages;
         this.totalNumberOfHits = resultsMetaInfo.totalNumberOfHits;

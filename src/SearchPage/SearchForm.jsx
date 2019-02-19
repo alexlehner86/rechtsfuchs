@@ -21,10 +21,10 @@ const rechtsquellenArray = [
     defaultValues: { justizGerichtstyp: '', justizGeschaeftszahl: '', justizDokumenttyp: '' } },
   { id: 'vfgh', reduxObjectName: 'searchRIS_VfGH', 
     fetchResults: searchRIS_Actions.fetchVfGH, clearResults: searchRIS_Actions.clearVfGH,
-    defaultValues: { vwghGeschaeftszahl: '', vwghEntscheidungsart: '', vwghDokumenttyp: '' } },
+    defaultValues: { vfghGeschaeftszahl: '', vfghEntscheidungsart: '', vfghDokumenttyp: '' } },
   { id: 'vwgh', reduxObjectName: 'searchRIS_VwGH', 
     fetchResults: searchRIS_Actions.fetchVwGH, clearResults: searchRIS_Actions.clearVwGH,
-    defaultValues: { vfghGeschaeftszahl: '', vfghEntscheidungsart: '', vfghDokumenttyp: '' } }
+    defaultValues: { vwghGeschaeftszahl: '', vwghEntscheidungsart: '', vwghDokumenttyp: '' } }
 ];
 
 class SearchForm extends Component {

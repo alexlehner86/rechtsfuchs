@@ -64,76 +64,51 @@ function convertLandesrechtTypForVienna(landesrechtTyp) {
 }
 
 function fetchJustiz(searchQuery) {
-    let searchDokumenttyp = '';
-    switch (searchQuery.justizDokumenttyp) {
-      case 'Rechtssatz':
-        searchDokumenttyp = '&Dokumenttyp.SucheInRechtssaetzen=on';
-        break;
-      case 'Entscheidungstext':
-        searchDokumenttyp = '&Dokumenttyp.SucheInEntscheidungstexten=on';
-        break;
-      default:
-        searchDokumenttyp = '';
-    }
-  
     const myParams =  'Seitennummer='    + searchQuery.pageNumber
                        +'&Suchworte='      + searchQuery.suchworte
                        +'&Geschaeftszahl=' + searchQuery.justizGeschaeftszahl
                        +'&Gericht=' + searchQuery.justizGerichtstyp
-                       +searchDokumenttyp;
+                       +getDokumenttypSearchString(searchQuery.justizDokumenttyp);
     const endpoint = `${config.RIS_apiURL}/Judikatur?Applikation=Justiz&${myParams}`;
 
     return fetch(endpoint).then(response => handleResponse(response, createJustizItemGroup));
 }
 
 function fetchVfGH(searchQuery) {
-    let searchDokumenttyp = '';
-    switch (searchQuery.vfghDokumenttyp) {
-      case 'Rechtssatz':
-        searchDokumenttyp = '&Dokumenttyp.SucheInRechtssaetzen=on';
-        break;
-      case 'Entscheidungstext':
-        searchDokumenttyp = '&Dokumenttyp.SucheInEntscheidungstexten=on';
-        break;
-      default:
-        searchDokumenttyp = '';
-    }
-  
     const myParams =  'Seitennummer='    + searchQuery.pageNumber
                        +'&Suchworte='      + searchQuery.suchworte
                        +'&Geschaeftszahl=' + searchQuery.vfghGeschaeftszahl
                        +'&Entscheidungsart=' + searchQuery.vfghEntscheidungsart
                        +'&EntscheidungsdatumVon=' + searchQuery.datumVon
                        +'&EntscheidungsdatumBis=' + searchQuery.datumBis
-                       +searchDokumenttyp;
+                       +getDokumenttypSearchString(searchQuery.vfghDokumenttyp);
     const endpoint = `${config.RIS_apiURL}/Judikatur?Applikation=Vfgh&${myParams}`;
 
     return fetch(endpoint).then(response => handleResponse(response, createVfGHItemGroup));
 }
 
 function fetchVwGH(searchQuery) {
-    let searchDokumenttyp = '';
-    switch (searchQuery.vwghDokumenttyp) {
-      case 'Rechtssatz':
-        searchDokumenttyp = '&Dokumenttyp.SucheInRechtssaetzen=on';
-        break;
-      case 'Entscheidungstext':
-        searchDokumenttyp = '&Dokumenttyp.SucheInEntscheidungstexten=on';
-        break;
-      default:
-        searchDokumenttyp = '';
-    }
-  
     const myParams =  'Seitennummer='    + searchQuery.pageNumber
                        +'&Suchworte='      + searchQuery.suchworte
                        +'&Geschaeftszahl=' + searchQuery.vwghGeschaeftszahl
                        +'&Entscheidungsart=' + searchQuery.vwghEntscheidungsart
                        +'&EntscheidungsdatumVon=' + searchQuery.datumVon
                        +'&EntscheidungsdatumBis=' + searchQuery.datumBis
-                       +searchDokumenttyp;
+                       +getDokumenttypSearchString(searchQuery.vwghDokumenttyp);
     const endpoint = `${config.RIS_apiURL}/Judikatur?Applikation=Vwgh&${myParams}`;
 
     return fetch(endpoint).then(response => handleResponse(response, createVwGHItemGroup));
+}
+
+function getDokumenttypSearchString(dokumenttyp) {
+    switch (dokumenttyp) {
+        case 'Rechtssatz':
+          return '&Dokumenttyp.SucheInRechtssaetzen=on';
+        case 'Entscheidungstext':
+          return '&Dokumenttyp.SucheInEntscheidungstexten=on';
+        default:
+          return '';
+    }
 }
 
 function handleResponse(response, createResultItemGroup) {
@@ -156,137 +131,30 @@ function handleResponse(response, createResultItemGroup) {
 }
 
 function createBundesrechtItemGroup(results) {
-    const title = "Bundesrecht";
-    const resultsMetaInfo = getResultsMetaInfo(results);
-    let resultsArray = [];
-    const reduxActions = {
-        fetchSearchResults: searchRIS_Actions.fetchBundesrecht
-    };
-
-    if (resultsMetaInfo.totalNumberOfHits > 0) {
-        let resultItemsFromRIS = results.OgdSearchResult.OgdDocumentResults.OgdDocumentReference;
-        if (!$.isArray(resultItemsFromRIS)) {
-            resultItemsFromRIS = [ resultItemsFromRIS ];
-        }
-        resultItemsFromRIS.forEach(item => {
-            let weblinks = getDocumentUrls(item.Data.Dokumentliste);
-            weblinks.gesamt_url = item.Data.Metadaten['Bundes-Landesnormen'].GesamteRechtsvorschriftUrl;
-
-            resultsArray.push(
-                new BundesrechtItem(getBundesnormTyp(item.Data.Metadaten['Bundes-Landesnormen'].Typ),
-                                    item.Data.Metadaten['Bundes-Landesnormen'].ArtikelParagraphAnlage,
-                                    item.Data.Metadaten['Bundes-Landesnormen'].Kurztitel,
-                                    item.Data.Metadaten['Bundes-Landesnormen'].Inkrafttretedatum,
-                                    item.Data.Metadaten['Bundes-Landesnormen'].Kundmachungsorgan,
-                                    weblinks)
-            );
-        });
-    }
-
-    return new RISsearchResultItemGroup(title, resultsMetaInfo, resultsArray, reduxActions);
+    return createItemGroup(results, searchRIS_Actions.fetchBundesrecht, createBundesrechtItem);
 }
 
 function createLandesrechtItemGroup(results) {
-    const title = "Landesrecht";
-    const resultsMetaInfo = getResultsMetaInfo(results);
-    let resultsArray = [];
-    const reduxActions = {
-        fetchSearchResults: searchRIS_Actions.fetchLandesrecht
-    };
-
-    if (resultsMetaInfo.totalNumberOfHits > 0) {
-        let resultItemsFromRIS = results.OgdSearchResult.OgdDocumentResults.OgdDocumentReference;
-        if (!$.isArray(resultItemsFromRIS)) {
-            resultItemsFromRIS = [ resultItemsFromRIS ];
-        }
-        resultItemsFromRIS.forEach(item => {
-            let weblinks = getDocumentUrls(item.Data.Dokumentliste);
-            weblinks.gesamt_url = item.Data.Metadaten['Bundes-Landesnormen'].GesamteRechtsvorschriftUrl;
-
-            resultsArray.push(
-                new LandesrechtItem(item.Data.Metadaten['Bundes-Landesnormen'].Bundesland,
-                                    getLandesnormTyp(item.Data.Metadaten['Bundes-Landesnormen'].Typ),
-                                    item.Data.Metadaten['Bundes-Landesnormen'].ArtikelParagraphAnlage,
-                                    item.Data.Metadaten['Bundes-Landesnormen'].Kurztitel,
-                                    item.Data.Metadaten['Bundes-Landesnormen'].Inkrafttretedatum,
-                                    item.Data.Metadaten['Bundes-Landesnormen'].Kundmachungsorgan,
-                                    weblinks)
-            );
-        });
-    }
-
-    return new RISsearchResultItemGroup(title, resultsMetaInfo, resultsArray, reduxActions);
+    return createItemGroup(results, searchRIS_Actions.fetchLandesrecht, createLandesrechtItem);
 }
+
 function createJustizItemGroup(results) {
-    const title = "Justiz (OGH, OLG, etc.)";
-    const resultsMetaInfo = getResultsMetaInfo(results);
-    let resultsArray = [];
-    const reduxActions = {
-        fetchSearchResults: searchRIS_Actions.fetchJustiz
-    };
-
-    if (resultsMetaInfo.totalNumberOfHits > 0) {
-        let resultItemsFromRIS = results.OgdSearchResult.OgdDocumentResults.OgdDocumentReference;
-        if (!$.isArray(resultItemsFromRIS)) {
-            resultItemsFromRIS = [ resultItemsFromRIS ];
-        }
-        resultItemsFromRIS.forEach(item => {
-            let geschaeftszahl = getGeschaeftszahl(item);
-            let weblinks = getDocumentUrls(item.Data.Dokumentliste);
-            let schlagworte = item.Data.Metadaten['Judikatur'].Schlagworte;
-            if (schlagworte === undefined) schlagworte = 'Kein Beschreibungstext vorhanden';
-
-            resultsArray.push(
-                new JustizItem(title,
-                                item.Data.Metadaten['Judikatur'].Justiz.Gericht,
-                                item.Data.Metadaten['Judikatur'].Dokumenttyp, schlagworte,
-                                item.Data.Metadaten['Judikatur'].Entscheidungsdatum,
-                                geschaeftszahl, weblinks)
-            );
-        });
-    }
-
-    return new RISsearchResultItemGroup(title, resultsMetaInfo, resultsArray, reduxActions);
+    return createItemGroup(results, searchRIS_Actions.fetchJustiz, createJustizItem);
 }
 
 function createVfGHItemGroup(results) {
-    const title = "Verfassungsgerichtshof";
-    const resultsMetaInfo = getResultsMetaInfo(results);
-    let resultsArray = [];
-    const reduxActions = {
-        fetchSearchResults: searchRIS_Actions.fetchVfGH
-    };
-
-    if (resultsMetaInfo.totalNumberOfHits > 0) {
-        let resultItemsFromRIS = results.OgdSearchResult.OgdDocumentResults.OgdDocumentReference;
-        if (!$.isArray(resultItemsFromRIS)) {
-            resultItemsFromRIS = [ resultItemsFromRIS ];
-        }
-        resultItemsFromRIS.forEach(item => {
-            let geschaeftszahl = getGeschaeftszahl(item);
-            let weblinks = getDocumentUrls(item.Data.Dokumentliste);
-            let schlagworte = item.Data.Metadaten['Judikatur'].Schlagworte;
-            if (schlagworte === undefined) schlagworte = 'Kein Beschreibungstext vorhanden';
-
-            resultsArray.push(
-                new JustizItem(title,
-                                 item.Data.Metadaten['Judikatur'].Vfgh.Entscheidungsart,
-                                 item.Data.Metadaten['Judikatur'].Dokumenttyp, schlagworte,
-                                 item.Data.Metadaten['Judikatur'].Entscheidungsdatum,
-                                 geschaeftszahl, weblinks)
-            );
-        });
-    }
-
-    return new RISsearchResultItemGroup(title, resultsMetaInfo, resultsArray, reduxActions);
+    return createItemGroup(results, searchRIS_Actions.fetchVfGH, createVfghItem);
 }
 
 function createVwGHItemGroup(results) {
-    const title = "Verwaltungsgerichtshof";
+    return createItemGroup(results, searchRIS_Actions.fetchVwGH, createVwghItem);
+}
+
+function createItemGroup(results, fetchFunction, createSearchResultItem) {
     const resultsMetaInfo = getResultsMetaInfo(results);
     let resultsArray = [];
     const reduxActions = {
-        fetchSearchResults: searchRIS_Actions.fetchVwGH
+        fetchSearchResults: fetchFunction
     };
 
     if (resultsMetaInfo.totalNumberOfHits > 0) {
@@ -294,23 +162,70 @@ function createVwGHItemGroup(results) {
         if (!$.isArray(resultItemsFromRIS)) {
             resultItemsFromRIS = [ resultItemsFromRIS ];
         }
-        resultItemsFromRIS.forEach(item => {
-            let geschaeftszahl = getGeschaeftszahl(item);
-            let weblinks = getDocumentUrls(item.Data.Dokumentliste);
-            let schlagworte = item.Data.Metadaten['Judikatur'].Schlagworte;
-            if (schlagworte === undefined) schlagworte = 'Kein Beschreibungstext vorhanden';
-
-            resultsArray.push(
-                new JustizItem(title,
-                                 item.Data.Metadaten['Judikatur'].Vwgh.Entscheidungsart,
-                                 item.Data.Metadaten['Judikatur'].Dokumenttyp, schlagworte,
-                                 item.Data.Metadaten['Judikatur'].Entscheidungsdatum,
-                                 geschaeftszahl, weblinks)
-            );
-        });
+        resultItemsFromRIS.forEach(item => resultsArray.push(createSearchResultItem(item)));
     }
 
-    return new RISsearchResultItemGroup(title, resultsMetaInfo, resultsArray, reduxActions);
+    return new RISsearchResultItemGroup(resultsMetaInfo, resultsArray, reduxActions);
+}
+
+function createBundesrechtItem(searchResultItem) {
+    return new BundesrechtItem(getBundesnormTyp(searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Typ),
+        searchResultItem.Data.Metadaten['Bundes-Landesnormen'].ArtikelParagraphAnlage,
+        searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Kurztitel,
+        searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Inkrafttretedatum,
+        searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Kundmachungsorgan,
+        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+    );
+}
+
+function createLandesrechtItem(searchResultItem) {
+    return new LandesrechtItem(searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Bundesland,
+        getLandesnormTyp(searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Typ),
+        searchResultItem.Data.Metadaten['Bundes-Landesnormen'].ArtikelParagraphAnlage,
+        searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Kurztitel,
+        searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Inkrafttretedatum,
+        searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Kundmachungsorgan,
+        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+    );
+}
+
+function createJustizItem(searchResultItem) {
+    let schlagworte = searchResultItem.Data.Metadaten['Judikatur'].Schlagworte;
+    if (schlagworte === undefined) schlagworte = 'Kein Beschreibungstext vorhanden';
+    return new JustizItem('Justiz',
+        searchResultItem.Data.Metadaten['Judikatur'].Justiz.Gericht,
+        searchResultItem.Data.Metadaten['Judikatur'].Dokumenttyp,
+        schlagworte,
+        searchResultItem.Data.Metadaten['Judikatur'].Entscheidungsdatum,
+        getGeschaeftszahl(searchResultItem),
+        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+    );
+}
+
+function createVfghItem(searchResultItem) {
+    let schlagworte = searchResultItem.Data.Metadaten['Judikatur'].Schlagworte;
+    if (schlagworte === undefined) schlagworte = 'Kein Beschreibungstext vorhanden';
+    return new JustizItem('Verfassungsgerichtshof',
+        searchResultItem.Data.Metadaten['Judikatur'].Vfgh.Entscheidungsart,
+        searchResultItem.Data.Metadaten['Judikatur'].Dokumenttyp,
+        schlagworte,
+        searchResultItem.Data.Metadaten['Judikatur'].Entscheidungsdatum,
+        getGeschaeftszahl(searchResultItem),
+        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+    );
+}
+
+function createVwghItem(searchResultItem) {
+    let schlagworte = searchResultItem.Data.Metadaten['Judikatur'].Schlagworte;
+    if (schlagworte === undefined) schlagworte = 'Kein Beschreibungstext vorhanden';
+    return new JustizItem('Verwaltungsgerichtshof',
+        searchResultItem.Data.Metadaten['Judikatur'].Vwgh.Entscheidungsart,
+        searchResultItem.Data.Metadaten['Judikatur'].Dokumenttyp,
+        schlagworte,
+        searchResultItem.Data.Metadaten['Judikatur'].Entscheidungsdatum,
+        getGeschaeftszahl(searchResultItem),
+        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+    );
 }
 
 function getGeschaeftszahl(item) {

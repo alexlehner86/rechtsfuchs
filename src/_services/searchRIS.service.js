@@ -68,6 +68,8 @@ function fetchJustiz(searchQuery) {
                        +'&Suchworte='      + searchQuery.suchworte
                        +'&Geschaeftszahl=' + searchQuery.justizGeschaeftszahl
                        +'&Gericht=' + searchQuery.justizGerichtstyp
+                       +'&EntscheidungsdatumVon=' + searchQuery.datumVon
+                       +'&EntscheidungsdatumBis=' + searchQuery.datumBis
                        +getDokumenttypSearchString(searchQuery.justizDokumenttyp);
     const endpoint = `${config.RIS_apiURL}/Judikatur?Applikation=Justiz&${myParams}`;
 

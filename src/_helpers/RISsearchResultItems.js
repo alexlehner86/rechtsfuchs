@@ -53,7 +53,7 @@ class LandesrechtItem extends RISsearchResultItem {
     }
 }
 
-class VfghVwghItem extends RISsearchResultItem {
+class JustizItem extends RISsearchResultItem {
     constructor(rechtsquelle, entscheidungsart, dokumenttyp, schlagworte,
                 entscheidungsdatum, geschaeftszahl, weblinks) {
         super(rechtsquelle,
@@ -97,4 +97,5 @@ class RISsearchResultItemGroup {
     }
 }
 
-export { RISweblinks, RISsearchResultItemGroup, BundesrechtItem, LandesrechtItem, VfghVwghItem };
+export { RISweblinks, RISsearchResultItemGroup, BundesrechtItem, 
+         LandesrechtItem, JustizItem };

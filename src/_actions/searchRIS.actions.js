@@ -82,7 +82,7 @@ function fetchJustiz(searchQuery) {
         if (searchQuery.isBrowseAction) dispatch(browseRequest(searchQuery));
         else dispatch(request(searchQuery));
 
-        searchRIS_Service.fetchVwGH(searchQuery)
+        searchRIS_Service.fetchJustiz(searchQuery)
             .then(
                 results => { 
                     dispatch(success(results));

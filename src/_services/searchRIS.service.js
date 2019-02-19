@@ -1,5 +1,5 @@
 import { config } from './config';
-import { BundesrechtItem, LandesrechtItem, VfghVwghItem,
+import { BundesrechtItem, LandesrechtItem, JustizItem,
          RISsearchResultItemGroup, RISweblinks } from '../_helpers';
 import { searchRIS_Actions } from '../_actions';
 import $ from 'jquery';
@@ -7,6 +7,7 @@ import $ from 'jquery';
 export const searchRIS_Service = {
     fetchBundesrecht,
     fetchLandesrecht,
+    fetchJustiz,
     fetchVfGH,
     fetchVwGH
 };
@@ -60,6 +61,29 @@ function convertLandesrechtTypForVienna(landesrechtTyp) {
         default:
             return landesrechtTyp;
     }    
+}
+
+function fetchJustiz(searchQuery) {
+    let searchDokumenttyp = '';
+    switch (searchQuery.justizDokumenttyp) {
+      case 'Rechtssatz':
+        searchDokumenttyp = '&Dokumenttyp.SucheInRechtssaetzen=on';
+        break;
+      case 'Entscheidungstext':
+        searchDokumenttyp = '&Dokumenttyp.SucheInEntscheidungstexten=on';
+        break;
+      default:
+        searchDokumenttyp = '';
+    }
+  
+    const myParams =  'Seitennummer='    + searchQuery.pageNumber
+                       +'&Suchworte='      + searchQuery.suchworte
+                       +'&Geschaeftszahl=' + searchQuery.justizGeschaeftszahl
+                       +'&Gericht=' + searchQuery.justizGerichtstyp
+                       +searchDokumenttyp;
+    const endpoint = `${config.RIS_apiURL}/Judikatur?Applikation=Justiz&${myParams}`;
+
+    return fetch(endpoint).then(response => handleResponse(response, createJustizItemGroup));
 }
 
 function fetchVfGH(searchQuery) {
@@ -193,6 +217,37 @@ function createLandesrechtItemGroup(results) {
 
     return new RISsearchResultItemGroup(title, resultsMetaInfo, resultsArray, reduxActions);
 }
+function createJustizItemGroup(results) {
+    const title = "Justiz (OGH, OLG, etc.)";
+    const resultsMetaInfo = getResultsMetaInfo(results);
+    let resultsArray = [];
+    const reduxActions = {
+        fetchSearchResults: searchRIS_Actions.fetchJustiz
+    };
+
+    if (resultsMetaInfo.totalNumberOfHits > 0) {
+        let resultItemsFromRIS = results.OgdSearchResult.OgdDocumentResults.OgdDocumentReference;
+        if (!$.isArray(resultItemsFromRIS)) {
+            resultItemsFromRIS = [ resultItemsFromRIS ];
+        }
+        resultItemsFromRIS.forEach(item => {
+            let geschaeftszahl = getGeschaeftszahl(item);
+            let weblinks = getDocumentUrls(item.Data.Dokumentliste);
+            let schlagworte = item.Data.Metadaten['Judikatur'].Schlagworte;
+            if (schlagworte === undefined) schlagworte = 'Kein Beschreibungstext vorhanden';
+
+            resultsArray.push(
+                new JustizItem(title,
+                                item.Data.Metadaten['Judikatur'].Justiz.Gericht,
+                                item.Data.Metadaten['Judikatur'].Dokumenttyp, schlagworte,
+                                item.Data.Metadaten['Judikatur'].Entscheidungsdatum,
+                                geschaeftszahl, weblinks)
+            );
+        });
+    }
+
+    return new RISsearchResultItemGroup(title, resultsMetaInfo, resultsArray, reduxActions);
+}
 
 function createVfGHItemGroup(results) {
     const title = "Verfassungsgerichtshof";
@@ -214,7 +269,7 @@ function createVfGHItemGroup(results) {
             if (schlagworte === undefined) schlagworte = 'Kein Beschreibungstext vorhanden';
 
             resultsArray.push(
-                new VfghVwghItem(title,
+                new JustizItem(title,
                                  item.Data.Metadaten['Judikatur'].Vfgh.Entscheidungsart,
                                  item.Data.Metadaten['Judikatur'].Dokumenttyp, schlagworte,
                                  item.Data.Metadaten['Judikatur'].Entscheidungsdatum,
@@ -246,7 +301,7 @@ function createVwGHItemGroup(results) {
             if (schlagworte === undefined) schlagworte = 'Kein Beschreibungstext vorhanden';
 
             resultsArray.push(
-                new VfghVwghItem(title,
+                new JustizItem(title,
                                  item.Data.Metadaten['Judikatur'].Vwgh.Entscheidungsart,
                                  item.Data.Metadaten['Judikatur'].Dokumenttyp, schlagworte,
                                  item.Data.Metadaten['Judikatur'].Entscheidungsdatum,

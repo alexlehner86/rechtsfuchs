@@ -174,7 +174,7 @@ class RechtsquellenItemJustiz extends Component {
     return (
       <div className="rechtsquellenItemsContainer">
         <div id="justiz" className="rechtsquellenItemsHeader" onClick={handleSelection}>
-          <input type="checkbox" id="vwghCheckbox" value="vwgh" />
+          <input type="checkbox" id="justizCheckbox" value="vwgh" />
           <p>Justiz (OGH, OLG, etc.)</p>
         </div>
         <div id="justizOptionen" className="optionenContainer">

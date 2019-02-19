@@ -16,16 +16,16 @@ const rechtsquellenArray = [
   { id: 'landesrecht', reduxObjectName: 'searchRIS_Landesrecht', 
     fetchResults: searchRIS_Actions.fetchLandesrecht, clearResults: searchRIS_Actions.clearLandesrecht,
     defaultValues: { bundesland: '', landesrechtTyp: '', landesrechtParagraphArtAnlTyp: '', landesrechtParagraphArtAnlNummer: '' } },
+  { id: 'justiz', reduxObjectName: 'searchRIS_Justiz', 
+    fetchResults: searchRIS_Actions.fetchJustiz, clearResults: searchRIS_Actions.clearJustiz,
+    defaultValues: { justizGerichtstyp: '', justizGeschaeftszahl: '', justizDokumenttyp: '' } },
   { id: 'vfgh', reduxObjectName: 'searchRIS_VfGH', 
     fetchResults: searchRIS_Actions.fetchVfGH, clearResults: searchRIS_Actions.clearVfGH,
     defaultValues: { vwghGeschaeftszahl: '', vwghEntscheidungsart: '', vwghDokumenttyp: '' } },
   { id: 'vwgh', reduxObjectName: 'searchRIS_VwGH', 
     fetchResults: searchRIS_Actions.fetchVwGH, clearResults: searchRIS_Actions.clearVwGH,
-    defaultValues: { vfghGeschaeftszahl: '', vfghEntscheidungsart: '', vfghDokumenttyp: '' } },
-  { id: 'justiz', reduxObjectName: 'searchRIS_Justiz', 
-    fetchResults: null, clearResults: null,
-    defaultValues: { justizGerichtstyp: '', justizGeschaeftszahl: '', justizDokumenttyp: '' } }
-]; // TODO add correct functions for fetchResults and clearResults
+    defaultValues: { vfghGeschaeftszahl: '', vfghEntscheidungsart: '', vfghDokumenttyp: '' } }
+];
 
 class SearchForm extends Component {
   constructor(props) {

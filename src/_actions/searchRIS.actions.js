@@ -9,6 +9,9 @@ export const searchRIS_Actions = {
     fetchLandesrecht,
     clearLandesrecht,
 
+    fetchJustiz,
+    clearJustiz,
+
     fetchVwGH,
     clearVwGH,
 
@@ -72,7 +75,36 @@ function fetchLandesrecht(searchQuery) {
 
 function clearLandesrecht() {
     return { type: searchRIS_Constants.LANDESRECHT_CLEAR };
-  }
+}
+
+function fetchJustiz(searchQuery) {
+    return dispatch => {
+        if (searchQuery.isBrowseAction) dispatch(browseRequest(searchQuery));
+        else dispatch(request(searchQuery));
+
+        searchRIS_Service.fetchVwGH(searchQuery)
+            .then(
+                results => { 
+                    dispatch(success(results));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+
+                    //show error message to the user
+                    dispatch(alertActionsSearchForm.error(error.toString()));
+                }
+            );
+    };
+
+    function request(searchQuery) { return { type: searchRIS_Constants.JUSTIZ_REQUEST, searchQuery } }
+    function browseRequest(searchQuery) { return { type: searchRIS_Constants.JUSTIZ_BROWSE_REQUEST, searchQuery } }
+    function success(results) { return { type: searchRIS_Constants.JUSTIZ_SUCCESS, results } }
+    function failure(error) { return { type: searchRIS_Constants.JUSTIZ_FAILURE, error } }
+}
+
+function clearJustiz() {
+    return { type: searchRIS_Constants.JUSTIZ_CLEAR };
+}
 
 function fetchVwGH(searchQuery) {
     return dispatch => {
@@ -130,4 +162,4 @@ function fetchVfGH(searchQuery) {
 
 function clearVfGH() {
     return { type: searchRIS_Constants.VFGH_CLEAR };
-  }
+}

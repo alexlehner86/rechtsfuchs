@@ -19,7 +19,7 @@ import 'rc-datepicker/lib/style.css';
 class SearchPage extends Component {
 
   render() {
-    const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } = this.props;
+    const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_Justiz, searchRIS_VwGH, searchRIS_VfGH } = this.props;
 
     return (
       <div className="Search-Grid">
@@ -32,6 +32,7 @@ class SearchPage extends Component {
           { this.noSearchHasBeenInitiated() && <BackgroundLogo /> }
           { searchRIS_Bundesrecht.searchQuery && <SearchResults searchRIS_Data={searchRIS_Bundesrecht} searchTerm={searchRIS_Bundesrecht.searchQuery.suchworte} /> }
           { searchRIS_Landesrecht.searchQuery && <SearchResults searchRIS_Data={searchRIS_Landesrecht} searchTerm={searchRIS_Landesrecht.searchQuery.suchworte} /> }
+          { searchRIS_Justiz.searchQuery && <SearchResults searchRIS_Data={searchRIS_Justiz} searchTerm={searchRIS_Justiz.searchQuery.suchworte} /> }
           { searchRIS_VfGH.searchQuery && <SearchResults searchRIS_Data={searchRIS_VfGH} searchTerm={searchRIS_VfGH.searchQuery.suchworte} /> }
           { searchRIS_VwGH.searchQuery && <SearchResults searchRIS_Data={searchRIS_VwGH} searchTerm={searchRIS_VwGH.searchQuery.suchworte} /> }
         </div>
@@ -40,20 +41,23 @@ class SearchPage extends Component {
   }
 
   noSearchHasBeenInitiated() {
-    const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } = this.props;
+    const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_Justiz, searchRIS_VwGH, searchRIS_VfGH } = this.props;
 
     return !searchRIS_Bundesrecht.searchQuery && 
            !searchRIS_Landesrecht.searchQuery && 
-           !searchRIS_VwGH.searchQuery && !searchRIS_VfGH.searchQuery; 
+           !searchRIS_Justiz.searchQuery &&
+           !searchRIS_VwGH.searchQuery &&
+           !searchRIS_VfGH.searchQuery; 
 
   }
 }
 
 function mapStateToProps(state) {
-  const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_VwGH, searchRIS_VfGH } = state;
+  const { searchRIS_Bundesrecht, searchRIS_Landesrecht, searchRIS_Justiz, searchRIS_VwGH, searchRIS_VfGH } = state;
   return {
     searchRIS_Bundesrecht,
     searchRIS_Landesrecht,
+    searchRIS_Justiz,
     searchRIS_VwGH,
     searchRIS_VfGH
   };

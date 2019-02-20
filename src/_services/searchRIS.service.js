@@ -176,7 +176,7 @@ function createBundesrechtItem(searchResultItem) {
         searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Kurztitel,
         searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Inkrafttretedatum,
         searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Kundmachungsorgan,
-        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+        getDocumentUrls(searchResultItem, true)
     );
 }
 
@@ -187,7 +187,7 @@ function createLandesrechtItem(searchResultItem) {
         searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Kurztitel,
         searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Inkrafttretedatum,
         searchResultItem.Data.Metadaten['Bundes-Landesnormen'].Kundmachungsorgan,
-        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+        getDocumentUrls(searchResultItem, true)
     );
 }
 
@@ -200,7 +200,7 @@ function createJustizItem(searchResultItem) {
         schlagworte,
         searchResultItem.Data.Metadaten['Judikatur'].Entscheidungsdatum,
         getGeschaeftszahl(searchResultItem),
-        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+        getDocumentUrls(searchResultItem)
     );
 }
 
@@ -213,7 +213,7 @@ function createVfghItem(searchResultItem) {
         schlagworte,
         searchResultItem.Data.Metadaten['Judikatur'].Entscheidungsdatum,
         getGeschaeftszahl(searchResultItem),
-        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+        getDocumentUrls(searchResultItem)
     );
 }
 
@@ -226,7 +226,7 @@ function createVwghItem(searchResultItem) {
         schlagworte,
         searchResultItem.Data.Metadaten['Judikatur'].Entscheidungsdatum,
         getGeschaeftszahl(searchResultItem),
-        getDocumentUrls(searchResultItem.Data.Dokumentliste)
+        getDocumentUrls(searchResultItem)
     );
 }
 
@@ -283,18 +283,22 @@ function getLandesnormTyp(landesnormTyp) {
     }
 }
 
-function getDocumentUrls(dokumentliste) {
-    var links = {};
-    if (dokumentliste && $.isArray(dokumentliste.ContentReference)) {
-        for (var i = 0, l = dokumentliste.ContentReference.length; i < l; i++) {
-            var o = dokumentliste.ContentReference[i];
+function getDocumentUrls(searchResultItem, includesGesamtUrl = false) {
+    let links = {};
+    const documentList = searchResultItem.Data.Dokumentliste;
+    if (documentList && $.isArray(documentList.ContentReference)) {
+        for (var i = 0, l = documentList.ContentReference.length; i < l; i++) {
+            var o = documentList.ContentReference[i];
             if  (o.ContentType === "MainDocument") {
                 links = buildDocumentUrlsObject(o.Urls.ContentUrl);
                 break;
             }
         }
     } else {
-        links = buildDocumentUrlsObject(dokumentliste.ContentReference.Urls.ContentUrl);
+        links = buildDocumentUrlsObject(documentList.ContentReference.Urls.ContentUrl);
+    }
+    if (includesGesamtUrl) {
+        links.gesamt_url = searchResultItem.Data.Metadaten['Bundes-Landesnormen'].GesamteRechtsvorschriftUrl;
     }
     return links;
 }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { DocumentLinkButtons, AddDocButton, HighlightSearchTerm } from './';
+import { DocumentLinkButtons, AddDocButton } from './';
 
 class SearchResultsGrid extends Component {
   render() {
-    const { results, searchTerm } = this.props;
-    
+    // TODO: Not using HighlightSearchTerm component until I figure out a more stable implementation of my HTML crawler
+    // const { results, searchTerm } = this.props;
+    const { results } = this.props;
     return (
       <div className="resultsGrid">
         {results.resultsArray.map(function(item, i){
@@ -14,7 +15,7 @@ class SearchResultsGrid extends Component {
               <div className="itemNrDIV">#{itemNr}</div>
               <h4 className="bottomLine">{item.headline}</h4>
               <p className="resultInfoText">{item.resultInfoText}</p>
-              { searchTerm && <HighlightSearchTerm searchTerm={searchTerm} urlToCrawl={item.weblinks.web_url} /> }
+              { /* searchTerm && <HighlightSearchTerm searchTerm={searchTerm} urlToCrawl={item.weblinks.web_url} /> **/}
               <p className="buttonAndLinksDIV bottomLine">
                 <DocumentLinkButtons weblinks={item.weblinks} /> &nbsp;
                 <AddDocButton resultItem={item} />

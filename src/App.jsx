@@ -6,7 +6,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { projectActions, alertActionsUserMgmt, alertActionsProjectMgmt } from './_actions';
-
 import { HomePage } from './HomePage';
 import { UserManagement } from './UserMgmt';
 import { ProjectManagement } from './ProjectMgmt';

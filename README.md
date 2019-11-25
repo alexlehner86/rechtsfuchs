@@ -2,7 +2,7 @@ The "Rechtsfuchs" website allows you to search Austrian law and judicature using
 
 The website's basic features are:<br>
 - A simplified search interface for the RIS system.
-- The possibility to save search results in project folders linked to your personal user account.
+- ~~The possibility to save search results in project folders linked to your personal user account.~~ (feature as well as user login deactivated at the moment)
 
 I programmed this website in order to improve my skills in regards to the react-redux-framework. The project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
